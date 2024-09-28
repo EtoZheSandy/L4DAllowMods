@@ -39,7 +39,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Msi, TargetFormat.Exe)
             packageName = "L4D Allow Mods"
-            packageVersion = "1.0.1"
+            packageVersion = "1.0.2"
             description = "L4D Allow Mods"
             copyright = "EtoZheSandy"
             vendor = "EtoZheSandy"

@@ -121,24 +121,24 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
 
     val content = gameInfoFile.readText()
 
-    // Ищем место для вставки новых путей в блок SearchPaths
-    val searchPathsStart = content.indexOf("SearchPaths")
-    if (searchPathsStart == -1) {
-        LogSystem.addLog(4, "Блок SearchPaths не найден в файле gameinfo.txt")
+    // Ищем место для блока, содержащего Game update и другие пути
+    val searchBlockStart = content.indexOf("{", content.indexOf("SearchPaths"))
+    if (searchBlockStart == -1) {
+        LogSystem.addLog(4, "Начало блока с путями не найдено в файле gameinfo.txt")
         return
     }
 
-    // Ищем закрывающую скобку для блока SearchPaths
-    val searchPathsEnd = content.indexOf("}", searchPathsStart)
-    if (searchPathsEnd == -1) {
-        LogSystem.addLog(4, "Закрывающая скобка для блока SearchPaths не найдена в файле gameinfo.txt")
+    // Ищем закрывающую скобку для этого блока
+    val searchBlockEnd = content.indexOf("}", searchBlockStart)
+    if (searchBlockEnd == -1) {
+        LogSystem.addLog(4, "Закрывающая скобка для блока с путями не найдена в файле gameinfo.txt")
         return
     }
 
-    // Извлекаем существующий блок SearchPaths
-    val existingPathsBlock = content.substring(searchPathsStart, searchPathsEnd)
+    // Извлекаем существующий блок с путями
+    val existingPathsBlock = content.substring(searchBlockStart, searchBlockEnd)
 
-    // Генерируем новые строки для добавления в SearchPaths, исключая дубли
+    // Генерируем новые строки для добавления в блок, исключая дубли
     val newPaths = addons.map { addon ->
         """            Game                left4dead2\addons\workshop\${addon.filename.substringBeforeLast(".")}"""
     }.filterNot { newPath ->
@@ -151,11 +151,12 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
         return
     }
 
-    // Формируем обновленное содержимое файла, вставляя новые пути в блок SearchPaths
+    // Формируем обновленное содержимое файла, вставляя новые пути в начало блока с путями
     val updatedContent = buildString {
-        append(content.substring(0, searchPathsEnd)) // Все до закрывающей скобки блока SearchPaths
-        append("\n$newPaths\n")                      // Добавляем новые пути
-        append(content.substring(searchPathsEnd))    // Все после закрывающей скобки блока SearchPaths
+        append(content.substring(0, searchBlockStart + 1)) // Все до открывающей скобки блока
+        append("\n$newPaths\n")                           // Добавляем новые пути в начало блока
+        append(content.substring(searchBlockStart + 1, searchBlockEnd)) // Существующие пути
+        append(content.substring(searchBlockEnd))         // Все после закрывающей скобки блока
     }
 
     // Сохраняем обновленное содержимое обратно в файл
@@ -166,6 +167,9 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
         LogSystem.addLog(1, "Ошибка при сохранении файла gameinfo.txt: ${e.message}")
     }
 }
+
+
+
 
 
 // Функция для замены содержимого файла gameinfo.txt на сохраненное в преференциях

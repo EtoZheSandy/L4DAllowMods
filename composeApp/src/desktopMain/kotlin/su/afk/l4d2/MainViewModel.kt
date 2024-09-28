@@ -34,7 +34,7 @@ class MainViewModel : ViewModel() {
     init {
         loadFiles()
         // todo понять как взять из файлов компиляции
-        LogSystem.addLog(priority = 1, message = "версия: 1.0.1 create by EtoZheSandy")
+        LogSystem.addLog(priority = 1, message = "версия: 1.0.2 create by EtoZheSandy")
     }
 
     fun handlerEvents(event: MainState.Event) {
@@ -140,8 +140,6 @@ class MainViewModel : ViewModel() {
             val gameinfo = findGameInfo(state.selectedFolderPath!!)
             println("gameinfo = $gameinfo")
             if (gameinfo != null) {
-                //todo в случае чего кидаем ошибку в ui что не удалось сделаить и тд (аля стек list с ошибками)
-
                 val (path, content) = gameinfo
                 // заменяем файл на стандартный
                 val result = replaceGameInfoFile(path)
