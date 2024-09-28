@@ -1,11 +1,16 @@
-This is a Kotlin Multiplatform project targeting Desktop.
+# **L4DAllowMods**
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+<img src="./Images/1.png" width="60%" />
 
+## **Описание**
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+Позволяет включать Addons из workshop в Left 4 Dead 2, в любом режиме игры, сражение, кооператив и прочее.
+
+## **Стек технологий**
+
+Проект разработан с использованием следующих технологий:
+
+- **Kotlin Multiplatform**: Основной язык разработки, поддерживающий написание общего кода для нескольких платформ.
+- **Jetpack Compose Desktop**: Для создания пользовательского интерфейса на Windows.
+- **Coroutines**: Для управления асинхронными операциями.
+- **Gradle**: Система сборки проекта.
