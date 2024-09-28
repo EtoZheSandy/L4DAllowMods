@@ -4,7 +4,7 @@
 
 ## **📜 Description En**
 
-**L4DAllowMods** is a tool that allows you to activate modifications and add-ons from the Steam Workshop in **Left 4 Dead 2**, including battle mode, co-op, and other modes.
+**L4DAllowMods** is a tool that allows you to activate modifications and addons from the Steam Workshop in **Left 4 Dead 2**, enable versus, coop, and other modes.
 - Easy and user-friendly interface
 - Remembers settings and selected Addons
 - Fast performance
