@@ -1,6 +1,6 @@
 # **🧩 L4D Allow Mods**
 
-![L4D Allow Mods Image](./Images/1.png)
+<img src="./Images/1.png" width="55%" />
 
 ## **📜 Description En**
 
