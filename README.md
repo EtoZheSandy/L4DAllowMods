@@ -1,6 +1,6 @@
 # **L4DAllowMods**
 
-<img src="./Images/1" width="40%" />
+<img src="./Images/1.png" width="60%" />
 
 ## **Описание**
 
