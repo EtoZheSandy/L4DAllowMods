@@ -11,6 +11,7 @@ class MainState {
         val addonInfoList: List<AddonInfo>? = null,
         val addonEnabledList: List<AddonInfo>? = null,
         val showListAddons: Boolean = false,
+        val sortedAddonList: List<AddonInfo>? = null
     )
 
     sealed class Event {
@@ -18,7 +19,7 @@ class MainState {
         data class FolderSelected(val folderPath: String) : Event()
         // загрузка из сохранения пути к игре
         object LoadFiles : Event()
-        // выбор модов вкл/выкл
+        // выбор addons вкл/выкл
         data class ClickMods(val mods: AddonInfo) : Event()
         // замена файла gameinfo на модовый
         object ModGameInfo : Event()
@@ -28,11 +29,13 @@ class MainState {
         object ReadVPKFiles : Event()
         // удаление настроек
         object ClearCache : Event()
-        // удаление кэш модов
+        // удаление кэш addons
         object ClearCacheAddons : Event()
         // обновление файла gameinfo в кэше у себя
         object UpdateGameInfo : Event()
-        // флаг для отображения списка модов
+        // флаг для отображения списка addons
         object ShowListAddons : Event()
+        // сортировка addons
+        data class SortAddons(val isFilterAsc: Boolean) : Event()
     }
 }

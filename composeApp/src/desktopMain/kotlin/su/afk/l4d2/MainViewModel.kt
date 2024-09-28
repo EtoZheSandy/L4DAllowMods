@@ -51,7 +51,20 @@ class MainViewModel : ViewModel() {
             MainState.Event.ClearCacheAddons -> clearCacheAddons()
             MainState.Event.UpdateGameInfo -> updateGameInfo()
             MainState.Event.ShowListAddons -> showListAddons()
+            is MainState.Event.SortAddons -> sortAddons(event.isFilterAsc)
         }
+    }
+
+    /** Функция для сортировки, вызывается при клике на кнопку сортировки */
+    private fun sortAddons(isFilterAsc: Boolean) {
+        state = state.copy(
+            sortedAddonList = state.addonInfoList?.sortedWith(
+                compareBy<AddonInfo> { addon ->
+                    val isEnabled = state.addonEnabledList?.contains(addon) == true
+                    if (isFilterAsc) !isEnabled else isEnabled
+                }
+            )
+        )
     }
 
     /** отображение списка модов */

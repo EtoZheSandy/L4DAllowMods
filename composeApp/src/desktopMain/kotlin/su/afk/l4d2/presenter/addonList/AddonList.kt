@@ -28,6 +28,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,6 +53,7 @@ import org.jetbrains.compose.resources.stringResource
 import su.afk.l4d2.MainState
 import su.afk.l4d2.MainViewModel
 import su.afk.l4d2.utils.AddonInfo
+import su.afk.l4d2.utils.openGitHubLink
 import java.io.File
 
 
@@ -104,6 +107,7 @@ fun AddonList(
                         IconButton(
                             onClick = {
                                 isFilterAsc.value = !isFilterAsc.value // Меняем порядок фильтрации
+                                viewModel.handlerEvents(MainState.Event.SortAddons(isFilterAsc.value))
                             },
                             modifier = Modifier
                                 .padding(start = 12.dp)
@@ -134,14 +138,9 @@ fun AddonList(
             }
 
             if (showListAddons) {
-                // Отображаем список аддонов с учетом фильтрации
-                val sortedAddonList = viewModel.state.addonInfoList?.sortedWith(
-                    compareBy<AddonInfo> { addon ->
-                        // Сортировка по включенности: сначала включенные, затем выключенные
-                        val isEnabled = viewModel.state.addonEnabledList?.contains(addon) == true
-                        if (isFilterAsc.value) !isEnabled else isEnabled
-                    }
-                ) ?: emptyList()
+                // Используем отсортированный список из ViewModel
+                val sortedAddonList =
+                    viewModel.state.sortedAddonList ?: viewModel.state.addonInfoList ?: emptyList()
 
                 AddonListScreen(
                     addonInfoList = sortedAddonList,
@@ -198,21 +197,39 @@ fun AddonListScreen(addonInfoList: List<AddonInfo>, viewModel: MainViewModel) {
                                     .fillMaxWidth() // Занимает всю доступную ширину
                             )
                         }
-                        Button(
-                            onClick = {
-                                viewModel.handlerEvents(MainState.Event.ClickMods(addon))
-                            },
-                            modifier = Modifier.fillMaxWidth().padding(start = 30.dp, end = 30.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor =
-                                if (viewModel.state.addonEnabledList?.contains(addon) == true) Color.LightGray
-                                else Color.Cyan
-                            )
+                        Row(
+//                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (viewModel.state.addonEnabledList?.contains(addon) == true) {
-                                Text(stringResource(Res.string.disable))
-                            } else {
-                                Text(stringResource(Res.string.enable))
+                            Button(
+                                onClick = {
+                                    viewModel.handlerEvents(MainState.Event.ClickMods(addon))
+                                },
+                                modifier = Modifier.weight(1f) // Устанавливаем вес, чтобы Button занимал пропорциональное пространство
+                                    .padding(start = 30.dp, end = 10.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor =
+                                    if (viewModel.state.addonEnabledList?.contains(addon) == true) Color.LightGray
+                                    else Color.Cyan
+                                )
+                            ) {
+                                if (viewModel.state.addonEnabledList?.contains(addon) == true) {
+                                    Text(stringResource(Res.string.disable))
+                                } else {
+                                    Text(stringResource(Res.string.enable))
+                                }
+                            }
+                            IconButton(
+                                onClick = {
+                                    println("IconButton clicked!") // Отладочный вывод
+                                    openGitHubLink("https://steamcommunity.com/sharedfiles/filedetails/?id=${addon.filename}")
+                                },
+                                modifier = Modifier.size(25.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Share,
+                                    contentDescription = null,
+                                )
                             }
                         }
                     }
