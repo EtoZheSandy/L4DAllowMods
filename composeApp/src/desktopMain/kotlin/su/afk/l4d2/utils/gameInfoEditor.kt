@@ -101,10 +101,12 @@ fun deleteAddonFolders(addons: List<AddonInfo>, basePath: String) {
                     LogSystem.addLog(2, "Ошибка при удалении папки ${folder.absolutePath}: ${e.message}")
                 }
             } else {
-                LogSystem.addLog(1, "Папка ${folder.absolutePath} не была удалена, так как содержит другие папки.")
+                LogSystem.addLog(4, "Папка ${folder.absolutePath} не была удалена, так как содержит другие папки.")
             }
         }
     }
+
+    LogSystem.addLog(3, "Кэш Addons успешно удален")
 }
 
 // Функция для добавления путей в блок SearchPaths в gameinfo.txt

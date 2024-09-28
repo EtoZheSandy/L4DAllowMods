@@ -48,8 +48,8 @@ compose.desktop {
                     shortcut = true
                     menuGroup = "L4D Mod Tools"
                     perUserInstall = true
+                    iconFile.set(project.file("src\\commonMain\\composeResources\\drawable\\icon.ico"))
                 }
-
             }
             buildTypes.release.proguard {
                 isEnabled.set(false)
