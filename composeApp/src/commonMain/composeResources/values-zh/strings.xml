@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">由 EtoZheSandy 创建</string>
+    <string name="main">启动</string>
+    <string name="myAddons">我的插件</string>
+    <string name="faq">常见问题</string>
+    <string name="setting">设置</string>
+    <string name="logs">日志</string>
+    <string name="gamePathNull">首先需要在设置中选择游戏文件夹</string>
+    <string name="gameAddonsNotSelect">请选择需要启用的插件</string>
+    <string name="gameDoneFAQ">祝您游戏愉快！所有答案见常见问题解答</string>
+    <string name="addonsOn">启用插件</string>
+    <string name="addonsOff">禁用插件</string>
+    <string name="addonsNoShow">隐藏插件</string>
+    <string name="addonsShow">显示插件</string>
+    <string name="addonsNotFoundEmpty">未找到您的插件，请检查游戏中的left4dead2/addons/workshop文件夹，并确保其不为空</string>
+    <string name="enable">启用</string>
+    <string name="disable">禁用</string>
+    <string name="noDescription">没有描述</string>
+    <string name="selectGameFolder">请选择游戏文件夹</string>
+    <string name="selectGameFolderL4D2">请选择Left 4 Dead 2文件夹</string>
+    <string name="selectFolder">选择文件夹</string>
+    <string name="changeFolder">更改文件夹</string>
+    <string name="currentFolder">当前选择的文件夹：</string>
+    <string name="settingUpdateGameinfo">更新缓存中的gameinfo</string>
+    <string name="settingDeleteCacheAddons">删除插件缓存</string>
+    <string name="settingDeleteCacheSetting">删除保存的设置</string>
+    <string name="saveCacheToFile">保存插件缓存时出错：%1$s</string>
+    <string name="loadCacheFromFile">加载插件缓存时出错：%1$s</string>
+    <string name="clearPreferencesDone">所有设置已清除</string>
+    <string name="clearPreferencesFail">清除设置时出错：%1$s</string>
+    <string name="parseVpkFileSignature">VPK文件签名无效：%1$s</string>
+    <string name="parseVpkFileVersion">不支持的VPK文件版本：%1$s</string>
+    <string name="parseVpkFileTerminator">VPK文件终止符无效：%1$s</string>
+    <string name="findGameInfoPathFail">在指定路径中未找到gameinfo.txt文件：%1$s</string>
+    <string name="findGameInfoPathNotFound">gameinfo.txt文件不存在或未在指定路径中找到：%1$s</string>
+    <string name="processAddonFilePathFail">文件%1$s未在路径%2$s中找到</string>
+    <string name="processAddonFileDone">文件%1$s已成功复制并重命名为：%2$s</string>
+    <string name="processAddonFileCopyFail">复制文件时出错：%1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">文件夹%1$s已成功删除</string>
+    <string name="deleteAddonFoldersFail">删除文件夹%1$s时出错 | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">文件夹%1$s未被删除，因为它包含其他文件夹</string>
+    <string name="deleteAddonFoldersResult">插件缓存已成功删除</string>
+    <string name="updateGameInfoFilePath">无法替换gameinfo.txt文件，未在指定路径中找到：%1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">未在gameinfo.txt文件中找到路径块的开始，请检查文件的正确性</string>
+    <string name="updateGameInfoFileSearchBlockEnd">未在gameinfo.txt文件中找到路径块的结束括号，请检查文件的正确性</string>
+    <string name="updateGameInfoNewPathsEmpty">没有新的路径可添加到gameinfo.txt</string>
+    <string name="updateGameInfoDone">gameinfo.txt文件已成功更新</string>
+    <string name="updateGameInfoFailSave">保存gameinfo.txt文件时出错：%1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">没有保存的内容用于替换gameinfo.txt，请重置工具设置并检查游戏文件</string>
+    <string name="replaceGameInfoFileSavedContentNullError">没有保存的内容用于替换</string>
+    <string name="replaceGameInfoFileDone">gameinfo.txt文件已成功恢复</string>
+    <string name="replaceGameInfoFileFailPath">未在指定路径中找到gameinfo.txt文件：%1$s</string>
+    <string name="findWorkshopFolderFailPath">指定的路径不存在或不是文件夹</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">在指定目录中未找到"workshop"文件夹，请指定游戏安装的文件夹路径</string>
+
+    <string name="faqQuestion1">服务器不允许我访问，gameinfo.txt错误</string>
+    <string name="faqAnswer1">某些服务器检查此文件是否符合标准，如果已更改，则不会让你进入该服务器</string>
+
+    <string name="faqQuestion2">为什么gameinfo被修改了？</string>
+    <string name="faqAnswer2">工具修改它是为了在游戏中启用插件</string>
+
+    <string name="faqQuestion3">那我怎么在这样的服务器上玩带有模组的游戏？</string>
+    <string name="faqAnswer3">在启动游戏之前：\n1. 启用插件\n2. 进入游戏主菜单（此时模组已加载）\n3. 禁用插件（gameinfo文件恢复为原始状态）</string>
+
+    <string name="faqQuestion4">工具无法看到我的插件！</string>
+    <string name="faqAnswer4">检查addons/workshop文件夹\n如果没有.vpk文件，请在Steam上订阅插件并进入游戏以确保它们被下载</string>
+
+    <string name="faqQuestion5">插件在游戏中不起作用</string>
+    <string name="faqAnswer5">可能是你在进入游戏前忘记选择并启用它们（这很重要）\n请再试一次并重新进入游戏</string>
+
+    <string name="faqQuestion6">插件选择是如何工作的？</string>
+    <string name="faqAnswer6">指定游戏文件夹后，工具会寻找名为addons/workshop的文件夹\n并从.vpk文件中提取插件信息\n如果没有该文件夹，你可以创建并放置.vpk文件</string>
+
+    <string name="faqQuestion7">插件缓存是什么？</string>
+    <string name="faqAnswer7">选择模组并点击“启用插件”后\n工具会创建你的.vpk文件的副本（缓存）并将其嵌入到游戏中\n下次启动游戏时它们会被激活\n你可以重置缓存，这将删除addons/workshop/id_Addons中的文件副本</string>
+
+    <string name="faqQuestion8">如何重置工具设置？</string>
+    <string name="faqAnswer8">如果指定了错误的游戏文件夹路径或gameinfo.txt文件被更改且无法恢复\n可以在设置菜单中重置工具设置，并在Steam中检查游戏缓存</string>
+</resources>

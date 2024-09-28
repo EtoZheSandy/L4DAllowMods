@@ -9,7 +9,7 @@
 - Remembers settings and selected Addons
 - Fast performance
 - The program works by modifying the `gameinfo.txt` file, allowing any mods in the game, bypassing server restrictions.
-- Available in 8 languages: English, Russian, Chinese, Spanish, Arabic, Japanese, French, German
+- Available in 8 languages (GPT): English, Russian, Chinese, Spanish, Arabic, Japanese, French, German
 
 ## **🛠️ Tech Stack**
 
@@ -29,7 +29,7 @@ The project is developed using modern technologies that ensure flexibility and e
 - Запоминание настроек и выбранных Addons
 - Быстрая скорость работы
 - Программа работает через изменение файла `gameinfo.txt`, разрешая в игре любые моды, обходя ограничения серверов.
-- Доступно на 8 языках: Английский, Русский, Китайский, Испанский, Арабский, Японский, Француский, Немецкий
+- Доступно на 8 языках (GPT): Английский, Русский, Китайский, Испанский, Арабский, Японский, Француский, Немецкий
 
 ## **🛠️ Стек технологий**
 

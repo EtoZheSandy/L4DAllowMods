@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">Creado por EtoZheSandy</string>
+    <string name="main">Inicio</string>
+    <string name="myAddons">Mis Addons</string>
+    <string name="faq">FAQ</string>
+    <string name="setting">Configuraciones</string>
+    <string name="logs">Registros</string>
+    <string name="gamePathNull">Primero debe seleccionar la carpeta del juego en la configuración</string>
+    <string name="gameAddonsNotSelect">Seleccione los Addons que desea activar</string>
+    <string name="gameDoneFAQ">¡Disfruta del juego! Todas las respuestas están en las FAQ</string>
+    <string name="addonsOn">Activar Addons</string>
+    <string name="addonsOff">Desactivar Addons</string>
+    <string name="addonsNoShow">Ocultar Addons</string>
+    <string name="addonsShow">Mostrar Addons</string>
+    <string name="addonsNotFoundEmpty">No se encontraron tus Addons, revisa la carpeta left4dead2/addons/workshop en el juego y asegúrate de que no esté vacía</string>
+    <string name="enable">Activar</string>
+    <string name="disable">Desactivar</string>
+    <string name="noDescription">Sin descripción</string>
+    <string name="selectGameFolder">Seleccione la carpeta del juego</string>
+    <string name="selectGameFolderL4D2">Seleccione la carpeta de Left 4 Dead 2</string>
+    <string name="selectFolder">Seleccionar carpeta</string>
+    <string name="changeFolder">Cambiar carpeta</string>
+    <string name="currentFolder">Carpeta seleccionada actualmente:</string>
+    <string name="settingUpdateGameinfo">Actualizar gameinfo en la caché de herramientas</string>
+    <string name="settingDeleteCacheAddons">Eliminar caché de addons</string>
+    <string name="settingDeleteCacheSetting">Eliminar configuraciones guardadas</string>
+    <string name="saveCacheToFile">Error al guardar la caché de Addons: %1$s</string>
+    <string name="loadCacheFromFile">Error al cargar la caché de Addons: %1$s</string>
+    <string name="clearPreferencesDone">Todas las configuraciones han sido limpiadas</string>
+    <string name="clearPreferencesFail">Error al limpiar las configuraciones: %1$s</string>
+    <string name="parseVpkFileSignature">Firma de archivo VPK no válida: %1$s</string>
+    <string name="parseVpkFileVersion">Versión de archivo VPK no compatible: %1$s</string>
+    <string name="parseVpkFileTerminator">Terminador no válido en el archivo VPK: %1$s</string>
+    <string name="findGameInfoPathFail">El archivo gameinfo.txt no se encontró en la ruta especificada: %1$s</string>
+    <string name="findGameInfoPathNotFound">El archivo gameinfo.txt no existe o no se encontró en la ruta especificada: %1$s</string>
+    <string name="processAddonFilePathFail">El archivo %1$s no se encontró en la ruta: %2$s</string>
+    <string name="processAddonFileDone">El archivo %1$s se copió y renombró con éxito: %2$s</string>
+    <string name="processAddonFileCopyFail">Error al copiar el archivo: %1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">La carpeta %1$s se eliminó con éxito</string>
+    <string name="deleteAddonFoldersFail">Error al eliminar la carpeta %1$s | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">La carpeta %1$s no se eliminó porque contiene otras carpetas</string>
+    <string name="deleteAddonFoldersResult">La caché de Addons se eliminó con éxito</string>
+    <string name="updateGameInfoFilePath">No se pudo reemplazar el archivo gameinfo.txt, no se encontró en la ruta especificada: %1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">El inicio del bloque de rutas no se encontró en el archivo gameinfo.txt, verifique la corrección del archivo</string>
+    <string name="updateGameInfoFileSearchBlockEnd">El corchete de cierre para el bloque de rutas no se encontró en el archivo gameinfo.txt, verifique la corrección del archivo</string>
+    <string name="updateGameInfoNewPathsEmpty">No hay nuevas rutas para agregar a gameinfo.txt</string>
+    <string name="updateGameInfoDone">El archivo gameinfo.txt se actualizó con éxito</string>
+    <string name="updateGameInfoFailSave">Error al guardar el archivo gameinfo.txt: %1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">No hay contenido guardado para reemplazar gameinfo.txt, restablezca la configuración de herramientas y verifique los archivos del juego</string>
+    <string name="replaceGameInfoFileSavedContentNullError">No hay contenido guardado para reemplazar</string>
+    <string name="replaceGameInfoFileDone">El archivo gameinfo.txt se restauró con éxito</string>
+    <string name="replaceGameInfoFileFailPath">El archivo gameinfo.txt no se encontró en la ruta especificada: %1$s</string>
+    <string name="findWorkshopFolderFailPath">La ruta especificada no existe o no es una carpeta</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">No se encontró la carpeta "workshop" en el directorio especificado, indique la ruta a la carpeta donde está instalado el juego</string>
+
+    <string name="faqQuestion1">El servidor no me deja entrar debido a un error en gameinfo.txt</string>
+    <string name="faqAnswer1">Algunos servidores comprueban este archivo para asegurarse de que cumple con el estándar,\nsi se ha modificado, no te permitirá entrar en ese servidor</string>
+
+    <string name="faqQuestion2">¿Por qué se ha modificado gameinfo?</string>
+    <string name="faqAnswer2">Las herramientas lo modifican para activar los Addons en el juego</string>
+
+    <string name="faqQuestion3">¿Cómo funciona el juego con mods en un servidor así?</string>
+    <string name="faqAnswer3">Antes de iniciar el juego:\n1. Activamos los Addons\n2. Entramos en el menú principal del juego (los mods ya están cargados en este momento)\n3. Desactivamos los Addons (el archivo gameinfo se restaura a su estado original)</string>
+
+    <string name="faqQuestion4">¡Las herramientas no ven mis addons!</string>
+    <string name="faqAnswer4">Verifica la carpeta addons/workshop\nSi no hay archivos .vpk, suscríbete a los Addons en Steam y entra en el juego para que se descarguen</string>
+
+    <string name="faqQuestion5">Los Addons no funcionan en el juego</string>
+    <string name="faqAnswer5">Es posible que hayas olvidado seleccionarlos y activarlos ANTES de entrar en el juego (esto es importante)\nInténtalo de nuevo y vuelve a entrar en el juego</string>
+
+    <string name="faqQuestion6">¿Cómo funciona la selección de Addons?</string>
+    <string name="faqAnswer6">Después de especificar la carpeta del juego, las herramientas buscan una carpeta llamada addons/workshop\ny extraen la información de los addons de los archivos .vpk\nSi esa carpeta no existe, puedes crearla y colocar archivos .vpk en ella</string>
+
+    <string name="faqQuestion7">¿Qué es la caché de Addons?</string>
+    <string name="faqAnswer7">Después de seleccionar los mods y hacer clic en "Activar Addons",\nlas herramientas crean copias de tus archivos .vpk (caché) para integrarlos en el juego\nEn el próximo inicio del juego, estarán activados\nPuedes restablecer esta caché, lo que eliminará las copias de los archivos en addons/workshop/id_Addons</string>
+
+    <string name="faqQuestion8">¿Cómo restablecer la configuración de las herramientas?</string>
+    <string name="faqAnswer8">Si especificaste una ruta incorrecta a la carpeta del juego o el archivo gameinfo.txt fue modificado y no se restaura más,\npuedes restablecer la configuración de las herramientas en el menú y verificar la caché del juego en Steam</string>
+</resources>

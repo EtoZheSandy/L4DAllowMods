@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">作成者：EtoZheSandy</string>
+    <string name="main">開始</string>
+    <string name="myAddons">私のアドオン</string>
+    <string name="faq">FAQ</string>
+    <string name="setting">設定</string>
+    <string name="logs">ログ</string>
+    <string name="gamePathNull">まず、設定でゲームフォルダを選択してください</string>
+    <string name="gameAddonsNotSelect">どのアドオンを有効にするか選択してください</string>
+    <string name="gameDoneFAQ">楽しいゲームを！すべての回答はFAQにあります</string>
+    <string name="addonsOn">アドオンを有効にする</string>
+    <string name="addonsOff">アドオンを無効にする</string>
+    <string name="addonsNoShow">アドオンを非表示にする</string>
+    <string name="addonsShow">アドオンを表示する</string>
+    <string name="addonsNotFoundEmpty">アドオンが見つかりませんでした。ゲームのleft4dead2/addons/workshopフォルダを確認し、空でないことを確認してください</string>
+    <string name="enable">有効にする</string>
+    <string name="disable">無効にする</string>
+    <string name="noDescription">説明がありません</string>
+    <string name="selectGameFolder">ゲームフォルダを選択してください</string>
+    <string name="selectGameFolderL4D2">Left 4 Dead 2のフォルダを選択してください</string>
+    <string name="selectFolder">フォルダを選択する</string>
+    <string name="changeFolder">フォルダを変更する</string>
+    <string name="currentFolder">現在選択されているフォルダ：</string>
+    <string name="settingUpdateGameinfo">ツールのキャッシュ内のgameinfoを更新する</string>
+    <string name="settingDeleteCacheAddons">アドオンのキャッシュを削除する</string>
+    <string name="settingDeleteCacheSetting">保存された設定を削除する</string>
+    <string name="saveCacheToFile">アドオンのキャッシュの保存中にエラーが発生しました：%1$s</string>
+    <string name="loadCacheFromFile">アドオンのキャッシュの読み込み中にエラーが発生しました：%1$s</string>
+    <string name="clearPreferencesDone">すべての設定がクリアされました</string>
+    <string name="clearPreferencesFail">設定のクリア中にエラーが発生しました：%1$s</string>
+    <string name="parseVpkFileSignature">VPKファイルの署名が無効です：%1$s</string>
+    <string name="parseVpkFileVersion">サポートされていないVPKファイルのバージョン：%1$s</string>
+    <string name="parseVpkFileTerminator">VPKファイル内の終端子が無効です：%1$s</string>
+    <string name="findGameInfoPathFail">指定されたパスにgameinfo.txtファイルが見つかりません：%1$s</string>
+    <string name="findGameInfoPathNotFound">指定されたパスにgameinfo.txtファイルが存在しないか見つかりません：%1$s</string>
+    <string name="processAddonFilePathFail">ファイル%1$sがパス%2$sに見つかりませんでした</string>
+    <string name="processAddonFileDone">ファイル%1$sが正常にコピーおよび名前変更されました：%2$s</string>
+    <string name="processAddonFileCopyFail">ファイルのコピー中にエラーが発生しました：%1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">フォルダ%1$sが正常に削除されました</string>
+    <string name="deleteAddonFoldersFail">フォルダ%1$sの削除中にエラーが発生しました | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">フォルダ%1$sは他のフォルダが含まれているため削除されませんでした</string>
+    <string name="deleteAddonFoldersResult">アドオンのキャッシュが正常に削除されました</string>
+    <string name="updateGameInfoFilePath">指定されたパスにgameinfo.txtファイルが見つからなかったため、置き換えできませんでした：%1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">gameinfo.txtファイル内でパスのブロックの開始が見つかりませんでした。ファイルの正確性を確認してください</string>
+    <string name="updateGameInfoFileSearchBlockEnd">gameinfo.txtファイル内でパスのブロックの閉じ括弧が見つかりませんでした。ファイルの正確性を確認してください</string>
+    <string name="updateGameInfoNewPathsEmpty">gameinfo.txtに追加する新しいパスはありません</string>
+    <string name="updateGameInfoDone">gameinfo.txtファイルが正常に更新されました</string>
+    <string name="updateGameInfoFailSave">gameinfo.txtファイルの保存中にエラーが発生しました：%1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">gameinfo.txtを置き換えるための保存された内容がありません。ツールの設定をリセットし、ゲームファイルを確認してください</string>
+    <string name="replaceGameInfoFileSavedContentNullError">置き換える保存された内容がありません</string>
+    <string name="replaceGameInfoFileDone">gameinfo.txtファイルが正常に復元されました</string>
+    <string name="replaceGameInfoFileFailPath">指定されたパスにgameinfo.txtファイルが見つかりませんでした：%1$s</string>
+    <string name="findWorkshopFolderFailPath">指定されたパスが存在しないかフォルダではありません</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">指定されたディレクトリに"workshop"フォルダが見つかりませんでした。ゲームがインストールされているフォルダのパスを指定してください</string>
+
+    <string name="faqQuestion1">サーバーはgameinfo.txtエラーで私を許可しません</string>
+    <string name="faqAnswer1">一部のサーバーは、このファイルが標準に準拠しているかを確認します。\n変更されている場合、このサーバーに入ることはできません</string>
+
+    <string name="faqQuestion2">なぜgameinfoが変更されたのですか？</string>
+    <string name="faqAnswer2">ツールは、ゲーム内でアドオンを有効にするために変更します</string>
+
+    <string name="faqQuestion3">そのようなサーバーでどうやってMod付きのゲームをしますか？</string>
+    <string name="faqAnswer3">ゲームを起動する前に：\n1. アドオンを有効にします\n2. ゲームのメインメニューに入ります（この時点でModがすでにロードされています）\n3. アドオンを無効にします（gameinfoファイルが元の状態に戻ります）</string>
+
+    <string name="faqQuestion4">ツールが私のアドオンを認識しません！</string>
+    <string name="faqAnswer4">addons/workshopフォルダを確認してください\n.vpkファイルがない場合、Steamでアドオンを購読し、ゲームに入ってダウンロードされるようにしてください</string>
+
+    <string name="faqQuestion5">アドオンがゲームで動作しません</string>
+    <string name="faqAnswer5">ゲームに入る前にそれらを選択して有効にするのを忘れた可能性があります（重要です）\nもう一度試してゲームに再度入ってください</string>
+
+    <string name="faqQuestion6">アドオンの選択はどのように機能しますか？</string>
+    <string name="faqAnswer6">ゲームフォルダを指定した後、ツールはaddons/workshopという名前のフォルダを探し、\n.vpkファイルからアドオンの情報を抽出します\nこのフォルダがない場合は、作成して.vpkファイルを配置することができます</string>
+
+    <string name="faqQuestion7">アドオンのキャッシュとは何ですか？</string>
+    <string name="faqAnswer7">Modを選択して「アドオンを有効にする」をクリックした後、\nツールはあなたの.vpkファイルのコピー（キャッシュ）を作成し、それをゲームに組み込みます\n次回のゲーム起動時にアクティブ化されます\nこのキャッシュをリセットすると、addons/workshop/id_Addons内のファイルのコピーが削除されます</string>
+
+    <string name="faqQuestion8">ツールの設定をリセットするには？</string>
+    <string name="faqAnswer8">ゲームフォルダのパスが間違って指定されているか、gameinfo.txtファイルが変更されて復元されなくなった場合は、\n設定メニューでツールの設定をリセットし、Steamでゲームのキャッシュを確認してください</string>
+</resources>

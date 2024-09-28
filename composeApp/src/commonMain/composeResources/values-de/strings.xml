@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">Erstellt von EtoZheSandy</string>
+    <string name="main">Starten</string>
+    <string name="myAddons">Meine Addons</string>
+    <string name="faq">FAQ</string>
+    <string name="setting">Einstellungen</string>
+    <string name="logs">Protokolle</string>
+    <string name="gamePathNull">Wählen Sie zuerst den Spielordner in den Einstellungen aus</string>
+    <string name="gameAddonsNotSelect">Wählen Sie, welche Addons aktiviert werden sollen</string>
+    <string name="gameDoneFAQ">Viel Spaß beim Spielen! Alle Antworten finden Sie in den FAQ</string>
+    <string name="addonsOn">Addons aktivieren</string>
+    <string name="addonsOff">Addons deaktivieren</string>
+    <string name="addonsNoShow">Addons verbergen</string>
+    <string name="addonsShow">Addons anzeigen</string>
+    <string name="addonsNotFoundEmpty">Ihre Addons wurden nicht gefunden, überprüfen Sie den Ordner left4dead2/addons/workshop im Spiel und stellen Sie sicher, dass er nicht leer ist</string>
+    <string name="enable">Aktivieren</string>
+    <string name="disable">Deaktivieren</string>
+    <string name="noDescription">Keine Beschreibung</string>
+    <string name="selectGameFolder">Wählen Sie den Spielordner aus</string>
+    <string name="selectGameFolderL4D2">Wählen Sie den Left 4 Dead 2-Ordner aus</string>
+    <string name="selectFolder">Ordner auswählen</string>
+    <string name="changeFolder">Ordner ändern</string>
+    <string name="currentFolder">Derzeit ausgewählter Ordner:</string>
+    <string name="settingUpdateGameinfo">Aktualisieren Sie gameinfo im Tool-Cache</string>
+    <string name="settingDeleteCacheAddons">Addons-Cache löschen</string>
+    <string name="settingDeleteCacheSetting">Gespeicherte Einstellungen löschen</string>
+    <string name="saveCacheToFile">Fehler beim Speichern des Addons-Caches: %1$s</string>
+    <string name="loadCacheFromFile">Fehler beim Laden des Addons-Caches: %1$s</string>
+    <string name="clearPreferencesDone">Alle Einstellungen wurden gelöscht</string>
+    <string name="clearPreferencesFail">Fehler beim Löschen der Einstellungen: %1$s</string>
+    <string name="parseVpkFileSignature">Ungültige VPK-Dateisignatur: %1$s</string>
+    <string name="parseVpkFileVersion">Nicht unterstützte VPK-Dateiversion: %1$s</string>
+    <string name="parseVpkFileTerminator">Ungültiger Terminator in der VPK-Datei: %1$s</string>
+    <string name="findGameInfoPathFail">Die Datei gameinfo.txt wurde unter dem angegebenen Pfad nicht gefunden: %1$s</string>
+    <string name="findGameInfoPathNotFound">Die Datei gameinfo.txt existiert nicht oder wurde unter dem angegebenen Pfad nicht gefunden: %1$s</string>
+    <string name="processAddonFilePathFail">Datei %1$s wurde unter dem Pfad %2$s nicht gefunden</string>
+    <string name="processAddonFileDone">Datei %1$s erfolgreich kopiert und umbenannt: %2$s</string>
+    <string name="processAddonFileCopyFail">Fehler beim Kopieren der Datei: %1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">Ordner %1$s erfolgreich gelöscht</string>
+    <string name="deleteAddonFoldersFail">Fehler beim Löschen des Ordners %1$s | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">Der Ordner %1$s wurde nicht gelöscht, da er andere Ordner enthält</string>
+    <string name="deleteAddonFoldersResult">Addons-Cache erfolgreich gelöscht</string>
+    <string name="updateGameInfoFilePath">Konnte die Datei gameinfo.txt nicht ersetzen, Datei wurde unter dem angegebenen Pfad nicht gefunden: %1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">Der Beginn des Pfadblocks wurde in der Datei gameinfo.txt nicht gefunden, überprüfen Sie die Datei auf Korrektheit</string>
+    <string name="updateGameInfoFileSearchBlockEnd">Die schließende Klammer für den Pfadblock wurde in der Datei gameinfo.txt nicht gefunden, überprüfen Sie die Datei auf Korrektheit</string>
+    <string name="updateGameInfoNewPathsEmpty">Keine neuen Pfade zum Hinzufügen zu gameinfo.txt</string>
+    <string name="updateGameInfoDone">Die Datei gameinfo.txt wurde erfolgreich aktualisiert</string>
+    <string name="updateGameInfoFailSave">Fehler beim Speichern der Datei gameinfo.txt: %1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">Kein gespeicherter Inhalt zum Ersetzen von gameinfo.txt, setzen Sie die Tool-Einstellungen zurück und überprüfen Sie die Spieldateien</string>
+    <string name="replaceGameInfoFileSavedContentNullError">Kein gespeicherter Inhalt zum Ersetzen</string>
+    <string name="replaceGameInfoFileDone">Die Datei gameinfo.txt wurde erfolgreich wiederhergestellt</string>
+    <string name="replaceGameInfoFileFailPath">Die Datei gameinfo.txt wurde unter dem angegebenen Pfad nicht gefunden: %1$s</string>
+    <string name="findWorkshopFolderFailPath">Der angegebene Pfad existiert nicht oder ist kein Ordner</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">Der Ordner "workshop" wurde im angegebenen Verzeichnis nicht gefunden, geben Sie den Pfad zum Ordner an, in dem das Spiel installiert ist</string>
+
+    <string name="faqQuestion1">Der Server lässt mich wegen eines Fehlers in gameinfo.txt nicht zu</string>
+    <string name="faqAnswer1">Einige Server überprüfen diese Datei auf Übereinstimmung mit dem Standard,\nwenn sie geändert wurde, lässt der Server dich nicht zu</string>
+
+    <string name="faqQuestion2">Warum wurde gameinfo geändert?</string>
+    <string name="faqAnswer2">Tools ändern sie, um Addons im Spiel zu aktivieren</string>
+
+    <string name="faqQuestion3">Wie funktioniert das Spiel mit Mods auf einem solchen Server?</string>
+    <string name="faqAnswer3">Vor dem Start des Spiels:\n1. Addons aktivieren\n2. Gehen Sie ins Hauptmenü des Spiels (Mods sind zu diesem Zeitpunkt bereits geladen)\n3. Deaktivieren Sie Addons (die Datei gameinfo wird in den ursprünglichen Zustand zurückgesetzt)</string>
+
+    <string name="faqQuestion4">Tools sehen meine Addons nicht!</string>
+    <string name="faqAnswer4">Überprüfen Sie den Ordner addons/workshop\nWenn keine .vpk-Dateien vorhanden sind, abonnieren Sie Addons in Steam und starten Sie das Spiel, damit sie heruntergeladen werden</string>
+
+    <string name="faqQuestion5">Addons funktionieren im Spiel nicht</string>
+    <string name="faqAnswer5">Du hast sie vielleicht vor dem Betreten des Spiels nicht ausgewählt und aktiviert (das ist wichtig)\nVersuche es noch einmal und betrete das Spiel erneut</string>
+
+    <string name="faqQuestion6">Wie funktioniert die Auswahl der Addons?</string>
+    <string name="faqAnswer6">Nach der Angabe des Spielordners suchen die Tools nach einem Ordner namens addons/workshop\nund extrahieren Addon-Informationen aus .vpk-Dateien\nWenn dieser Ordner nicht existiert, können Sie ihn erstellen und .vpk-Dateien darin ablegen</string>
+
+    <string name="faqQuestion7">Was ist der Addons-Cache?</string>
+    <string name="faqAnswer7">Nach der Auswahl der Mods und dem Klicken auf "Addons aktivieren"\nerstellen die Tools Kopien Ihrer .vpk-Dateien (Cache), um sie in das Spiel zu integrieren\nBeim nächsten Spielstart werden sie aktiviert\nSie können diesen Cache zurücksetzen, wodurch Kopien der Dateien in addons/workshop/id_Addons gelöscht werden</string>
+
+    <string name="faqQuestion8">Wie setzt man die Tools-Einstellungen zurück?</string>
+    <string name="faqAnswer8">Wenn Sie den falschen Pfad zum Spielordner angegeben haben oder die Datei gameinfo.txt geändert wurde und nicht mehr wiederhergestellt wird,\nkönnen Sie die Tools-Einstellungen im Menü zurücksetzen und den Spiel-Cache in Steam überprüfen</string>
+</resources>

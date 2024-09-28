@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">تم إنشاؤه بواسطة EtoZheSandy</string>
+    <string name="main">بدء</string>
+    <string name="myAddons">إضافاتي</string>
+    <string name="faq">الأسئلة الشائعة</string>
+    <string name="setting">الإعدادات</string>
+    <string name="logs">السجلات</string>
+    <string name="gamePathNull">يجب أولاً اختيار مجلد اللعبة من الإعدادات</string>
+    <string name="gameAddonsNotSelect">اختر أي الإضافات التي تريد تفعيلها</string>
+    <string name="gameDoneFAQ">استمتع باللعب! جميع الإجابات في قسم الأسئلة الشائعة</string>
+    <string name="addonsOn">تفعيل الإضافات</string>
+    <string name="addonsOff">إيقاف الإضافات</string>
+    <string name="addonsNoShow">إخفاء الإضافات</string>
+    <string name="addonsShow">عرض الإضافات</string>
+    <string name="addonsNotFoundEmpty">لم يتم العثور على إضافاتك، تحقق من مجلد left4dead2/addons/workshop في اللعبة وتأكد من أنه ليس فارغًا</string>
+    <string name="enable">تفعيل</string>
+    <string name="disable">إيقاف</string>
+    <string name="noDescription">لا يوجد وصف</string>
+    <string name="selectGameFolder">اختر مجلد اللعبة</string>
+    <string name="selectGameFolderL4D2">اختر مجلد Left 4 Dead 2</string>
+    <string name="selectFolder">اختر مجلدًا</string>
+    <string name="changeFolder">تغيير المجلد</string>
+    <string name="currentFolder">المجلد المحدد حاليًا:</string>
+    <string name="settingUpdateGameinfo">تحديث gameinfo في ذاكرة التخزين المؤقت للأدوات</string>
+    <string name="settingDeleteCacheAddons">حذف ذاكرة التخزين المؤقت للإضافات</string>
+    <string name="settingDeleteCacheSetting">حذف الإعدادات المحفوظة</string>
+    <string name="saveCacheToFile">خطأ في حفظ ذاكرة التخزين المؤقت للإضافات: %1$s</string>
+    <string name="loadCacheFromFile">خطأ في تحميل ذاكرة التخزين المؤقت للإضافات: %1$s</string>
+    <string name="clearPreferencesDone">تم مسح جميع الإعدادات</string>
+    <string name="clearPreferencesFail">خطأ في مسح الإعدادات: %1$s</string>
+    <string name="parseVpkFileSignature">توقيع ملف VPK غير صحيح: %1$s</string>
+    <string name="parseVpkFileVersion">إصدار ملف VPK غير مدعوم: %1$s</string>
+    <string name="parseVpkFileTerminator">المنهي غير صحيح في ملف VPK: %1$s</string>
+    <string name="findGameInfoPathFail">لم يتم العثور على ملف gameinfo.txt في المسار المحدد: %1$s</string>
+    <string name="findGameInfoPathNotFound">ملف gameinfo.txt غير موجود أو لم يتم العثور عليه في المسار المحدد: %1$s</string>
+    <string name="processAddonFilePathFail">لم يتم العثور على الملف %1$s في المسار: %2$s</string>
+    <string name="processAddonFileDone">تم نسخ الملف %1$s بنجاح وإعادة تسميته: %2$s</string>
+    <string name="processAddonFileCopyFail">خطأ أثناء نسخ الملف: %1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">تم حذف المجلد %1$s بنجاح</string>
+    <string name="deleteAddonFoldersFail">خطأ في حذف المجلد %1$s | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">لم يتم حذف المجلد %1$s لأنه يحتوي على مجلدات أخرى</string>
+    <string name="deleteAddonFoldersResult">تم حذف ذاكرة التخزين المؤقت للإضافات بنجاح</string>
+    <string name="updateGameInfoFilePath">فشل استبدال ملف gameinfo.txt، لم يتم العثور على الملف في المسار المحدد: %1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">لم يتم العثور على بداية كتلة المسارات في ملف gameinfo.txt، تحقق من صحة الملف</string>
+    <string name="updateGameInfoFileSearchBlockEnd">لم يتم العثور على القوس الختامي لكتلة المسارات في ملف gameinfo.txt، تحقق من صحة الملف</string>
+    <string name="updateGameInfoNewPathsEmpty">لا توجد مسارات جديدة لإضافتها إلى gameinfo.txt</string>
+    <string name="updateGameInfoDone">تم تحديث ملف gameinfo.txt بنجاح</string>
+    <string name="updateGameInfoFailSave">خطأ في حفظ ملف gameinfo.txt: %1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">لا يوجد محتوى محفوظ لاستبدال gameinfo.txt، قم بإعادة ضبط إعدادات الأدوات وتحقق من ملفات اللعبة</string>
+    <string name="replaceGameInfoFileSavedContentNullError">لا يوجد محتوى محفوظ للاستبدال</string>
+    <string name="replaceGameInfoFileDone">تم استعادة ملف gameinfo.txt بنجاح</string>
+    <string name="replaceGameInfoFileFailPath">لم يتم العثور على ملف gameinfo.txt في المسار المحدد: %1$s</string>
+    <string name="findWorkshopFolderFailPath">المسار المحدد غير موجود أو ليس مجلدًا</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">لم يتم العثور على مجلد "workshop" في الدليل المحدد، يرجى تحديد المسار إلى المجلد الذي تم تثبيت اللعبة فيه</string>
+
+    <string name="faqQuestion1">الخادم لا يسمح لي بسبب خطأ في gameinfo.txt</string>
+    <string name="faqAnswer1">بعض الخوادم تتحقق من هذا الملف للتأكد من مطابقته للمعيار،\nإذا تم تغييره، فلن يسمح لك بالدخول إلى هذا الخادم</string>
+
+    <string name="faqQuestion2">لماذا تم تعديل gameinfo؟</string>
+    <string name="faqAnswer2">تقوم الأدوات بتعديله لتفعيل الإضافات في اللعبة</string>
+
+    <string name="faqQuestion3">كيف تعمل اللعبة مع الإضافات على مثل هذا الخادم؟</string>
+    <string name="faqAnswer3">قبل بدء اللعبة:\n1. تفعيل الإضافات\n2. الدخول إلى القائمة الرئيسية للعبة (الإضافات محملة بالفعل في هذه المرحلة)\n3. تعطيل الإضافات (يتم إعادة ملف gameinfo إلى حالته الأصلية)</string>
+
+    <string name="faqQuestion4">الأدوات لا ترى الإضافات الخاصة بي!</string>
+    <string name="faqAnswer4">تحقق من مجلد addons/workshop\nإذا لم تكن هناك ملفات .vpk، اشترك في الإضافات عبر Steam وادخل إلى اللعبة حتى يتم تنزيلها</string>
+
+    <string name="faqQuestion5">الإضافات لا تعمل في اللعبة</string>
+    <string name="faqAnswer5">قد تكون نسيت اختيارها وتفعيلها قبل دخول اللعبة (هذا مهم)\nحاول مرة أخرى وأعد الدخول إلى اللعبة</string>
+
+    <string name="faqQuestion6">كيف تعمل اختيار الإضافات؟</string>
+    <string name="faqAnswer6">بعد تحديد مجلد اللعبة، تقوم الأدوات بالبحث عن مجلد يسمى addons/workshop\nوتستخرج معلومات الإضافات من ملفات .vpk\nإذا لم يكن هذا المجلد موجودًا، يمكنك إنشاؤه ووضع ملفات .vpk بداخله</string>
+
+    <string name="faqQuestion7">ما هي ذاكرة التخزين المؤقت للإضافات؟</string>
+    <string name="faqAnswer7">بعد اختيار الإضافات والضغط على "تفعيل الإضافات"\nتقوم الأدوات بإنشاء نسخ من ملفات .vpk الخاصة بك (ذاكرة التخزين المؤقت) لإدماجها في اللعبة\nسيتم تفعيلها عند بدء اللعبة التالية\nيمكنك إعادة تعيين هذه الذاكرة، والتي ستحذف نسخ الملفات في addons/workshop/id_Addons</string>
+
+    <string name="faqQuestion8">كيف يمكن إعادة تعيين إعدادات الأدوات؟</string>
+    <string name="faqAnswer8">إذا قمت بتحديد مسار خاطئ لمجلد اللعبة أو تم تعديل ملف gameinfo.txt ولم يتم استعادته بعد ذلك\nيمكنك إعادة ضبط إعدادات الأدوات من القائمة وتحقق من ذاكرة التخزين المؤقت للعبة في Steam</string>
+</resources>
