@@ -38,7 +38,7 @@ compose.desktop {
         mainClass = "su.afk.l4d2.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Msi, TargetFormat.Exe)
-            packageName = "L4DAllowMods"
+            packageName = "L4D Allow Mods"
             packageVersion = "1.0.1"
             description = "L4D Allow Mods"
             copyright = "EtoZheSandy"
@@ -46,7 +46,7 @@ compose.desktop {
             windows {
                 windows {
                     shortcut = true
-                    menuGroup = "L4D Mod Tools"
+                    menuGroup = "L4D Allow Mods"
                     perUserInstall = true
                     iconFile.set(project.file("src\\commonMain\\composeResources\\drawable\\icon.ico"))
                 }
