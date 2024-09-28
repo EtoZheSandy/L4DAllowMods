@@ -1,5 +1,9 @@
 package su.afk.l4d2.utils
 
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.parseVpkFileSignature
+import kotlinproject.composeapp.generated.resources.parseVpkFileTerminator
+import kotlinproject.composeapp.generated.resources.parseVpkFileVersion
 import su.afk.l4d2.data.LogSystem
 import java.io.File
 import java.io.RandomAccessFile
@@ -13,14 +17,14 @@ fun parseVpkFile(vpkFile: File): String? {
         // Читаем сигнатуру
         val signature = raf.readIntLE()
         if (signature != 0x55AA1234) {
-            LogSystem.addLog(1, "Неверная сигнатура VPK файла: ${vpkFile.name}")
+            LogSystem.addLog(1, Res.string.parseVpkFileSignature)
             return null
         }
 
         // Читаем версию
         val version = raf.readIntLE()
         if (version != 1 && version != 2) {
-            LogSystem.addLog(1, "Неподдерживаемая версия VPK файла: $version")
+            LogSystem.addLog(1, Res.string.parseVpkFileVersion)
             return null
         }
 
@@ -68,7 +72,7 @@ fun parseVpkFile(vpkFile: File): String? {
                     val terminator = raf.readShortLE()
 
                     if (terminator != 0xFFFF.toShort()) {
-                        LogSystem.addLog(1, "Неверный терминатор в VPK файле: ${vpkFile.name}")
+                        LogSystem.addLog(1, Res.string.parseVpkFileTerminator)
                         return null
                     }
 

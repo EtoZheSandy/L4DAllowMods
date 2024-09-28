@@ -26,48 +26,60 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.faqAnswer1
+import kotlinproject.composeapp.generated.resources.faqAnswer2
+import kotlinproject.composeapp.generated.resources.faqAnswer3
+import kotlinproject.composeapp.generated.resources.faqAnswer4
+import kotlinproject.composeapp.generated.resources.faqAnswer5
+import kotlinproject.composeapp.generated.resources.faqAnswer6
+import kotlinproject.composeapp.generated.resources.faqAnswer7
+import kotlinproject.composeapp.generated.resources.faqAnswer8
+import kotlinproject.composeapp.generated.resources.faqQuestion1
+import kotlinproject.composeapp.generated.resources.faqQuestion2
+import kotlinproject.composeapp.generated.resources.faqQuestion3
+import kotlinproject.composeapp.generated.resources.faqQuestion4
+import kotlinproject.composeapp.generated.resources.faqQuestion5
+import kotlinproject.composeapp.generated.resources.faqQuestion6
+import kotlinproject.composeapp.generated.resources.faqQuestion7
+import kotlinproject.composeapp.generated.resources.faqQuestion8
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
 fun FAQScreen() {
     val faqList = listOf(
         FAQItem(
-            question = "Сервер не пускает меня ошибка gameinfo.txt",
-            answer = "Некоторые сервера проверяют этот файл на соответсвие стандартному, " +
-                    "если он изменен он не пустит тебя на этот сервер"
+            question = stringResource(Res.string.faqQuestion1),
+            answer = stringResource(Res.string.faqAnswer1)
         ),
         FAQItem(
-            question = "Но как тогда игра с модами на таком сервер?",
-            answer = "Перед запуском игры:\n" +
-                    "1. Включаем Addons\n" +
-                    "2. Заходим в главное меню игры (моды уже загружены на этом моменте)\n" +
-                    "3. Отключаем Addons (файл gameinfo возвращен в исходное состояние) "
+            question = stringResource(Res.string.faqQuestion2),
+            answer = stringResource(Res.string.faqAnswer2)
         ),
         FAQItem(
-            question = "Не видит мои addons!",
-            answer = "Они есть в папке addons\\workshop - если нету то подпишись в Steam на Addons и зайди в игру что бы они скачались"
+            question = stringResource(Res.string.faqQuestion3),
+            answer = stringResource(Res.string.faqAnswer3)
         ),
         FAQItem(
-            question = "Addons не работаю в игре",
-            answer = "Значит ты забыл выбрать их и включить ПЕРЕД заходом в игре (это важно), попробуй еще раз"
+            question = stringResource(Res.string.faqQuestion4),
+            answer = stringResource(Res.string.faqAnswer4)
         ),
         FAQItem(
-            question = "Как работает выбор addons?",
-            answer = "После указания папки с игрой tools ищет папку с названием addons/workshop\n" +
-                    "И извлекает информацию о addons из .vpk файлах\n" +
-                    "Если такой папки нету можете ее создать и поместить в нее .vpk файл"
+            question = stringResource(Res.string.faqQuestion5),
+            answer = stringResource(Res.string.faqAnswer5)
         ),
         FAQItem(
-            question = "Что такое кэш addons?",
-            answer = "После выбора модов и нажатия 'Включить Addons'\n" +
-                    "tools создает копии твоих .vpk файлов (кэш) что бы вшить их в игру\n" +
-                    "При следующей загрузки игры они будут активированы\n" +
-                    "Вы можете сбросить их кэш это удалит копии файлов в addons/workshop/id_Addons"
+            question = stringResource(Res.string.faqQuestion6),
+            answer = stringResource(Res.string.faqAnswer6)
         ),
         FAQItem(
-            question = "Как сбросить настройки tools",
-            answer = "Если указали неверный путь до игровой папки или файл gameinfo был изменен и более не восстанавливается\n" +
-                    "можно сбросить настройки tools в меню настроек и проверить кэш игры в Steam"
+            question = stringResource(Res.string.faqQuestion7),
+            answer = stringResource(Res.string.faqAnswer7)
+        ),
+        FAQItem(
+            question = stringResource(Res.string.faqQuestion8),
+            answer = stringResource(Res.string.faqAnswer8)
         ),
     )
 

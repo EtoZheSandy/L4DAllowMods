@@ -9,6 +9,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.addonsOff
+import kotlinproject.composeapp.generated.resources.addonsOn
+import kotlinproject.composeapp.generated.resources.gameAddonsNotSelect
+import kotlinproject.composeapp.generated.resources.gameDoneFAQ
+import kotlinproject.composeapp.generated.resources.gamePathNull
+import org.jetbrains.compose.resources.stringResource
 import su.afk.l4d2.MainState
 import su.afk.l4d2.MainViewModel
 
@@ -20,17 +27,17 @@ fun MainScreen(
     Column {
         if (viewModel.state.selectedFolderPath == null) {
             Text(
-                "Сначала необходимо выбрать папку с игрой в настройках",
+                stringResource(Res.string.gamePathNull),
                 color = MaterialTheme.colors.error
             )
         } else if (viewModel.state.addonEnabledList == null) {
             Text(
-                "Выберите какие Addons необходимо включить в My Addons",
+                stringResource(Res.string.gameAddonsNotSelect),
                 color = MaterialTheme.colors.error
             )
         } else {
             Text(
-                "Приятной игры! Все ответы в FAQ",
+                stringResource(Res.string.gameDoneFAQ),
                 color = MaterialTheme.colors.onSurface
             )
             Row(modifier = Modifier.padding(top = 16.dp)) {
@@ -38,11 +45,11 @@ fun MainScreen(
                     onClick = { viewModel.handlerEvents(MainState.Event.ModGameInfo) },
                     modifier = Modifier.padding(end = 32.dp)
                 ) {
-                    Text("Включить Addons")
+                    Text(stringResource(Res.string.addonsOn))
                 }
 
                 Button(onClick = { viewModel.handlerEvents(MainState.Event.DefGameInfo) }) {
-                    Text("Выключить Addons")
+                    Text(stringResource(Res.string.addonsOff))
                 }
             }
         }

@@ -1,11 +1,15 @@
 package su.afk.l4d2.presenter.setting
 
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.findWorkshopFolderFailPath
+import kotlinproject.composeapp.generated.resources.findWorkshopFolderFailWorkshopFolder
+import org.jetbrains.compose.resources.StringResource
 import java.io.File
 
 // Сепарированный класс для результата поиска
 sealed class WorkshopFolderResult {
     data class Success(val workshopPath: String) : WorkshopFolderResult()
-    data class Failure(val message: String) : WorkshopFolderResult()
+    data class Failure(val message: StringResource) : WorkshopFolderResult()
 }
 
 // Функция для проверки валидности папки игры
@@ -19,7 +23,7 @@ fun findWorkshopFolder(path: String): WorkshopFolderResult {
     val gameFolder = File(path)
 
     if (!isValidGameFolder(path)) {
-        return WorkshopFolderResult.Failure("Указанный путь не существует или не является папкой.")
+        return WorkshopFolderResult.Failure(Res.string.findWorkshopFolderFailPath)
     }
 
     // Нормализация пути
@@ -49,8 +53,7 @@ fun findWorkshopFolder(path: String): WorkshopFolderResult {
         return WorkshopFolderResult.Success(workshopFolderRecursive.absolutePath)
     }
 
-    return WorkshopFolderResult.Failure("Папка 'workshop' не найдена в указанной директории\n" +
-            "Укажите путь до папки где установлена игра")
+    return WorkshopFolderResult.Failure(Res.string.findWorkshopFolderFailWorkshopFolder)
 }
 
 // Вспомогательная функция для проверки, является ли папка workshop

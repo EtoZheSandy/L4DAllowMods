@@ -107,7 +107,7 @@ fun LogRow(
         IconButton(onClick = onDismiss) {
             Icon(
                 imageVector = Icons.Default.Close,
-                contentDescription = "Закрыть лог",
+                contentDescription = "Close log",
                 tint = when (log.priority) {
                     1 -> Color.Red
                     2 -> Color.Yellow

@@ -1,11 +1,12 @@
 package su.afk.l4d2
 
+import org.jetbrains.compose.resources.StringResource
 import su.afk.l4d2.utils.AddonInfo
 
 class MainState {
     data class State(
         val selectedFolderPath: String? = null,
-        val errorMessage: String? = null,
+        val errorMessage: StringResource? = null,
         val loadingAddonInfo: Boolean = false,
         val addonInfoList: List<AddonInfo>? = null,
         val addonEnabledList: List<AddonInfo>? = null,

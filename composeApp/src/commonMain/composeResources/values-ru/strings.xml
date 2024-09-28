@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">Создано EtoZheSandy</string>
+    <string name="main">Запуск</string>
+    <string name="myAddons">Мои Addons</string>
+    <string name="faq">FAQ</string>
+    <string name="setting">Настройки</string>
+    <string name="logs">Логи</string>
+    <string name="gamePathNull">Сначала необходимо выбрать папку с игрой в настройках</string>
+    <string name="gameAddonsNotSelect">Выберите какие Addons необходимо включить в Addons</string>
+    <string name="gameDoneFAQ">Приятной игры! Все ответы в FAQ</string>
+    <string name="addonsOn">Включить Addons</string>
+    <string name="addonsOff">Выключить Addons</string>
+    <string name="addonsNoShow">Скрыть Addons</string>
+    <string name="addonsShow">Показать Addons</string>
+    <string name="addonsNotFoundEmpty">Не удалось найти ваши Addons проверьте папку left4dead2/addons/workshop в игре и убедитесь что она не пуста</string>
+    <string name="enable">Включить</string>
+    <string name="disable">Выключить</string>
+    <string name="noDescription">Нет описания</string>
+    <string name="selectGameFolder">Выберите папку с игрой</string>
+    <string name="selectGameFolderL4D2">Выберите папку с Left 4 Dead 2</string>
+    <string name="selectFolder">Выбрать папку</string>
+    <string name="changeFolder">Изменить папку</string>
+    <string name="currentFolder">Сейчас выбрана папка:</string>
+    <string name="settingUpdateGameinfo">Обновить gameinfo в кэше tools</string>
+    <string name="settingDeleteCacheAddons">Удалить кэш addons</string>
+    <string name="settingDeleteCacheSetting">Удалить сохраненные настройки</string>
+    <string name="saveCacheToFile">Ошибка при сохранении кэша Addons: %1$s</string>
+    <string name="loadCacheFromFile">Ошибка при загрузке кэша Addons: %1$s</string>
+    <string name="clearPreferencesDone">Все настройки очищены</string>
+    <string name="clearPreferencesFail">Ошибка при очистке настроек: %1$s</string>
+    <string name="parseVpkFileSignature">Неверная сигнатура VPK файла: %1$s</string>
+    <string name="parseVpkFileVersion">Неподдерживаемая версия VPK файла: %1$s</string>
+    <string name="parseVpkFileTerminator">Неверный терминатор в VPK файле: %1$s</string>
+    <string name="findGameInfoPathFail">Файл gameinfo.txt не найден по указанному пути: %1$s</string>
+    <string name="findGameInfoPathNotFound">Файл gameinfo.txt не существует либо не найден по указанному пути: %1$s</string>
+    <string name="processAddonFilePathFail">Файл %1$s не найден по пути: %2$s</string>
+    <string name="processAddonFileDone">Файл %1$s успешно скопирован и переименован: %2$s</string>
+    <string name="processAddonFileCopyFail">Ошибка при копировании файла: %1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">Папка %1$s успешно удалена</string>
+    <string name="deleteAddonFoldersFail">Ошибка при удалении папки %1$s | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">Папка %1$s не была удалена, так как содержит другие папки</string>
+    <string name="deleteAddonFoldersResult">Кэш Addons успешно удален</string>
+    <string name="updateGameInfoFilePath">Не удалось заменить файл gameinfo.txt не найден по указанному пути: %1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">Начало блока с путями не найдено в файле gameinfo.txt, проверьте файл на корректность</string>
+    <string name="updateGameInfoFileSearchBlockEnd">Закрывающая скобка для блока с путями не найдена в файле gameinfo.txt, проверьте файл на корректность</string>
+    <string name="updateGameInfoNewPathsEmpty">Нет новых путей для добавления в gameinfo.txt</string>
+    <string name="updateGameInfoDone">Файл gameinfo.txt успешно обновлен</string>
+    <string name="updateGameInfoFailSave">Ошибка при сохранении файла gameinfo.txt: %1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">Нет сохраненного содержимого для замены gameinfo.txt, сбросьте настройки tools и проверьте файлы игры</string>
+    <string name="replaceGameInfoFileSavedContentNullError">Нет сохраненного содержимого для замены</string>
+    <string name="replaceGameInfoFileDone">Файл gameinfo.txt успешно восстановлен</string>
+    <string name="replaceGameInfoFileFailPath">Файл gameinfo.txt не найден по указанному пути: %1$s</string>
+    <string name="findWorkshopFolderFailPath">Указанный путь не существует или не является папкой</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">Папка "workshop" не найдена в указанной директории, укажите путь до папки где установлена игра</string>
+
+    <string name="faqQuestion1">Сервер не пускает меня ошибка gameinfo.txt</string>
+    <string name="faqAnswer1">Некоторые сервера проверяют этот файл на соответсвие стандартному,\nесли он изменен он не пустит тебя на этот сервер</string>
+
+    <string name="faqQuestion2">Почему gameinfo изменен?</string>
+    <string name="faqAnswer2">Tools изменяет его чтобы включить Addons в игре</string>
+
+    <string name="faqQuestion3">Но как тогда игра с модами на таком сервер?</string>
+    <string name="faqAnswer3">Перед запуском игры:\n1. Включаем Addons\n2. Заходим в главное меню игры (моды уже загружены на этом моменте)\n3. Отключаем Addons (файл gameinfo возвращен в исходное состояние)</string>
+
+    <string name="faqQuestion4">Tools не видит мои addons!</string>
+    <string name="faqAnswer4">Проверь папку addons/workshop\nЕсли .vpk файлов нет то подпишись в Steam на Addons и зайди в игру что бы они скачались</string>
+
+    <string name="faqQuestion5">Addons не работаю в игре</string>
+    <string name="faqAnswer5">Значит ты забыл выбрать их и включить ПЕРЕД заходом в игру (это важно)\nПопробуй еще раз и перезайди в игру</string>
+
+    <string name="faqQuestion6">Как работает выбор Addons?</string>
+    <string name="faqAnswer6">После указания папки с игрой tools ищет папку с названием addons/workshop\nИ извлекает информацию о addons из .vpk файлах\nЕсли такой папки нету можете ее создать и поместить в нее .vpk файл</string>
+
+    <string name="faqQuestion7">Что такое кэш Addons?</string>
+    <string name="faqAnswer7">После выбора модов и нажатия "Включить Addons"\ntools создает копии твоих .vpk файлов (кэш) что бы вшить их в игру\nПри следующем запуске игры они будут активированы\nВы можете сбросить их кэш это удалит копии файлов в addons/workshop/id_Addons</string>
+
+    <string name="faqQuestion8">Как сбросить настройки tools</string>
+    <string name="faqAnswer8">Если указали неверный путь до игровой папки или файл gameinfo.txt был изменен и более не восстанавливается\nможно сбросить настройки tools в меню настроек и проверить кэш игры в Steam</string>
+</resources>

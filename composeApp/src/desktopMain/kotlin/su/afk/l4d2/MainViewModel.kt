@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.author_create
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import su.afk.l4d2.data.LogSystem
@@ -33,8 +35,8 @@ class MainViewModel : ViewModel() {
 
     init {
         loadFiles()
-        // todo понять как взять из файлов компиляции
-        LogSystem.addLog(priority = 1, message = "версия: 1.0.2 create by EtoZheSandy")
+
+        LogSystem.addLog(priority = 1, message = Res.string.author_create)
     }
 
     fun handlerEvents(event: MainState.Event) {
@@ -102,8 +104,6 @@ class MainViewModel : ViewModel() {
     /** замена файл gameinfo на модовый */
     private fun modGameInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            // todo добавить возможность самому указать путь до gameinfo.txt
-
             // Получаем путь до gameinfo.txt
             val gameinfo = findGameInfo(state.selectedFolderPath!!)
             if (gameinfo != null) {
@@ -116,8 +116,6 @@ class MainViewModel : ViewModel() {
                     saveGameInfoContent(content)
                 }
 
-                println("Содержимое gameinfo.txt сохранено. 1")
-
                 // копируем файлы в новые папки pack01
                 processAddonFile(
                     addons = state.addonEnabledList!!,
@@ -126,26 +124,21 @@ class MainViewModel : ViewModel() {
 
                 // а теперь вставляем в gameinfo инфу о модах и папках
                 updateGameInfoFile(addons = state.addonEnabledList!!, gameInfoFilePath = path)
-            } else {
-                LogSystem.addLog(1, "Файл gameinfo.txt не найден.")
             }
         }
     }
 
 
-    // замена файла gameinfo на стандартный
+    /** замена файла gameinfo на стандартный */
     private fun defGameInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             // Получаем путь до gameinfo.txt
             val gameinfo = findGameInfo(state.selectedFolderPath!!)
-            println("gameinfo = $gameinfo")
+
             if (gameinfo != null) {
                 val (path, content) = gameinfo
                 // заменяем файл на стандартный
-                val result = replaceGameInfoFile(path)
-                if (result.second == false) {
-                    LogSystem.addLog(1, result.first)
-                }
+                replaceGameInfoFile(path)
             }
         }
     }
@@ -165,9 +158,9 @@ class MainViewModel : ViewModel() {
     private fun updateGameInfo() {
         // Получаем путь до gameinfo.txt
         val gameinfo = findGameInfo(state.selectedFolderPath!!)
+
         if (gameinfo != null) {
             val (path, content) = gameinfo
-
             // Сохраняем содержимое gameinfo
             saveGameInfoContent(content)
         }

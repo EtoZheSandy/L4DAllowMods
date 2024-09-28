@@ -18,6 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.changeFolder
+import kotlinproject.composeapp.generated.resources.currentFolder
+import kotlinproject.composeapp.generated.resources.selectFolder
+import kotlinproject.composeapp.generated.resources.selectGameFolder
+import kotlinproject.composeapp.generated.resources.selectGameFolderL4D2
+import kotlinproject.composeapp.generated.resources.settingDeleteCacheAddons
+import kotlinproject.composeapp.generated.resources.settingDeleteCacheSetting
+import kotlinproject.composeapp.generated.resources.settingUpdateGameinfo
+import org.jetbrains.compose.resources.stringResource
 import su.afk.l4d2.MainState
 import su.afk.l4d2.MainViewModel
 import javax.swing.JFileChooser
@@ -32,15 +42,17 @@ fun SettingsScreen(
         horizontalAlignment = Alignment.Start
     ) {
         viewModel.state.errorMessage?.let { message ->
-            Text(text = message, color = MaterialTheme.colors.error)
+            Text(text = stringResource(message), color = MaterialTheme.colors.error)
         }
 
-        Text("Выберите папку с игрой", color = MaterialTheme.colors.onSurface)
+        Text(stringResource(Res.string.selectGameFolder), color = MaterialTheme.colors.onSurface)
+
+        val selectGameFolderL4D2 = stringResource(Res.string.selectGameFolderL4D2)
 
         Button(
             onClick = {
                 val chooser = JFileChooser(FileSystemView.getFileSystemView().homeDirectory)
-                chooser.dialogTitle = "Выберите папку с Left 4 Dead"
+                chooser.dialogTitle = selectGameFolderL4D2
                 chooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
                 chooser.isAcceptAllFileFilterUsed = false
                 val returnValue = chooser.showOpenDialog(null)
@@ -52,9 +64,9 @@ fun SettingsScreen(
             modifier = Modifier.padding(vertical = 10.dp)
         ) {
             if (viewModel.state.selectedFolderPath == null) {
-                Text("Выбрать папку")
+                Text(stringResource(Res.string.selectFolder))
             } else {
-                Text("Изменить папку")
+                Text(stringResource(Res.string.changeFolder))
             }
         }
 
@@ -63,7 +75,7 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text(
-                    "Сейчас выбрана папка:",
+                    stringResource(Res.string.currentFolder),
                     color = MaterialTheme.colors.onSurface,
                     fontWeight = FontWeight.Bold
                 )
@@ -86,19 +98,19 @@ fun SettingsScreen(
         Button(onClick = {
             viewModel.handlerEvents(MainState.Event.UpdateGameInfo)
         }) {
-            Text("Обновить gameinfo в кэше tools")
+            Text(stringResource(Res.string.settingUpdateGameinfo))
         }
 
         Button(onClick = {
             viewModel.handlerEvents(MainState.Event.ClearCacheAddons)
         }) {
-            Text("Удалить кэш addons")
+            Text(stringResource(Res.string.settingDeleteCacheAddons))
         }
 
         Button(onClick = {
             viewModel.handlerEvents(MainState.Event.ClearCache)
         }) {
-            Text("Удалить сохраненные настройки")
+            Text(stringResource(Res.string.settingDeleteCacheSetting))
         }
     }
 

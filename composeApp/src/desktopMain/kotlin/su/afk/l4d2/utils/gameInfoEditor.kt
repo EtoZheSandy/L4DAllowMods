@@ -1,5 +1,24 @@
 package su.afk.l4d2.utils
 
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.deleteAddonFoldersDone
+import kotlinproject.composeapp.generated.resources.deleteAddonFoldersFail
+import kotlinproject.composeapp.generated.resources.deleteAddonFoldersFailFolders
+import kotlinproject.composeapp.generated.resources.deleteAddonFoldersResult
+import kotlinproject.composeapp.generated.resources.findGameInfoPathFail
+import kotlinproject.composeapp.generated.resources.findGameInfoPathNotFound
+import kotlinproject.composeapp.generated.resources.processAddonFileCopyFail
+import kotlinproject.composeapp.generated.resources.processAddonFileDone
+import kotlinproject.composeapp.generated.resources.processAddonFilePathFail
+import kotlinproject.composeapp.generated.resources.replaceGameInfoFileDone
+import kotlinproject.composeapp.generated.resources.replaceGameInfoFileFailPath
+import kotlinproject.composeapp.generated.resources.replaceGameInfoFileSavedContentNull
+import kotlinproject.composeapp.generated.resources.updateGameInfoDone
+import kotlinproject.composeapp.generated.resources.updateGameInfoFailSave
+import kotlinproject.composeapp.generated.resources.updateGameInfoFilePath
+import kotlinproject.composeapp.generated.resources.updateGameInfoFileSearchBlockEnd
+import kotlinproject.composeapp.generated.resources.updateGameInfoFileSearchBlockStart
+import kotlinproject.composeapp.generated.resources.updateGameInfoNewPathsEmpty
 import su.afk.l4d2.data.LogSystem
 import su.afk.l4d2.data.loadGameInfoContent
 import java.io.File
@@ -9,23 +28,21 @@ fun findGameInfo(originalPath: String): Pair<String, String>? {
     // Разделение пути на компоненты
     val pathComponents = originalPath.split(File.separator)
     if (pathComponents.size < 3) {
-        LogSystem.addLog(1, "Файл gameinfo.txt не найден по указанному пути: $originalPath")
+        LogSystem.addLog(1, Res.string.findGameInfoPathFail, originalPath)
         return null
     }
 
     // Создаем новый путь без двух последних папок
     val trimmedPath = pathComponents.dropLast(2).joinToString(File.separator)
-    println("trimmedPath $trimmedPath")
 
     // Путь к файлу gameinfo.txt
     val gameInfoFilePath = File(trimmedPath, "gameinfo.txt")
-    println("new path $gameInfoFilePath")
 
     // Проверяем существование файла и возвращаем путь и содержимое
     return if (gameInfoFilePath.exists() && gameInfoFilePath.isFile) {
         gameInfoFilePath.absolutePath to gameInfoFilePath.readText() // Возвращаем путь и содержимое как пару
     } else {
-        LogSystem.addLog(1, "Файл gameinfo.txt не существует либо не найден по указанному пути: $originalPath")
+        LogSystem.addLog(1, Res.string.findGameInfoPathNotFound, originalPath)
         null
     }
 }
@@ -40,7 +57,7 @@ fun processAddonFile(addons: List<AddonInfo>, basePath: String) {
 
         // Проверяем, существует ли файл .vpk
         if (!originalFile.exists() || !originalFile.isFile) {
-            LogSystem.addLog(2, "Файл ${addon.filename} не найден по пути $basePath")
+            LogSystem.addLog(2, Res.string.processAddonFilePathFail, addon.filename, basePath)
             return
         }
 
@@ -60,9 +77,9 @@ fun processAddonFile(addons: List<AddonInfo>, basePath: String) {
                 newFile,
                 overwrite = true
             ) // Копируем файл в новую папку с новым именем
-            LogSystem.addLog(4, "Файл ${addon.filename} успешно скопирован и переименован в ${newFile.absolutePath}")
+            LogSystem.addLog(4, Res.string.processAddonFileDone, addon.filename, newFile.absolutePath)
         } catch (e: Exception) {
-            LogSystem.addLog(2, "Ошибка при копировании файла: ${addon.filename}| ${e.message}")
+            LogSystem.addLog(2, Res.string.processAddonFileCopyFail, addon.filename, e.message)
         }
     }
 }
@@ -78,9 +95,9 @@ fun deleteAddonFolders(addons: List<AddonInfo>, basePath: String) {
             try {
                 // Удаляем все содержимое папки перед её удалением
                 folderPath.deleteRecursively() // Удаляет папку и всё её содержимое
-                LogSystem.addLog(4, "Папка ${folderPath.absolutePath} успешно удалена.")
+                LogSystem.addLog(4, Res.string.deleteAddonFoldersDone, folderPath.absolutePath)
             } catch (e: Exception) {
-                LogSystem.addLog(2, "Ошибка при удалении папки ${folderPath.absolutePath}: ${e.message}")
+                LogSystem.addLog(2, Res.string.deleteAddonFoldersFail, folderPath.absolutePath, e.message)
             }
         } else {
 //            LogSystem.addLog(1, "Папка ${folderPath.absolutePath} не найдена или это не папка.")
@@ -96,17 +113,17 @@ fun deleteAddonFolders(addons: List<AddonInfo>, basePath: String) {
             if (!containsSubdirectories) {
                 try {
                     folder.deleteRecursively()
-                    LogSystem.addLog(4, "Папка ${folder.absolutePath} успешно удалена.")
+                    LogSystem.addLog(4, Res.string.deleteAddonFoldersDone, folder.absolutePath)
                 } catch (e: Exception) {
-                    LogSystem.addLog(2, "Ошибка при удалении папки ${folder.absolutePath}: ${e.message}")
+                    LogSystem.addLog(2, Res.string.deleteAddonFoldersFail, folder.absolutePath, e.message)
                 }
             } else {
-                LogSystem.addLog(4, "Папка ${folder.absolutePath} не была удалена, так как содержит другие папки.")
+                LogSystem.addLog(4, Res.string.deleteAddonFoldersFailFolders, folder.absolutePath)
             }
         }
     }
 
-    LogSystem.addLog(3, "Кэш Addons успешно удален")
+    LogSystem.addLog(3, Res.string.deleteAddonFoldersResult)
 }
 
 // Функция для добавления путей в блок SearchPaths в gameinfo.txt
@@ -115,7 +132,7 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
     val gameInfoFile = File(gameInfoFilePath)
 
     if (!gameInfoFile.exists() || !gameInfoFile.isFile) {
-        LogSystem.addLog(1, "Не удалось заменить файл gameinfo.txt не найден по указанному пути: $gameInfoFilePath")
+        LogSystem.addLog(1, Res.string.updateGameInfoFilePath, gameInfoFilePath)
         return
     }
 
@@ -124,14 +141,14 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
     // Ищем место для блока, содержащего Game update и другие пути
     val searchBlockStart = content.indexOf("{", content.indexOf("SearchPaths"))
     if (searchBlockStart == -1) {
-        LogSystem.addLog(4, "Начало блока с путями не найдено в файле gameinfo.txt")
+        LogSystem.addLog(4, Res.string.updateGameInfoFileSearchBlockStart)
         return
     }
 
     // Ищем закрывающую скобку для этого блока
     val searchBlockEnd = content.indexOf("}", searchBlockStart)
     if (searchBlockEnd == -1) {
-        LogSystem.addLog(4, "Закрывающая скобка для блока с путями не найдена в файле gameinfo.txt")
+        LogSystem.addLog(4, Res.string.updateGameInfoFileSearchBlockEnd)
         return
     }
 
@@ -147,7 +164,7 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
 
     // Если нет новых путей для добавления, выходим из функции
     if (newPaths.isEmpty()) {
-        LogSystem.addLog(4, "Нет новых путей для добавления в gameinfo.txt")
+        LogSystem.addLog(4, Res.string.updateGameInfoNewPathsEmpty)
         return
     }
 
@@ -162,9 +179,9 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
     // Сохраняем обновленное содержимое обратно в файл
     try {
         gameInfoFile.writeText(updatedContent)
-        LogSystem.addLog(3, "Файл gameinfo.txt успешно обновлен.")
+        LogSystem.addLog(3, Res.string.updateGameInfoDone)
     } catch (e: Exception) {
-        LogSystem.addLog(1, "Ошибка при сохранении файла gameinfo.txt: ${e.message}")
+        LogSystem.addLog(1, Res.string.updateGameInfoFailSave, e.message)
     }
 }
 
@@ -173,25 +190,24 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
 
 
 // Функция для замены содержимого файла gameinfo.txt на сохраненное в преференциях
-fun replaceGameInfoFile(gameInfoFilePath: String): Pair<String, Boolean> {
+fun replaceGameInfoFile(gameInfoFilePath: String) {
     // Загрузить сохраненное содержимое из преференций
     val savedContent = loadGameInfoContent()
 
     if (savedContent == null) {
-        LogSystem.addLog(1, "Нет сохраненного содержимого для замены gameinfo.txt")
-        return Pair("Нет сохраненного содержимого для замены", false)
+        LogSystem.addLog(1, Res.string.replaceGameInfoFileSavedContentNull)
+
     }
 
-    println("savedContent = $savedContent")
     val gameInfoFile = File(gameInfoFilePath)
 
     if (gameInfoFile.exists() && gameInfoFile.isFile) {
         // Записываем новое содержимое в файл
-        gameInfoFile.writeText(savedContent)
-        LogSystem.addLog(3, "Файл gameinfo.txt успешно восстановлен")
-        return Pair("Файл gameinfo.txt успешно восстановлен", true)
+        if (savedContent != null) {
+            gameInfoFile.writeText(savedContent)
+        }
+        LogSystem.addLog(3, Res.string.replaceGameInfoFileDone)
     } else {
-        LogSystem.addLog(1, "Файл gameinfo.txt не найден по указанному пути: $gameInfoFilePath")
-        return Pair("Файл gameinfo.txt не найден по указанному пути: $gameInfoFilePath", false)
+        LogSystem.addLog(1, Res.string.replaceGameInfoFileFailPath, gameInfoFilePath)
     }
 }

@@ -38,8 +38,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.addonsNoShow
+import kotlinproject.composeapp.generated.resources.addonsNotFoundEmpty
+import kotlinproject.composeapp.generated.resources.addonsShow
+import kotlinproject.composeapp.generated.resources.disable
+import kotlinproject.composeapp.generated.resources.enable
+import kotlinproject.composeapp.generated.resources.gamePathNull
+import kotlinproject.composeapp.generated.resources.noDescription
 import kotlinproject.composeapp.generated.resources.sort
 import loadImageBitmap
+import org.jetbrains.compose.resources.stringResource
 import su.afk.l4d2.MainState
 import su.afk.l4d2.MainViewModel
 import su.afk.l4d2.utils.AddonInfo
@@ -58,7 +66,7 @@ fun AddonList(
     Column {
         if (viewModel.state.selectedFolderPath == null) {
             Text(
-                "Сначала необходимо выбрать папку с игрой в настройках",
+                stringResource(Res.string.gamePathNull),
                 color = MaterialTheme.colors.error
             )
         } else {
@@ -76,9 +84,9 @@ fun AddonList(
                 )
                 {
                     if (showListAddons) {
-                        Text("Скрыть Addons")
+                        Text(stringResource(Res.string.addonsNoShow))
                     } else {
-                        Text("Показать Addons")
+                        Text(stringResource(Res.string.addonsShow))
                     }
                 }
 
@@ -113,10 +121,11 @@ fun AddonList(
                                 Icon(
                                     painter = org.jetbrains.compose.resources.painterResource(Res.drawable.sort),
                                     contentDescription = null,
-                                    modifier = if (!isFilterAsc.value) Modifier.size(32.dp).graphicsLayer {
-                                        this.rotationX =
-                                            180f // Переворачиваем иконку по горизонтали
-                                    } else Modifier.size(32.dp)
+                                    modifier = if (!isFilterAsc.value) Modifier.size(32.dp)
+                                        .graphicsLayer {
+                                            this.rotationX =
+                                                180f // Переворачиваем иконку по горизонтали
+                                        } else Modifier.size(32.dp)
                                 )
                             }
                         }
@@ -151,7 +160,7 @@ fun AddonListScreen(addonInfoList: List<AddonInfo>, viewModel: MainViewModel) {
     if (addonInfoList.isEmpty()) {
         if (!viewModel.state.loadingAddonInfo) {
             Text(
-                "Не удалось найти ваши Addons проверьте папку left4dead2/addons/workshop в игре и убедитесь что она не пуста",
+                stringResource(Res.string.addonsNotFoundEmpty),
                 color = MaterialTheme.colors.error
             )
         }
@@ -201,9 +210,9 @@ fun AddonListScreen(addonInfoList: List<AddonInfo>, viewModel: MainViewModel) {
                             )
                         ) {
                             if (viewModel.state.addonEnabledList?.contains(addon) == true) {
-                                Text("Выключить")
+                                Text(stringResource(Res.string.disable))
                             } else {
-                                Text("Включить")
+                                Text(stringResource(Res.string.enable))
                             }
                         }
                     }
@@ -220,7 +229,7 @@ fun AddonListScreen(addonInfoList: List<AddonInfo>, viewModel: MainViewModel) {
                             color = MaterialTheme.colors.onSurface
                         )
                         Text(
-                            text = "${addon.description ?: "Нет описания"}",
+                            text = addon.description ?: stringResource(Res.string.noDescription),
                             color = MaterialTheme.colors.primary
                         )
                     }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="author_create">Created by EtoZheSandy</string>
+    <string name="main">Start</string>
+    <string name="myAddons">My Addons</string>
+    <string name="faq">FAQ</string>
+    <string name="setting">Settings</string>
+    <string name="logs">Logs</string>
+    <string name="gamePathNull">First, select the game folder in the settings</string>
+    <string name="gameAddonsNotSelect">Select which Addons need to be included in Addons</string>
+    <string name="gameDoneFAQ">Enjoy the game! All answers are in the FAQ</string>
+    <string name="addonsOn">Enable Addons</string>
+    <string name="addonsOff">Disable Addons</string>
+    <string name="addonsNoShow">Hide Addons</string>
+    <string name="addonsShow">Show Addons</string>
+    <string name="addonsNotFoundEmpty">Could not find your Addons, check the folder left4dead2/addons/workshop in the game and make sure it is not empty</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="noDescription">No description</string>
+    <string name="selectGameFolder">Select the game folder</string>
+    <string name="selectGameFolderL4D2">Select the Left 4 Dead 2 folder</string>
+    <string name="selectFolder">Select folder</string>
+    <string name="changeFolder">Change folder</string>
+    <string name="currentFolder">Currently selected folder:</string>
+    <string name="settingUpdateGameinfo">Update gameinfo in the tools cache</string>
+    <string name="settingDeleteCacheAddons">Delete addons cache</string>
+    <string name="settingDeleteCacheSetting">Delete saved settings</string>
+    <string name="saveCacheToFile">Error saving Addons cache: %1$s</string>
+    <string name="loadCacheFromFile">Error loading Addons cache: %1$s</string>
+    <string name="clearPreferencesDone">All settings have been cleared</string>
+    <string name="clearPreferencesFail">Error clearing settings: %1$s</string>
+    <string name="parseVpkFileSignature">Invalid VPK file signature: %1$s</string>
+    <string name="parseVpkFileVersion">Unsupported VPK file version: %1$s</string>
+    <string name="parseVpkFileTerminator">Invalid terminator in VPK file: %1$s</string>
+    <string name="findGameInfoPathFail">gameinfo.txt file not found at the specified path: %1$s</string>
+    <string name="findGameInfoPathNotFound">gameinfo.txt file does not exist or was not found at the specified path: %1$s</string>
+    <string name="processAddonFilePathFail">File %1$s not found at path: %2$s</string>
+    <string name="processAddonFileDone">File %1$s successfully copied and renamed: %2$s</string>
+    <string name="processAddonFileCopyFail">Error copying file: %1$s | %2$s</string>
+    <string name="deleteAddonFoldersDone">Folder %1$s successfully deleted</string>
+    <string name="deleteAddonFoldersFail">Error deleting folder %1$s | %2$s</string>
+    <string name="deleteAddonFoldersFailFolders">Folder %1$s was not deleted because it contains other folders</string>
+    <string name="deleteAddonFoldersResult">Addons cache successfully deleted</string>
+    <string name="updateGameInfoFilePath">Failed to replace gameinfo.txt, file not found at the specified path: %1$s</string>
+    <string name="updateGameInfoFileSearchBlockStart">Start of the paths block not found in gameinfo.txt, please check the file for correctness</string>
+    <string name="updateGameInfoFileSearchBlockEnd">Closing brace for the paths block not found in gameinfo.txt, please check the file for correctness</string>
+    <string name="updateGameInfoNewPathsEmpty">No new paths to add to gameinfo.txt</string>
+    <string name="updateGameInfoDone">gameinfo.txt successfully updated</string>
+    <string name="updateGameInfoFailSave">Error saving gameinfo.txt: %1$s</string>
+    <string name="replaceGameInfoFileSavedContentNull">No saved content to replace gameinfo.txt, reset tools settings and check game files</string>
+    <string name="replaceGameInfoFileSavedContentNullError">No saved content to replace</string>
+    <string name="replaceGameInfoFileDone">gameinfo.txt successfully restored</string>
+    <string name="replaceGameInfoFileFailPath">gameinfo.txt not found at the specified path: %1$s</string>
+    <string name="findWorkshopFolderFailPath">The specified path does not exist or is not a folder</string>
+    <string name="findWorkshopFolderFailWorkshopFolder">The "workshop" folder was not found in the specified directory, please specify the path to the folder where the game is installed</string>
+
+    <string name="faqQuestion1">The server does not allow me, error in gameinfo.txt</string>
+    <string name="faqAnswer1">Some servers check this file for compliance with the standard,\nif it is modified, it will not let you on that server</string>
+
+    <string name="faqQuestion2">Why is gameinfo modified?</string>
+    <string name="faqAnswer2">Tools modify it to enable Addons in the game</string>
+
+    <string name="faqQuestion3">But how does the game with mods work on such a server?</string>
+    <string name="faqAnswer3">Before starting the game:\n1. Enable Addons\n2. Go to the game's main menu (mods are already loaded at this point)\n3. Disable Addons (the gameinfo file is restored to its original state)</string>
+
+    <string name="faqQuestion4">Tools do not see my addons!</string>
+    <string name="faqAnswer4">Check the addons/workshop folder\nIf there are no .vpk files, subscribe to Addons in Steam and enter the game to download them</string>
+
+    <string name="faqQuestion5">Addons do not work in the game</string>
+    <string name="faqAnswer5">You may have forgotten to select and enable them BEFORE entering the game (this is important)\nTry again and re-enter the game</string>
+
+    <string name="faqQuestion6">How does Addons selection work?</string>
+    <string name="faqAnswer6">After specifying the game folder, tools search for a folder named addons/workshop\nAnd extract Addons information from .vpk files\nIf this folder does not exist, you can create it and place .vpk files inside</string>
+
+    <string name="faqQuestion7">What is Addons cache?</string>
+    <string name="faqAnswer7">After selecting mods and clicking "Enable Addons",\ntools create copies of your .vpk files (cache) to integrate them into the game\nThey will be activated the next time the game starts\nYou can clear this cache, which will delete copies of the files in addons/workshop/id_Addons</string>
+
+    <string name="faqQuestion8">How to reset tools settings</string>
+    <string name="faqAnswer8">If you specified the wrong game folder path or the gameinfo.txt file was modified and is no longer restoring,\nyou can reset the tools settings in the settings menu and verify the game cache in Steam</string>
+</resources>

@@ -1,5 +1,8 @@
 ﻿package su.afk.l4d2.data
 
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.loadCacheFromFile
+import kotlinproject.composeapp.generated.resources.saveCacheToFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import su.afk.l4d2.utils.AddonInfo
@@ -27,7 +30,7 @@ fun saveCacheToFile(addonCache: Map<String, AddonInfo>) {
             Json.encodeToString(addonCache.values.toList()) // Преобразуем список AddonInfo в JSON
         cacheFile.writeText(json) // Сохраняем JSON в файл
     } catch (e: Exception) {
-        LogSystem.addLog(1, "Ошибка при сохранении кэша Addons: ${e.message}")
+        LogSystem.addLog(1, Res.string.saveCacheToFile)
     }
 }
 
@@ -42,7 +45,7 @@ fun loadCacheFromFile(): Map<String, AddonInfo> {
                 Json.decodeFromString<List<AddonInfo>>(json) // Десериализуем в список AddonInfo
             return cachedAddons.associateBy { it.filename } // Преобразуем в Map с ключом filename
         } catch (e: Exception) {
-            LogSystem.addLog(1, "Ошибка при загрузке кэша Addons: ${e.message}")
+            LogSystem.addLog(1, Res.string.loadCacheFromFile)
         }
     }
     return emptyMap() // Возвращаем пустую карту, если файл не найден или произошла ошибка

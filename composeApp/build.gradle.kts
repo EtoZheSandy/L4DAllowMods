@@ -32,14 +32,13 @@ kotlin {
     }
 }
 
-
 compose.desktop {
     application {
         mainClass = "su.afk.l4d2.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Msi, TargetFormat.Exe)
             packageName = "L4D Allow Mods"
-            packageVersion = "1.0.2"
+            packageVersion = "1.0.3"
             description = "L4D Allow Mods"
             copyright = "EtoZheSandy"
             vendor = "EtoZheSandy"
