@@ -1,0 +1,38 @@
+name: CI
+
+# Контролирует, когда запускать workflow
+on:
+  # Запускается при push или pull request в ветку master
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  # Позволяет запускать workflow вручную
+  workflow_dispatch:
+
+# Описание jobs (заданий), которые выполняются последовательно или параллельно
+jobs:
+  # Задание для сборки проекта
+  build:
+    # Тип runner'а для выполнения задания
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг: Клонирование репозитория
+      - uses: actions/checkout@v4
+
+      # Установка JDK
+      - name: Set up JDK ${{ matrix.kotlin-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # Версия JDK от AdoptOpenJDK (ранее AdoptOpenJDK)
+          java-version: 17
+
+      # Установка Gradle для сборки проекта
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
+
+      # Запуск сборки проекта на разных платформах
+      - name: Build with Gradle
+        run: ./gradlew build
