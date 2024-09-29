@@ -15,7 +15,6 @@ on:
 jobs:
   # Задание для сборки проекта
   build:
-    # Тип runner'а для выполнения задания
     runs-on: ubuntu-latest
 
     steps:
@@ -26,13 +25,32 @@ jobs:
       - name: Set up JDK ${{ matrix.kotlin-version }}
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin' # Версия JDK от AdoptOpenJDK (ранее AdoptOpenJDK)
+          distribution: 'temurin' # Версия JDK от AdoptOpenJDK
           java-version: 17
+
+      # Добавляем шаг для предоставления прав на выполнение файла gradlew
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x ./gradlew
 
       # Установка Gradle для сборки проекта
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
 
-      # Запуск сборки проекта на разных платформах
+      # Запуск сборки проекта
       - name: Build with Gradle
         run: ./gradlew build
+
+      # Запуск тестов
+      - name: Run tests
+        run: ./gradlew test
+
+      # Настройка кэша Gradle
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle
