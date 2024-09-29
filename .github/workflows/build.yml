@@ -40,10 +40,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      # Запуск тестов
-      - name: Run tests
-        run: ./gradlew test
-
       # Настройка кэша Gradle
       - name: Cache Gradle packages
         uses: actions/cache@v3
