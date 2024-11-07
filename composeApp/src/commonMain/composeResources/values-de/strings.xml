@@ -77,4 +77,8 @@
 
     <string name="faqQuestion8">Wie setzt man die Tools-Einstellungen zurück?</string>
     <string name="faqAnswer8">Wenn Sie den falschen Pfad zum Spielordner angegeben haben oder die Datei gameinfo.txt geändert wurde und nicht mehr wiederhergestellt wird,\nkönnen Sie die Tools-Einstellungen im Menü zurücksetzen und den Spiel-Cache in Steam überprüfen</string>
+
+    <string name="autoHideMods">Automatisches Ausblenden der Mods nach Spielstart</string>
+    <string name="faqQuestion9">Automatisches Mod-Ausblenden</string>
+    <string name="faqAnswer9">Funktioniert sehr einfach: Es erspart das Drücken der Schaltfläche "Deaktivieren" nach dem Laden des Spiels,\nindem es die Datei automatisch durch die Standarddatei ersetzt.\nBeim Beenden des Spiels wird die Datei wieder durch die Mod-Datei ersetzt.</string>
 </resources>

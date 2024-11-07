@@ -77,4 +77,8 @@
 
     <string name="faqQuestion8">Comment réinitialiser les paramètres des outils ?</string>
     <string name="faqAnswer8">Si vous avez spécifié un chemin incorrect vers le dossier du jeu ou si le fichier gameinfo.txt a été modifié et ne se restaure plus,\nvous pouvez réinitialiser les paramètres des outils dans le menu et vérifier le cache du jeu dans Steam</string>
+
+    <string name="autoHideMods">Masquage automatique des mods après le lancement du jeu</string>
+    <string name="faqQuestion9">Masquage automatique des mods</string>
+    <string name="faqAnswer9">Fonctionnement très simple : évite de devoir appuyer sur le bouton "Désactiver" après le chargement du jeu,\nen remplaçant le fichier par le fichier standard.\nLors de la sortie du jeu, il revient au fichier modifié.</string>
 </resources>

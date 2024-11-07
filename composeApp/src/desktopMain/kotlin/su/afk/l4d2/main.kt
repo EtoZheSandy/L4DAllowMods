@@ -28,13 +28,12 @@ fun main() =
             resizable = true,
             icon = org.jetbrains.compose.resources.painterResource(Res.drawable.icon)
         ) {
-
             val window = this.window // Получаем текущее окно
 
             var dragOffset by remember { mutableStateOf(Point(0, 0)) }
 
             DisposableEffect(Unit) {
-                window.setLocationByPlatform(true) // Позволяет платформе управлять первоначальным расположением окна
+                window.isLocationByPlatform = true // Позволяет платформе управлять первоначальным расположением окна
 
                 val listener = object : MouseAdapter() {
                     override fun mousePressed(e: MouseEvent) {
@@ -77,6 +76,3 @@ fun main() =
             App(onCloseRequest = ::exitApplication)
         }
     }
-
-
-

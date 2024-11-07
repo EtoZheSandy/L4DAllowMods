@@ -8,12 +8,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.author_create
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import su.afk.l4d2.data.LogSystem
 import su.afk.l4d2.data.clearPreferences
+import su.afk.l4d2.data.loadAutoHideMods
 import su.afk.l4d2.data.loadEnableAddonsList
 import su.afk.l4d2.data.loadFolderPath
 import su.afk.l4d2.data.loadGameInfoContent
+import su.afk.l4d2.data.saveAutoHideMods
 import su.afk.l4d2.data.saveEnableAddonsList
 import su.afk.l4d2.data.saveFolderPath
 import su.afk.l4d2.data.saveGameInfoContent
@@ -52,6 +55,9 @@ class MainViewModel : ViewModel() {
             MainState.Event.UpdateGameInfo -> updateGameInfo()
             MainState.Event.ShowListAddons -> showListAddons()
             is MainState.Event.SortAddons -> sortAddons(event.isFilterAsc)
+            is MainState.Event.ProcessStarted -> onProcessStarted()
+            is MainState.Event.ProcessStopped -> onProcessStopped()
+            is MainState.Event.SetAutoHideMods -> setAutoHideMods(enabled = event.enabled)
         }
     }
 
@@ -94,12 +100,26 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    /** авто скрытие модов */
+    private fun setAutoHideMods(enabled: Boolean? = null) {
+        state = state.copy(
+            autoHideMods = enabled ?: state.autoHideMods,
+        )
+        saveAutoHideMods(state.autoHideMods to state.hideAfterSeconds)
+    }
+
     /** загрузка сохраненного пути до игровой директории
      *  и списка включенных модов */
     private fun loadFiles() {
         val savedPath = loadFolderPath()
         val addonEnabled = loadEnableAddonsList()
-        state = state.copy(selectedFolderPath = savedPath, addonEnabledList = addonEnabled)
+        val autoHideSettings = loadAutoHideMods()
+
+        val autoHideMods = autoHideSettings?.first ?: false
+        val hideAfterSeconds = autoHideSettings?.second ?: 30
+
+        state = state.copy(selectedFolderPath = savedPath, addonEnabledList = addonEnabled,
+            autoHideMods = autoHideMods, hideAfterSeconds = hideAfterSeconds)
     }
 
     /** выбор модов вкл/выкл для gameinfo */
@@ -195,6 +215,23 @@ class MainViewModel : ViewModel() {
                 addons = state.addonEnabledList!!,
                 basePath = state.selectedFolderPath!!
             )
+        }
+    }
+
+    /** Автозамена файла на модовый */
+    private fun onProcessStarted() {
+        if(state.autoHideMods) {
+            viewModelScope.launch {
+                delay(state.hideAfterSeconds * 1000L) // Ждем заданное количество секунд
+                defGameInfo() // Выполняем действие после таймера
+            }
+        }
+    }
+
+    /** Автозамена файла на стандартный */
+    private fun onProcessStopped() {
+        if(state.autoHideMods) {
+            modGameInfo()
         }
     }
 }

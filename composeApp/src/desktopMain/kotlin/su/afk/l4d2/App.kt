@@ -46,6 +46,7 @@ import su.afk.l4d2.presenter.logs.LogsBox
 import su.afk.l4d2.presenter.logs.LogsScreen
 import su.afk.l4d2.presenter.main.MainScreen
 import su.afk.l4d2.presenter.setting.SettingsScreen
+import su.afk.l4d2.utils.ProcessChecker
 import su.afk.l4d2.utils.openGitHubLink
 
 
@@ -57,6 +58,9 @@ fun App(onCloseRequest: () -> Unit) {
 
 //    val viewModel: MainViewModel = remember { MainViewModel() }
     val viewModel = viewModel<MainViewModel>()
+
+    // проверка процесса для автовключения модов
+    ProcessChecker.checkProcess(viewModel)
 
     AppTheme {
         // Основной контейнер, разделяющий экран на две части

@@ -63,6 +63,7 @@ fun AddonList(
 ) {
     val showListAddons = viewModel.state.showListAddons
 
+    //todo добавить поиск по модам аля окно поиска для ввода
     val isFilterAsc =
         remember { mutableStateOf(true) } // Состояние фильтрации (true - включенные сначала)
 

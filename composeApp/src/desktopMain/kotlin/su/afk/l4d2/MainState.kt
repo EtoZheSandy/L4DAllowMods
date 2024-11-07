@@ -11,7 +11,9 @@ class MainState {
         val addonInfoList: List<AddonInfo>? = null,
         val addonEnabledList: List<AddonInfo>? = null,
         val showListAddons: Boolean = false,
-        val sortedAddonList: List<AddonInfo>? = null
+        val sortedAddonList: List<AddonInfo>? = null,
+        val autoHideMods: Boolean = false,
+        val hideAfterSeconds: Int = 5
     )
 
     sealed class Event {
@@ -37,5 +39,11 @@ class MainState {
         object ShowListAddons : Event()
         // сортировка addons
         data class SortAddons(val isFilterAsc: Boolean) : Event()
+        // процесс запущен
+        object ProcessStarted : Event()
+        // процесс закрыт
+        object ProcessStopped : Event()
+        // изменение чекбокса на автоскрытие
+        data class SetAutoHideMods(val enabled: Boolean) : Event()
     }
 }

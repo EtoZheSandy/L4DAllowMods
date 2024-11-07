@@ -77,4 +77,8 @@
 
     <string name="faqQuestion8">ツールの設定をリセットするには？</string>
     <string name="faqAnswer8">ゲームフォルダのパスが間違って指定されているか、gameinfo.txtファイルが変更されて復元されなくなった場合は、\n設定メニューでツールの設定をリセットし、Steamでゲームのキャッシュを確認してください</string>
+
+    <string name="autoHideMods">ゲーム起動後の自動Mod非表示</string>
+    <string name="faqQuestion9">自動Mod非表示</string>
+    <string name="faqAnswer9">非常にシンプルな動作で、ゲーム読み込み後に「無効化」ボタンを押す手間を省きます。\n標準ファイルに置き換え、\nゲーム終了時にはModファイルに戻します。</string>
 </resources>

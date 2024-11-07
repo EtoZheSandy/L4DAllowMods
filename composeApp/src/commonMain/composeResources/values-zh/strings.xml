@@ -77,4 +77,8 @@
 
     <string name="faqQuestion8">如何重置工具设置？</string>
     <string name="faqAnswer8">如果指定了错误的游戏文件夹路径或gameinfo.txt文件被更改且无法恢复\n可以在设置菜单中重置工具设置，并在Steam中检查游戏缓存</string>
+
+    <string name="autoHideMods">游戏启动后自动隐藏模组</string>
+    <string name="faqQuestion9">自动隐藏模组</string>
+    <string name="faqAnswer9">这个功能非常简单，可以在游戏加载后自动隐藏模组，避免手动点击“关闭”按钮。\n它会将文件替换为默认文件，\n游戏退出后则切换回模组文件。</string>
 </resources>

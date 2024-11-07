@@ -77,4 +77,8 @@
 
     <string name="faqQuestion8">¿Cómo restablecer la configuración de las herramientas?</string>
     <string name="faqAnswer8">Si especificaste una ruta incorrecta a la carpeta del juego o el archivo gameinfo.txt fue modificado y no se restaura más,\npuedes restablecer la configuración de las herramientas en el menú y verificar la caché del juego en Steam</string>
+
+    <string name="autoHideMods">Ocultación automática de mods después de iniciar el juego</string>
+    <string name="faqQuestion9">Ocultación automática de mods</string>
+    <string name="faqAnswer9">Funciona de manera muy simple: ayuda a evitar tener que presionar el botón "Desactivar" después de cargar el juego,\nreemplazando el archivo con el archivo estándar.\nAl salir del juego, vuelve al archivo modificado.</string>
 </resources>

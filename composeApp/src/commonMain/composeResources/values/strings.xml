@@ -77,4 +77,8 @@
 
     <string name="faqQuestion8">How to reset tools settings</string>
     <string name="faqAnswer8">If you specified the wrong game folder path or the gameinfo.txt file was modified and is no longer restoring,\nyou can reset the tools settings in the settings menu and verify the game cache in Steam</string>
+
+    <string name="autoHideMods">Auto-hide mods after game launch</string>
+    <string name="faqQuestion9">Auto-hide mods</string>
+    <string name="faqAnswer9">Works very simply: helps avoid pressing the "Disable" button after the game loads,\nby automatically replacing the file with the standard one.\nWhen exiting the game, it switches back to the modded file.</string>
 </resources>

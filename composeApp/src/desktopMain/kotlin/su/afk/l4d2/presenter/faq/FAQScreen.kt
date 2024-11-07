@@ -35,6 +35,7 @@ import kotlinproject.composeapp.generated.resources.faqAnswer5
 import kotlinproject.composeapp.generated.resources.faqAnswer6
 import kotlinproject.composeapp.generated.resources.faqAnswer7
 import kotlinproject.composeapp.generated.resources.faqAnswer8
+import kotlinproject.composeapp.generated.resources.faqAnswer9
 import kotlinproject.composeapp.generated.resources.faqQuestion1
 import kotlinproject.composeapp.generated.resources.faqQuestion2
 import kotlinproject.composeapp.generated.resources.faqQuestion3
@@ -43,6 +44,7 @@ import kotlinproject.composeapp.generated.resources.faqQuestion5
 import kotlinproject.composeapp.generated.resources.faqQuestion6
 import kotlinproject.composeapp.generated.resources.faqQuestion7
 import kotlinproject.composeapp.generated.resources.faqQuestion8
+import kotlinproject.composeapp.generated.resources.faqQuestion9
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -80,6 +82,11 @@ fun FAQScreen() {
         FAQItem(
             question = stringResource(Res.string.faqQuestion8),
             answer = stringResource(Res.string.faqAnswer8)
+        ),
+
+        FAQItem(
+            question = stringResource(Res.string.faqQuestion9),
+            answer = stringResource(Res.string.faqAnswer9)
         ),
     )
 
