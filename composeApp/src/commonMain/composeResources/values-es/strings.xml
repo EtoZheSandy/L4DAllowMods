@@ -53,6 +53,7 @@
     <string name="replaceGameInfoFileFailPath">El archivo gameinfo.txt no se encontró en la ruta especificada: %1$s</string>
     <string name="findWorkshopFolderFailPath">La ruta especificada no existe o no es una carpeta</string>
     <string name="findWorkshopFolderFailWorkshopFolder">No se encontró la carpeta "workshop" en el directorio especificado, indique la ruta a la carpeta donde está instalado el juego</string>
+    <string name="addonsWarningEnable">No actives todos los mods a la vez; el juego no está diseñado para eso y podría fallar</string>
 
     <string name="faqQuestion1">El servidor no me deja entrar debido a un error en gameinfo.txt</string>
     <string name="faqAnswer1">Algunos servidores comprueban este archivo para asegurarse de que cumple con el estándar,\nsi se ha modificado, no te permitirá entrar en ese servidor</string>

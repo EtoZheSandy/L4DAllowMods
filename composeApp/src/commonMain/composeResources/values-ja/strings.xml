@@ -53,6 +53,7 @@
     <string name="replaceGameInfoFileFailPath">指定されたパスにgameinfo.txtファイルが見つかりませんでした：%1$s</string>
     <string name="findWorkshopFolderFailPath">指定されたパスが存在しないかフォルダではありません</string>
     <string name="findWorkshopFolderFailWorkshopFolder">指定されたディレクトリに"workshop"フォルダが見つかりませんでした。ゲームがインストールされているフォルダのパスを指定してください</string>
+    <string name="addonsWarningEnable">すべてのMODを一度に有効にしないでください。ゲームがそれを想定しておらず、クラッシュする可能性があります</string>
 
     <string name="faqQuestion1">サーバーはgameinfo.txtエラーで私を許可しません</string>
     <string name="faqAnswer1">一部のサーバーは、このファイルが標準に準拠しているかを確認します。\n変更されている場合、このサーバーに入ることはできません</string>

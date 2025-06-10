@@ -2,24 +2,20 @@ package su.afk.l4d2.presenter.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.addonsOff
 import kotlinproject.composeapp.generated.resources.addonsOn
+import kotlinproject.composeapp.generated.resources.addonsWarningEnable
 import kotlinproject.composeapp.generated.resources.autoHideMods
 import kotlinproject.composeapp.generated.resources.gameAddonsNotSelect
 import kotlinproject.composeapp.generated.resources.gameDoneFAQ
@@ -76,6 +72,12 @@ fun MainScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
+
+            Text(
+                stringResource(Res.string.addonsWarningEnable),
+                color = MaterialTheme.colors.onSurface,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

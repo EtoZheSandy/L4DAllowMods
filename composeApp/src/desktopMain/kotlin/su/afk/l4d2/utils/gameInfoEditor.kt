@@ -51,7 +51,7 @@ fun findGameInfo(originalPath: String): Pair<String, String>? {
 fun processAddonFile(addons: List<AddonInfo>, basePath: String) {
 
     for (addon in addons) {
-        println("addon.filename: ${addon.filename}, basePath: $basePath")
+        // println("addon.filename: ${addon.filename}, basePath: $basePath")
         // Определяем полный путь к файлу .vpk
         val originalFile = File(basePath, addon.filename)
 
