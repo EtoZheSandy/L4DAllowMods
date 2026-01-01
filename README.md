@@ -1,42 +1,77 @@
-# **🧩 L4D Allow Mods**
+# 🧩 L4D Allow Mods — Enable Any Mods on Any Server (Left 4 Dead 2)
 
 <img src="./Images/1.png" width="55%" />
 
-## **📜 Description En**
+## 🚀 What is L4D Allow Mods?
 
-**L4DAllowMods** is a tool that allows you to activate modifications and addons from the Steam Workshop in **Left 4 Dead 2**, enable versus, coop, and other modes.
-- Easy and user-friendly interface
-- Remembers settings and selected Addons
-- Fast performance
-- The program works by modifying the `gameinfo.txt` file, allowing any mods in the game, bypassing server restrictions.
-- Available in 8 languages (GPT): English, Russian, Chinese, Spanish, Arabic, Japanese, French, German
+**L4D Allow Mods** is a powerful utility for **Left 4 Dead 2** that allows you to **enable any mods from the Steam Workshop**, including **cheat mods and custom addons**, on **any server and in any game mode**.
 
-## **🛠️ Tech Stack**
+The tool removes server-side limitations that normally block addons and gives players **full control over their game content**.
 
-The project is developed using modern technologies that ensure flexibility and efficiency:
+Works in **Versus, Coop, Survival**, and other modes.
 
-- **🧑‍💻 Kotlin Multiplatform**: The primary programming language, enabling cross-platform code development.
-- **🎨 Jetpack Compose Desktop**: A library for building beautiful and intuitive user interfaces on Windows.
-- **⚙️ Coroutines**: A powerful tool for managing asynchronous operations and improving performance.
-- **📦 Gradle**: The project's build system, ensuring fast and reliable compilation.
-- **🗃️ Kotlinx Serialization Json**: Used for saving and loading data, such as addon file caches.
+---
 
+## 🔥 Key Features
 
-## **📜 Описание Ru**
+- ✅ Enable **any mods on any server**
+- 🧩 Supports **Workshop mods and cheat addons**
+- ⚔️ Works in **Versus / Coop / Survival**
+- 🧠 Remembers selected mods and settings
+- ⚡ Instant apply, no complex setup
+- 🌍 UI available in **8 languages**
+- 🛠️ No DLL injection, no memory hacks, no launchers
 
-**L4DAllowMods** — это инструмент, который позволяет активировать модификации и дополнения из мастерской Steam в игре **Left 4 Dead 2**, в режиме сражения, кооператив и других режимы.
-- Легкий и понятный интерфейс
-- Запоминание настроек и выбранных Addons
-- Быстрая скорость работы
-- Программа работает через изменение файла `gameinfo.txt`, разрешая в игре любые моды, обходя ограничения серверов.
-- Доступно на 8 языках (GPT): Английский, Русский, Китайский, Испанский, Арабский, Японский, Француский, Немецкий
+---
 
-## **🛠️ Стек технологий**
+## 🧠 How It Works
 
-Проект разработан с использованием современных технологий, обеспечивающих гибкость и эффективность:
+**L4D Allow Mods** modifies the `gameinfo.txt` file, allowing **Left 4 Dead 2** to load **any addons**, bypassing standard server restrictions.
 
-- **🧑‍💻 Kotlin Multiplatform**: Основной язык разработки, позволяющий писать код для различных платформ.
-- **🎨 Jetpack Compose Desktop**: Библиотека для создания красивого и интуитивного пользовательского интерфейса на Windows.
-- **⚙️ Coroutines**: Мощный инструмент для управления асинхронными операциями и повышения производительности.
-- **📦 Gradle**: Система сборки проекта, обеспечивающая быструю и надежную компиляцию кода.
-- **🗃️ Kotlinx Serialization Json**: Используется для сохранения и загрузки данных, таких как кэш файлов модификаций.
+No runtime hooks, no patching, no game file corruption.
+
+Just clean and effective behavior control.
+
+---
+
+## 🎯 Who Is This For?
+
+- Players who want to **use mods in Versus**
+- Fans of **custom gameplay and experiments**
+- Mod testers and map creators
+- Content creators and video makers
+- Anyone tired of server restrictions 😈
+
+---
+
+## 🌐 Supported Languages
+
+- English  
+- Russian  
+- Chinese  
+- Spanish  
+- Arabic  
+- Japanese  
+- French  
+- German  
+
+---
+
+## 🛠️ Tech Stack
+
+- Kotlin Multiplatform
+- Jetpack Compose Desktop (Windows)
+- Kotlin Coroutines
+- Gradle
+- Kotlinx Serialization (JSON)
+
+---
+
+## ⚠️ Disclaimer
+
+This project is provided for **educational and research purposes only**.  
+Use it responsibly and respect server rules.
+
+---
+
+⭐ If you find this project useful, consider starring the repository!
