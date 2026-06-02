@@ -1,79 +1,67 @@
 ﻿package su.afk.l4d2.presenter.logs
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
-
 import su.afk.l4d2.data.LogSystem
 
 @Composable
 fun LogsBox() {
-
-    // Отслеживаем состояние логов через StateFlow
     val logs = LogSystem.logsFlow.collectAsStateWithLifecycle().value
-
-    // Фильтрация логов: check = false и priority = 1, 2, 3
     val filteredLogs = remember(logs) {
         logs.filter { !it.check && it.priority in 1..3 }
     }
 
-    // Если есть логи для отображения, показываем их
     if (filteredLogs.isNotEmpty()) {
-        Box(
+        Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight() // Высота подстраивается под содержимое
-                .background(
-                    MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
-                    shape = RoundedCornerShape(6.dp)
-                )
-                .padding(4.dp)
+                .heightIn(max = 220.dp),
+            color = MaterialTheme.colorScheme.inverseSurface.copy(alpha = 0.96f),
+            contentColor = MaterialTheme.colorScheme.inverseOnSurface,
+            shape = RoundedCornerShape(8.dp),
+            tonalElevation = 8.dp,
+            shadowElevation = 8.dp
         ) {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(max = 200.dp), // Максимальная высота для списка логов
-                verticalArrangement = Arrangement.Top
+                modifier = Modifier.padding(6.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 items(filteredLogs) { log ->
                     LogRow(
                         log = log,
-                        onDismiss = {
-                            LogSystem.markLogAsChecked(log)
-                        }
+                        onDismiss = { LogSystem.markLogAsChecked(log) }
                     )
                 }
             }
         }
     }
-    // Если логов нет, ничего не отображаем, и область не блокирует клики
 }
 
 @Composable
@@ -81,7 +69,6 @@ fun LogRow(
     log: LogSystem.ErrorLog,
     onDismiss: () -> Unit
 ) {
-    // Автоматическое закрытие лога через 5 секунд
     LaunchedEffect(log.id) {
         delay(8000)
         onDismiss()
@@ -90,32 +77,45 @@ fun LogRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 8.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        // Текст лога
-        Text(
-            text = log.message,
-            color = Color.White,
-            fontSize = 14.sp,
-            modifier = Modifier.weight(1f)
+        Icon(
+            imageVector = log.icon(),
+            contentDescription = null,
+            tint = log.tint(),
+            modifier = Modifier.size(20.dp)
         )
-
-        Spacer(modifier = Modifier.width(4.dp))
-
-        // Иконка "крестик"
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = log.message,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.inverseOnSurface
+            )
+        }
         IconButton(onClick = onDismiss) {
             Icon(
-                imageVector = Icons.Default.Close,
+                imageVector = Icons.Filled.Close,
                 contentDescription = "Close log",
-                tint = when (log.priority) {
-                    1 -> Color.Red
-                    2 -> Color.Yellow
-                    3 -> Color.Green
-                    else -> Color.White
-                },
-                modifier = Modifier.size(20.dp)
+                tint = MaterialTheme.colorScheme.inverseOnSurface,
+                modifier = Modifier.size(18.dp)
             )
         }
     }
 }
+
+private fun LogSystem.ErrorLog.icon(): ImageVector =
+    when (priority) {
+        1 -> Icons.Filled.Error
+        2 -> Icons.Filled.Info
+        else -> Icons.Filled.CheckCircle
+    }
+
+@Composable
+private fun LogSystem.ErrorLog.tint() =
+    when (priority) {
+        1 -> MaterialTheme.colorScheme.error
+        2 -> MaterialTheme.colorScheme.tertiary
+        else -> MaterialTheme.colorScheme.secondary
+    }

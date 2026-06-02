@@ -2,6 +2,7 @@ package su.afk.l4d2
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,11 +15,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Article
+import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.Extension
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Badge
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,20 +40,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.compose.AppTheme
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.faq
 import kotlinproject.composeapp.generated.resources.logs
 import kotlinproject.composeapp.generated.resources.main
 import kotlinproject.composeapp.generated.resources.myAddons
 import kotlinproject.composeapp.generated.resources.setting
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import su.afk.l4d2.domain.model.UpdateCheckState
@@ -52,6 +66,7 @@ import su.afk.l4d2.presenter.logs.LogsBox
 import su.afk.l4d2.presenter.logs.LogsScreen
 import su.afk.l4d2.presenter.main.MainScreen
 import su.afk.l4d2.presenter.setting.SettingsScreen
+import su.afk.l4d2.presenter.view.theme.AppTheme
 import su.afk.l4d2.utils.ProcessChecker
 import su.afk.l4d2.utils.openGitHubLink
 import kotlin.reflect.KClass
@@ -59,7 +74,6 @@ import kotlin.reflect.KClass
 @Composable
 @Preview
 fun App() {
-    // Состояние для хранения текущего экрана
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Main) }
 
     val viewModel = viewModel<MainViewModel>(
@@ -72,96 +86,143 @@ fun App() {
     }
 
     AppTheme {
-        // Основной контейнер, разделяющий экран на две части
-        Row(modifier = Modifier.fillMaxSize()) {
-            // Левая колонка с кнопками навигации
-            NavigationColumn(
-                hasUpdate = state.updateCheckState is UpdateCheckState.UpdateAvailable,
-                onNavigate = { screen ->
-                    currentScreen = screen
-                }
-            )
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Row(modifier = Modifier.fillMaxSize()) {
+                NavigationColumn(
+                    currentScreen = currentScreen,
+                    hasUpdate = state.updateCheckState is UpdateCheckState.UpdateAvailable,
+                    onNavigate = { screen -> currentScreen = screen }
+                )
 
-            Divider(modifier = Modifier.fillMaxHeight().width(1.dp))
+                HorizontalDivider(
+                    modifier = Modifier.fillMaxHeight().width(1.dp),
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.55f)
+                )
 
-            // Правая область контента
-            ContentArea(
-                currentScreen = currentScreen,
-                modifier = Modifier.weight(1f),
-                state = state,
-                onEvent = { event -> viewModel.handlerEvents(event) }
-            )
+                ContentArea(
+                    currentScreen = currentScreen,
+                    modifier = Modifier.weight(1f),
+                    state = state,
+                    onEvent = viewModel::handlerEvents
+                )
+            }
         }
     }
-
 }
-
 
 @Composable
 fun NavigationColumn(
+    currentScreen: Screen,
     hasUpdate: Boolean,
     onNavigate: (Screen) -> Unit
 ) {
-    Column(
+    val items = listOf(
+        NavigationItem(Screen.Main, Res.string.main, Icons.Filled.Home),
+        NavigationItem(Screen.AddonsList, Res.string.myAddons, Icons.Filled.Extension),
+        NavigationItem(Screen.FAQ, Res.string.faq, Icons.AutoMirrored.Filled.Help),
+        NavigationItem(Screen.Settings, Res.string.setting, Icons.Filled.Settings),
+        NavigationItem(Screen.Logs, Res.string.logs, Icons.AutoMirrored.Filled.Article)
+    )
+
+    Surface(
         modifier = Modifier
-            .width(165.dp)
-            .fillMaxHeight()
-            .background(MaterialTheme.colors.onBackground)
-            .padding(12.dp)
+            .width(220.dp)
+            .fillMaxHeight(),
+        color = MaterialTheme.colorScheme.surface
     ) {
-        Text(
-            "L4DAllowMods",
-            style = MaterialTheme.typography.h6,
-            color = MaterialTheme.colors.secondary
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { onNavigate(Screen.Main) }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.main))
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { onNavigate(Screen.AddonsList) }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.myAddons))
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { onNavigate(Screen.FAQ) }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.faq))
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { onNavigate(Screen.Settings) }, modifier = Modifier.fillMaxWidth()) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(Res.string.setting),
-                    modifier = Modifier.weight(1f)
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = "L4DAllowMods",
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = "Workshop utility",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+
+            items.forEach { item ->
+                NavigationButton(
+                    item = item,
+                    selected = currentScreen::class == item.screen::class,
+                    showBadge = hasUpdate && item.screen is Screen.Settings,
+                    onClick = { onNavigate(item.screen) }
                 )
-                if (hasUpdate) {
-                    Box(
-                        modifier = Modifier
-                            .size(9.dp)
-                            .background(MaterialTheme.colors.error, CircleShape)
-                    )
-                }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            TextButton(
+                onClick = { openGitHubLink("https://github.com/EtoZheSandy/L4DAllowMods") },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("GitHub")
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { onNavigate(Screen.Logs) }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.logs))
-        }
+    }
+}
 
-        Spacer(modifier = Modifier.weight(1f)) // Занимает всё свободное пространство
+@Composable
+private fun NavigationButton(
+    item: NavigationItem,
+    selected: Boolean,
+    showBadge: Boolean,
+    onClick: () -> Unit
+) {
+    val containerColor = if (selected) {
+        MaterialTheme.colorScheme.primaryContainer
+    } else {
+        MaterialTheme.colorScheme.surface
+    }
+    val contentColor = if (selected) {
+        MaterialTheme.colorScheme.onPrimaryContainer
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
 
-        Button(
-            onClick = {
-                openGitHubLink("https://github.com/EtoZheSandy/L4DAllowMods")
-            },
-            modifier = Modifier.align(Alignment.Start),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.LightGray
+    FilledTonalButton(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.filledTonalButtonColors(
+            containerColor = containerColor,
+            contentColor = contentColor
+        ),
+        contentPadding = ButtonDefaults.ButtonWithIconContentPadding
+    ) {
+        Icon(
+            imageVector = item.icon,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp)
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(
+            text = stringResource(item.label),
+            modifier = Modifier.weight(1f),
+            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+        )
+        if (showBadge) {
+            Badge(
+                modifier = Modifier.size(10.dp),
+                containerColor = MaterialTheme.colorScheme.error
             )
-        ) {
-            Text("Github")
         }
     }
 }
@@ -176,10 +237,9 @@ fun ContentArea(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
-            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.background)
+            .padding(20.dp)
     ) {
-        // Основное содержимое экранов
         Crossfade(targetState = currentScreen) { screen ->
             when (screen) {
                 is Screen.Main -> MainScreen(state = state, onEvent = onEvent)
@@ -190,7 +250,6 @@ fun ContentArea(
             }
         }
 
-        // Box для логов, который располагается поверх основного контента внизу
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -202,7 +261,12 @@ fun ContentArea(
     }
 }
 
-// Перечисление экранов
+private data class NavigationItem(
+    val screen: Screen,
+    val label: StringResource,
+    val icon: ImageVector
+)
+
 sealed class Screen {
     object Main : Screen()
     object AddonsList : Screen()

@@ -1,6 +1,6 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
-val appPackageVersion = "1.0.5"
+val appPackageVersion = "1.1.0"
 val generatedBuildConfigDir = layout.buildDirectory.dir("generated/source/buildConfig/desktopMain/kotlin")
 val generateDesktopBuildConfig by tasks.registering {
     inputs.property("versionName", appPackageVersion)
@@ -42,7 +42,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
-            implementation(libs.compose.material)
+            implementation(libs.compose.material3)
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.ui.tooling.preview)
