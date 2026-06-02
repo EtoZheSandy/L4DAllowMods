@@ -24,22 +24,28 @@ import su.afk.l4d2.data.saveAutoHideMods
 import su.afk.l4d2.data.saveEnableAddonsList
 import su.afk.l4d2.data.saveFolderPath
 import su.afk.l4d2.data.saveGameInfoContent
+import su.afk.l4d2.BuildConfig
 import su.afk.l4d2.domain.model.AddonInfo
+import su.afk.l4d2.domain.model.UpdateCheckState
 import su.afk.l4d2.domain.service.AddonService
 import su.afk.l4d2.domain.service.GameInfoService
+import su.afk.l4d2.domain.service.UpdateService
 import su.afk.l4d2.presenter.setting.WorkshopFolderResult
 import su.afk.l4d2.presenter.setting.findWorkshopFolder
+import su.afk.l4d2.utils.openGitHubLink
 
 class MainViewModel : ViewModel() {
 
     private val addonService = AddonService()
     private val gameInfoService = GameInfoService()
+    private val updateService = UpdateService()
 
     private val _state = MutableStateFlow(MainState.State())
     val state: StateFlow<MainState.State> = _state.asStateFlow()
 
     init {
         loadFiles()
+        checkLatestRelease()
         LogSystem.addLog(priority = 1, message = Res.string.author_create)
     }
 
@@ -59,7 +65,31 @@ class MainViewModel : ViewModel() {
             is MainState.Event.ProcessStarted -> onProcessStarted()
             is MainState.Event.ProcessStopped -> onProcessStopped()
             is MainState.Event.SetAutoHideMods -> setAutoHideMods(enabled = event.enabled)
+            MainState.Event.OpenLatestRelease -> openLatestRelease()
         }
+    }
+
+    private fun checkLatestRelease() {
+        _state.update { currentState ->
+            currentState.copy(updateCheckState = UpdateCheckState.Checking)
+        }
+
+        viewModelScope.launch {
+            val updateState = withContext(Dispatchers.IO) {
+                updateService.checkLatestRelease(BuildConfig.VERSION_NAME)
+            }
+
+            _state.update { currentState ->
+                currentState.copy(updateCheckState = updateState)
+            }
+        }
+    }
+
+    private fun openLatestRelease() {
+        val releaseUrl = (_state.value.updateCheckState as? UpdateCheckState.UpdateAvailable)?.releaseUrl
+            ?: return
+
+        openGitHubLink(releaseUrl)
     }
 
     private fun sortAddons(isFilterAsc: Boolean) {

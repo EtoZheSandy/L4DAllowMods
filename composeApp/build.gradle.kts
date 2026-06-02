@@ -1,5 +1,30 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
+val appPackageVersion = "1.0.5"
+val generatedBuildConfigDir = layout.buildDirectory.dir("generated/source/buildConfig/desktopMain/kotlin")
+val generateDesktopBuildConfig by tasks.registering {
+    inputs.property("versionName", appPackageVersion)
+    outputs.dir(generatedBuildConfigDir)
+
+    doLast {
+        val buildConfigFile = generatedBuildConfigDir
+            .get()
+            .file("su/afk/l4d2/BuildConfig.kt")
+            .asFile
+
+        buildConfigFile.parentFile.mkdirs()
+        buildConfigFile.writeText(
+            """
+            package su.afk.l4d2
+
+            object BuildConfig {
+                const val VERSION_NAME = "$appPackageVersion"
+            }
+            """.trimIndent()
+        )
+    }
+}
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
@@ -12,6 +37,7 @@ kotlin {
     
     sourceSets {
         val desktopMain by getting
+        desktopMain.kotlin.srcDir(generatedBuildConfigDir)
         
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -40,7 +66,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Msi, TargetFormat.Exe)
             packageName = "L4D Allow Mods"
-            packageVersion = "1.0.5"
+            packageVersion = appPackageVersion
             description = "L4D Allow Mods"
             copyright = "EtoZheSandy"
             vendor = "EtoZheSandy"
@@ -57,4 +83,8 @@ compose.desktop {
             }
         }
     }
+}
+
+tasks.named("compileKotlinDesktop") {
+    dependsOn(generateDesktopBuildConfig)
 }

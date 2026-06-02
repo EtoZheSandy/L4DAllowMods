@@ -21,13 +21,22 @@ import androidx.compose.ui.unit.sp
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.changeFolder
 import kotlinproject.composeapp.generated.resources.currentFolder
+import kotlinproject.composeapp.generated.resources.currentVersion
+import kotlinproject.composeapp.generated.resources.openRelease
 import kotlinproject.composeapp.generated.resources.selectFolder
 import kotlinproject.composeapp.generated.resources.selectGameFolder
 import kotlinproject.composeapp.generated.resources.selectGameFolderL4D2
 import kotlinproject.composeapp.generated.resources.settingDeleteCacheAddons
 import kotlinproject.composeapp.generated.resources.settingDeleteCacheSetting
 import kotlinproject.composeapp.generated.resources.settingUpdateGameinfo
+import kotlinproject.composeapp.generated.resources.updateAvailable
+import kotlinproject.composeapp.generated.resources.updateChecking
+import kotlinproject.composeapp.generated.resources.updateError
+import kotlinproject.composeapp.generated.resources.updateSectionTitle
+import kotlinproject.composeapp.generated.resources.updateUpToDate
 import org.jetbrains.compose.resources.stringResource
+import su.afk.l4d2.BuildConfig
+import su.afk.l4d2.domain.model.UpdateCheckState
 import su.afk.l4d2.main.MainState
 import javax.swing.JFileChooser
 import javax.swing.filechooser.FileSystemView
@@ -93,6 +102,12 @@ fun SettingsScreen(
             }
         }
 
+        UpdateStatus(
+            updateCheckState = state.updateCheckState,
+            onEvent = onEvent,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+
         Spacer(modifier = Modifier.weight(1f)) // Занимает всё свободное пространство
 
         Button(onClick = {
@@ -114,4 +129,66 @@ fun SettingsScreen(
         }
     }
 
+}
+
+@Composable
+private fun UpdateStatus(
+    updateCheckState: UpdateCheckState,
+    onEvent: (MainState.Event) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(Res.string.updateSectionTitle),
+            color = MaterialTheme.colors.onSurface,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(Res.string.currentVersion, BuildConfig.VERSION_NAME),
+            color = MaterialTheme.colors.secondary
+        )
+
+        when (updateCheckState) {
+            UpdateCheckState.Idle,
+            UpdateCheckState.Checking -> {
+                Text(
+                    text = stringResource(Res.string.updateChecking),
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
+
+            is UpdateCheckState.UpToDate -> {
+                Text(
+                    text = stringResource(Res.string.updateUpToDate),
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
+
+            is UpdateCheckState.UpdateAvailable -> {
+                Text(
+                    text = stringResource(Res.string.updateAvailable, updateCheckState.latestVersion),
+                    color = MaterialTheme.colors.error
+                )
+                updateCheckState.releaseName?.takeIf { it.isNotBlank() }?.let { releaseName ->
+                    Text(
+                        text = releaseName,
+                        color = MaterialTheme.colors.onSurface
+                    )
+                }
+                Button(
+                    onClick = { onEvent(MainState.Event.OpenLatestRelease) },
+                    modifier = Modifier.padding(top = 8.dp)
+                ) {
+                    Text(stringResource(Res.string.openRelease))
+                }
+            }
+
+            is UpdateCheckState.Error -> {
+                Text(
+                    text = stringResource(Res.string.updateError, updateCheckState.message),
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
+        }
+    }
 }

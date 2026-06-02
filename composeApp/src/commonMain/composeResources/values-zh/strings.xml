@@ -55,6 +55,14 @@
     <string name="findWorkshopFolderFailWorkshopFolder">在指定目录中未找到"workshop"文件夹，请指定游戏安装的文件夹路径</string>
     <string name="addonsWarningEnable">不要一次性启用所有模组，游戏未针对这种情况设计，可能会崩溃</string>
 
+    <string name="updateSectionTitle">App update</string>
+    <string name="currentVersion">Current version: %1$s</string>
+    <string name="updateChecking">Checking for updates...</string>
+    <string name="updateUpToDate">Latest version installed</string>
+    <string name="updateAvailable">New version available: %1$s</string>
+    <string name="updateError">Could not check for updates: %1$s</string>
+    <string name="openRelease">Open release</string>
+
     <string name="faqQuestion1">服务器不允许我访问，gameinfo.txt错误</string>
     <string name="faqAnswer1">某些服务器检查此文件是否符合标准，如果已更改，则不会让你进入该服务器</string>
 

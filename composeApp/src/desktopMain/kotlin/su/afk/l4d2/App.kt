@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
@@ -45,6 +47,7 @@ import kotlinproject.composeapp.generated.resources.myAddons
 import kotlinproject.composeapp.generated.resources.setting
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import su.afk.l4d2.domain.model.UpdateCheckState
 import su.afk.l4d2.main.MainState
 import su.afk.l4d2.main.MainViewModel
 import su.afk.l4d2.presenter.addonList.AddonList
@@ -66,6 +69,7 @@ fun App(onCloseRequest: () -> Unit) {
     val viewModel = viewModel<MainViewModel>(
         factory = MainViewModelFactory
     )
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(viewModel) {
         ProcessChecker.checkProcess(viewModel)
@@ -75,9 +79,12 @@ fun App(onCloseRequest: () -> Unit) {
         // Основной контейнер, разделяющий экран на две части
         Row(modifier = Modifier.fillMaxSize()) {
             // Левая колонка с кнопками навигации
-            NavigationColumn(onNavigate = { screen ->
-                currentScreen = screen
-            })
+            NavigationColumn(
+                hasUpdate = state.updateCheckState is UpdateCheckState.UpdateAvailable,
+                onNavigate = { screen ->
+                    currentScreen = screen
+                }
+            )
 
             Divider(modifier = Modifier.fillMaxHeight().width(1.dp))
 
@@ -85,7 +92,8 @@ fun App(onCloseRequest: () -> Unit) {
             ContentArea(
                 currentScreen = currentScreen,
                 modifier = Modifier.weight(1f),
-                viewModel = viewModel,
+                state = state,
+                onEvent = { event -> viewModel.handlerEvents(event) },
                 onCloseRequest = onCloseRequest
             )
         }
@@ -95,7 +103,10 @@ fun App(onCloseRequest: () -> Unit) {
 
 
 @Composable
-fun NavigationColumn(onNavigate: (Screen) -> Unit) {
+fun NavigationColumn(
+    hasUpdate: Boolean,
+    onNavigate: (Screen) -> Unit
+) {
     Column(
         modifier = Modifier
             .width(165.dp)
@@ -122,7 +133,22 @@ fun NavigationColumn(onNavigate: (Screen) -> Unit) {
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = { onNavigate(Screen.Settings) }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(Res.string.setting))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(Res.string.setting),
+                    modifier = Modifier.weight(1f)
+                )
+                if (hasUpdate) {
+                    Box(
+                        modifier = Modifier
+                            .size(9.dp)
+                            .background(MaterialTheme.colors.error, CircleShape)
+                    )
+                }
+            }
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = { onNavigate(Screen.Logs) }, modifier = Modifier.fillMaxWidth()) {
@@ -149,14 +175,10 @@ fun NavigationColumn(onNavigate: (Screen) -> Unit) {
 fun ContentArea(
     currentScreen: Screen,
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel,
+    state: MainState.State,
+    onEvent: (MainState.Event) -> Unit,
     onCloseRequest: () -> Unit
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val onEvent = remember(viewModel) {
-        { event: MainState.Event -> viewModel.handlerEvents(event) }
-    }
-
     Box(
         modifier = modifier
             .fillMaxSize()
