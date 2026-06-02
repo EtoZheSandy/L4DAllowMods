@@ -12,7 +12,6 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.charset.Charset
 
-//  Функция для чтения .vpk файла и извлечения addoninfo.txt
 fun parseVpkFile(vpkFile: File): String? {
     return try {
         parseVpkFileSafely(vpkFile)
@@ -27,38 +26,33 @@ fun parseVpkFile(vpkFile: File): String? {
 
 private fun parseVpkFileSafely(vpkFile: File): String? {
     RandomAccessFile(vpkFile, "r").use { raf ->
-        // Читаем сигнатуру
         val signature = raf.readIntLE()
         if (signature != 0x55AA1234) {
             LogSystem.addLog(1, Res.string.parseVpkFileSignature, vpkFile.name)
             return null
         }
 
-        // Читаем версию
         val version = raf.readIntLE()
         if (version != 1 && version != 2) {
             LogSystem.addLog(1, Res.string.parseVpkFileVersion, version.toString())
             return null
         }
 
-        // Читаем размер дерева директорий
         val treeSize = raf.readIntLE()
 
-        // Если версия 2, читаем дополнительные поля заголовка
+        // VPK v2 adds four header fields before the directory tree.
         val headerSize = if (version == 2) {
             raf.readIntLE() // fileDataSectionSize
             raf.readIntLE() // archiveMD5SectionSize
             raf.readIntLE() // otherMD5SectionSize
             raf.readIntLE() // signatureSectionSize
-            28 // размер заголовка для версии 2 (в байтах)
+            28
         } else {
-            12 // размер заголовка для версии 1 (в байтах)
+            12
         }
 
-        // Запоминаем позицию после заголовка
         val treeStart = raf.filePointer
 
-        // Проходим по дереву директорий
         while (true) {
             val extension = raf.readNullTerminatedString()
             if (extension.isEmpty()) break
@@ -89,7 +83,6 @@ private fun parseVpkFileSafely(vpkFile: File): String? {
                         return null
                     }
 
-                    // Читаем прелоад-байты, если они есть
                     val preloadData = if (preloadBytes > 0) {
                         val data = ByteArray(preloadBytes)
                         raf.readFully(data)
@@ -99,7 +92,6 @@ private fun parseVpkFileSafely(vpkFile: File): String? {
                     }
 
                     if (fullPath.equals("addoninfo.txt", ignoreCase = true)) {
-                        // Если файл содержится в прелоад-данных
                         if (preloadData.isNotEmpty()) {
                             return String(preloadData, Charset.forName("UTF-8"))
                         } else {
@@ -108,11 +100,9 @@ private fun parseVpkFileSafely(vpkFile: File): String? {
                                 return null
                             }
 
-                            // Читаем данные из файла
                             val data = ByteArray(entryLength)
                             val currentPos = raf.filePointer
 
-                            // Вычисляем смещение данных
                             val dataOffset = entryOffset + treeSize + headerSize
                             if (dataOffset < 0 || dataOffset.toLong() + entryLength > raf.length()) {
                                 LogSystem.addLog(1, Res.string.parseVpkFileTerminator, vpkFile.name)
@@ -125,7 +115,6 @@ private fun parseVpkFileSafely(vpkFile: File): String? {
                             return String(data, Charset.forName("UTF-8"))
                         }
                     } else {
-                        // Пропускаем прелоад-байты для других файлов
                         if (preloadBytes > 0) {
                             raf.skipBytes(preloadBytes)
                         }

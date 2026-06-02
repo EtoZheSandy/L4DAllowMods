@@ -19,24 +19,19 @@ object LogSystem {
         var check: Boolean = false
     )
 
-    private val nextLogId = AtomicInteger(1) // Потокобезопасный счетчик ID логов
+    private val nextLogId = AtomicInteger(1)
 
-
-    // Создаем собственный CoroutineScope для асинхронных задач внутри LogSystem
     private val logScope = CoroutineScope(Dispatchers.Default)
 
-    // StateFlow для отслеживания состояния логов
     private val _logsFlow = MutableStateFlow<List<ErrorLog>>(emptyList())
-    val logsFlow = _logsFlow.asStateFlow() // Предоставление публичного доступа как Read-Only StateFlow
+    val logsFlow = _logsFlow.asStateFlow()
 
 
     /**
-     * Добавить лог в приложение, приоритет 1-3 отображается на экране
-     * Используйте synchronized для потокобезопасного добавления лога.
+     * Добавляет лог в приложение. Приоритеты 1-3 отображаются поверх интерфейса.
      */
     fun addLog(priority: Int, message: StringResource, info: String? = null, info2: String? = null) {
         logScope.launch {
-            // Получение строки из ресурсов и замена параметров
             val localizedMessage = when {
                 info != null && info2 != null -> getString(message, info, info2)
                 info != null -> getString(message, info)
@@ -50,18 +45,12 @@ object LogSystem {
             sendLog(errorLog)
         }
     }
-    /**
-     * Добавление лога в систему с синхронизацией для обеспечения потокобезопасности.
-     */
     private fun sendLog(errorLog: ErrorLog) {
         _logsFlow.update { currentLogs ->
             currentLogs + errorLog
         }
     }
 
-    /**
-     * Метод для установки состояния логов.
-     */
     fun markLogAsChecked(log: ErrorLog) {
         _logsFlow.update { currentLogs ->
             currentLogs.map { if (it.id == log.id) it.copy(check = true) else it }

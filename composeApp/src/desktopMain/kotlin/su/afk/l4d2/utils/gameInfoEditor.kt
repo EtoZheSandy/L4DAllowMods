@@ -26,7 +26,6 @@ import java.io.File
 private const val MANAGED_BLOCK_START = "            // L4DAllowMods managed paths start"
 private const val MANAGED_BLOCK_END = "            // L4DAllowMods managed paths end"
 
-// Функция для обрезки двух последних папок из пути
 fun findGameInfo(originalPath: String): Pair<String, String>? {
     val workshopFolder = File(originalPath)
     val gameFolder = workshopFolder.parentFile?.parentFile
@@ -36,44 +35,35 @@ fun findGameInfo(originalPath: String): Pair<String, String>? {
         return null
     }
 
-    // Путь к файлу gameinfo.txt
     val gameInfoFilePath = File(gameFolder, "gameinfo.txt")
 
-    // Проверяем существование файла и возвращаем путь и содержимое
     return if (gameInfoFilePath.exists() && gameInfoFilePath.isFile) {
-        gameInfoFilePath.absolutePath to gameInfoFilePath.readText() // Возвращаем путь и содержимое как пару
+        gameInfoFilePath.absolutePath to gameInfoFilePath.readText()
     } else {
         LogSystem.addLog(1, Res.string.findGameInfoPathNotFound, originalPath)
         null
     }
 }
 
-// Функция для создания папки, перемещения файла и его переименования
 fun processAddonFile(addons: List<AddonInfo>, basePath: String) {
 
     for (addon in addons) {
-        // Определяем полный путь к файлу .vpk
         val originalFile = File(basePath, addon.filename)
 
-        // Проверяем, существует ли файл .vpk
         if (!originalFile.exists() || !originalFile.isFile) {
             LogSystem.addLog(2, Res.string.processAddonFilePathFail, addon.filename, basePath)
             continue
         }
 
-        // Создаем путь к новой папке на основе имени файла без расширения
         val newFolderPath = File(basePath, addon.filename.substringBeforeLast("."))
-
-        // Определяем путь для перемещенного и переименованного файла
         val newFile = File(newFolderPath, "pak01_dir.vpk")
 
-        // Копируем и переименовываем файл
         try {
             newFolderPath.mkdirs()
             originalFile.copyTo(
                 newFile,
                 overwrite = true
-            ) // Копируем файл в новую папку с новым именем
+            )
             LogSystem.addLog(4, Res.string.processAddonFileDone, addon.filename, newFile.absolutePath)
         } catch (e: Exception) {
             LogSystem.addLog(2, Res.string.processAddonFileCopyFail, addon.filename, e.message)
@@ -81,32 +71,24 @@ fun processAddonFile(addons: List<AddonInfo>, basePath: String) {
     }
 }
 
-// Функция для удаления созданных папок
 fun deleteAddonFolders(addons: List<AddonInfo>, basePath: String) {
     for (addon in addons) {
-        // Путь к папке, созданной для этого мода
         val folderPath = File(basePath, addon.filename.substringBeforeLast("."))
 
-        // Проверяем, существует ли папка
         if (folderPath.exists() && folderPath.isDirectory) {
             try {
-                // Удаляем все содержимое папки перед её удалением
-                folderPath.deleteRecursively() // Удаляет папку и всё её содержимое
+                folderPath.deleteRecursively()
                 LogSystem.addLog(4, Res.string.deleteAddonFoldersDone, folderPath.absolutePath)
             } catch (e: Exception) {
                 LogSystem.addLog(2, Res.string.deleteAddonFoldersFail, folderPath.absolutePath, e.message)
             }
-        } else {
-//            LogSystem.addLog(1, "Папка ${folderPath.absolutePath} не найдена или это не папка.")
         }
     }
 
     LogSystem.addLog(3, Res.string.deleteAddonFoldersResult)
 }
 
-// Функция для добавления путей в блок SearchPaths в gameinfo.txt
 fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
-    // Читаем содержимое файла gameinfo.txt
     val gameInfoFile = File(gameInfoFilePath)
 
     if (!gameInfoFile.exists() || !gameInfoFile.isFile) {
@@ -122,7 +104,7 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
         return
     }
 
-    // Ищем место для блока SearchPaths и закрывающую скобку с учетом вложенности.
+    // SearchPaths is a nested block, so the closing brace must be matched by depth.
     val searchBlockStart = content.indexOf("{", searchPathsNameIndex)
     val searchBlockEnd = findMatchingBrace(content, searchBlockStart)
     if (searchBlockStart == -1 || searchBlockEnd == -1) {
@@ -130,18 +112,15 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
         return
     }
 
-    // Извлекаем существующий блок с путями
     val existingPathsBlock = content.substring(searchBlockStart + 1, searchBlockEnd)
     val cleanedPathsBlock = removeManagedAddonPaths(existingPathsBlock, addons)
 
-    // Генерируем новые строки для добавления в блок, исключая дубли
     val newPaths = addons.map { addon ->
         """            Game                left4dead2\addons\workshop\${addon.filename.substringBeforeLast(".")}"""
     }.filterNot { newPath ->
-        cleanedPathsBlock.contains(newPath) // Проверяем, есть ли путь уже в блоке
+        cleanedPathsBlock.contains(newPath)
     }
 
-    // Если нет новых путей для добавления, выходим из функции
     if (newPaths.isEmpty() && cleanedPathsBlock == existingPathsBlock) {
         LogSystem.addLog(4, Res.string.updateGameInfoNewPathsEmpty)
         return
@@ -161,15 +140,13 @@ fun updateGameInfoFile(addons: List<AddonInfo>, gameInfoFilePath: String) {
         }
     }
 
-    // Формируем обновленное содержимое файла, вставляя новые пути в начало блока с путями
     val updatedContent = buildString {
-        append(content.substring(0, searchBlockStart + 1)) // Все до открывающей скобки блока
-        append(managedBlock)                              // Добавляем управляемые приложением пути
-        append(cleanedPathsBlock)                         // Существующие пути
-        append(content.substring(searchBlockEnd))         // Все после закрывающей скобки блока
+        append(content.substring(0, searchBlockStart + 1))
+        append(managedBlock)
+        append(cleanedPathsBlock)
+        append(content.substring(searchBlockEnd))
     }
 
-    // Сохраняем обновленное содержимое обратно в файл
     try {
         gameInfoFile.writeText(updatedContent)
         LogSystem.addLog(3, Res.string.updateGameInfoDone)
@@ -213,14 +190,7 @@ private fun removeManagedAddonPaths(pathsBlock: String, addons: List<AddonInfo>)
         .filterNot { line -> managedPathValues.any { managedPath -> line.contains(managedPath) } }
         .joinToString(separator = "\n")
 }
-
-
-
-
-
-// Функция для замены содержимого файла gameinfo.txt на сохраненное в преференциях
 fun replaceGameInfoFile(gameInfoFilePath: String) {
-    // Загрузить сохраненное содержимое из преференций
     val savedContent = loadGameInfoContent()
 
     if (savedContent == null) {
@@ -231,7 +201,6 @@ fun replaceGameInfoFile(gameInfoFilePath: String) {
     val gameInfoFile = File(gameInfoFilePath)
 
     if (gameInfoFile.exists() && gameInfoFile.isFile) {
-        // Записываем новое содержимое в файл
         try {
             gameInfoFile.writeText(savedContent)
             LogSystem.addLog(3, Res.string.replaceGameInfoFileDone)

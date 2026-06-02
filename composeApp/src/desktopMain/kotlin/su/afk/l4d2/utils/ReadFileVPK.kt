@@ -5,21 +5,17 @@ import su.afk.l4d2.data.saveCacheToFile
 import su.afk.l4d2.domain.model.AddonInfo
 import java.io.File
 
-// Глобальный кэш для AddonInfo
 val addonCache = mutableMapOf<String, AddonInfo>()
 
-/** Проходит по всем .vpk файлам в указанной папке,
- * вызывает extractAddonInfo и parseAddonTitle для каждого, собирает список названий аддонов.*/
+/** Читает метаданные аддонов из workshop-папки и переиспользует файловый кэш. */
 fun loadAddonInfo(workshopFolderPath: String): List<AddonInfo> {
-    // Попробуем загрузить кэш из файла перед обработкой
-    val loadedCache = loadCacheFromFile() // Загружаем кэш из файла
-    addonCache.clear() // Очищаем текущий кэш
-    addonCache.putAll(loadedCache) // Обновляем кэш новыми значениями
+    val loadedCache = loadCacheFromFile()
+    addonCache.clear()
+    addonCache.putAll(loadedCache)
 
     val workshopFolder = File(workshopFolderPath)
     val addonInfoList = mutableListOf<AddonInfo>()
 
-    // Получаем список .vpk файлов
     val vpkFiles =
         workshopFolder.listFiles { file -> file.extension.equals("vpk", ignoreCase = true) }
             ?: return emptyList()
@@ -27,11 +23,10 @@ fun loadAddonInfo(workshopFolderPath: String): List<AddonInfo> {
     for (vpkFile in vpkFiles) {
         val filename = vpkFile.name
 
-        // Проверка, есть ли данные в кэше
         val cachedAddon = addonCache[filename]
         if (cachedAddon != null) {
             addonInfoList.add(cachedAddon)
-            continue // Пропускаем дальнейшую обработку, если данные уже закэшированы
+            continue
         }
 
         val addonInfoContent = parseVpkFile(vpkFile)
@@ -39,11 +34,9 @@ fun loadAddonInfo(workshopFolderPath: String): List<AddonInfo> {
         val (title, description) = if (addonInfoContent != null) {
             parseAddonInfo(addonInfoContent)
         } else {
-            // Если addoninfo.txt отсутствует, используем имя файла .vpk
             Pair(vpkFile.nameWithoutExtension, null)
         }
 
-        // Проверяем наличие изображения с тем же именем
         val imageFile = File(workshopFolder, "${vpkFile.nameWithoutExtension}.jpg")
         val imagePath = if (imageFile.exists()) imageFile.absolutePath else null
 
@@ -53,19 +46,14 @@ fun loadAddonInfo(workshopFolderPath: String): List<AddonInfo> {
             filename = filename,
             imagePath = imagePath
         )
-        // Добавляем его в список аддонов
         addonInfoList.add(addonInfo)
-
-        // Обновляем кэш новыми данными
         addonCache[filename] = addonInfo
     }
-    // Сохраняем обновленный кэш в файл
     saveCacheToFile(addonCache)
 
     return addonInfoList
 }
 
-// parseAddonTitle: Использует регулярное выражение для извлечения addontitle из содержимого addoninfo.txt.
 fun parseAddonInfo(addonInfoContent: String): Pair<String, String?> {
     val titleRegex = """addontitle\s+"([^"]+)"""".toRegex(RegexOption.IGNORE_CASE)
     val descriptionRegex = """addonDescription\s+"([^"]+)"""".toRegex(RegexOption.IGNORE_CASE)
@@ -78,4 +66,3 @@ fun parseAddonInfo(addonInfoContent: String): Pair<String, String?> {
 
     return Pair(title, description)
 }
-

@@ -122,19 +122,19 @@ fun NavigationColumn(
     val items = listOf(
         NavigationItem(Screen.Main, Res.string.main, Icons.Filled.Home),
         NavigationItem(Screen.AddonsList, Res.string.myAddons, Icons.Filled.Extension),
-        NavigationItem(Screen.FAQ, Res.string.faq, Icons.AutoMirrored.Filled.Help),
         NavigationItem(Screen.Settings, Res.string.setting, Icons.Filled.Settings),
+        NavigationItem(Screen.FAQ, Res.string.faq, Icons.AutoMirrored.Filled.Help),
         NavigationItem(Screen.Logs, Res.string.logs, Icons.AutoMirrored.Filled.Article)
     )
 
     Surface(
         modifier = Modifier
-            .width(220.dp)
+            .width(168.dp)
             .fillMaxHeight(),
         color = MaterialTheme.colorScheme.surface
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
@@ -215,10 +215,10 @@ private fun NavigationButton(
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = stringResource(item.label),
-            modifier = Modifier.weight(1f),
             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
         )
         if (showBadge) {
+            Spacer(modifier = Modifier.weight(1f))
             Badge(
                 modifier = Modifier.size(10.dp),
                 containerColor = MaterialTheme.colorScheme.error

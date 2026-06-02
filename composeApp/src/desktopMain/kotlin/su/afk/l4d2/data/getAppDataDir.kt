@@ -5,7 +5,7 @@ import java.io.File
 fun getAppDataDir(): File {
     val os = System.getProperty("os.name").lowercase()
     val baseDir = when {
-        os.contains("win") -> System.getenv("APPDATA") // AppData\Roaming
+        os.contains("win") -> System.getenv("APPDATA")
         os.contains("mac") -> System.getProperty("user.home") + "/Library/Application Support"
         else -> System.getProperty("user.home") + "/.config"
     }
