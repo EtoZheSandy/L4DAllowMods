@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>L4D Allow Mods - Workshop utility for Left 4 Dead 2</title>
+    <title>L4D Allow Mods - addon restriction bypass for Left 4 Dead 2</title>
     <meta
       name="description"
-      content="L4D Allow Mods is a Windows desktop utility for preparing and enabling selected Left 4 Dead 2 Workshop addons."
+      content="L4D Allow Mods is a Windows desktop utility for enabling Left 4 Dead 2 Workshop addons and cheat-style plugins in Versus and restricted servers."
     >
     <meta name="theme-color" content="#0d1113">
     <link rel="stylesheet" href="styles.css">
@@ -27,12 +27,12 @@
     <main id="top">
       <section class="hero-section">
         <div class="hero-copy">
-          <p class="eyebrow">Workshop utility for Left 4 Dead 2</p>
-          <h1>Enable selected addons with a clean desktop workflow.</h1>
+          <p class="eyebrow">Addon restriction bypass for Left 4 Dead 2</p>
+          <h1>Enable addons in Versus and restricted servers.</h1>
           <p class="hero-text">
             L4D Allow Mods prepares Workshop <code>.vpk</code> files, updates the game's
-            <code>gameinfo.txt</code>, and gives you quick controls for enabling,
-            disabling, searching, and restoring your addon setup.
+            <code>gameinfo.txt</code>, and lets you use custom addons and cheat-style
+            plugins where Left 4 Dead 2 normally blocks them.
           </p>
           <div class="hero-actions" aria-label="Project links">
             <a class="button button-primary" href="https://github.com/EtoZheSandy/L4DAllowMods/releases">
@@ -48,8 +48,8 @@
               <dd>Windows app</dd>
             </div>
             <div>
-              <dt>Workshop</dt>
-              <dd>.vpk addons</dd>
+              <dt>Versus</dt>
+              <dd>Restricted modes</dd>
             </div>
             <div>
               <dt>8 languages</dt>
@@ -73,13 +73,13 @@
 
       <section class="feature-band" id="features">
         <div class="section-heading">
-          <p class="eyebrow">Built for quick mod sessions</p>
-          <h2>Everything important stays one click away.</h2>
+          <p class="eyebrow">Built for restricted-server modding</p>
+          <h2>The bypass controls stay one click away.</h2>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
-            <h3>Addon control</h3>
-            <p>Select the Workshop addons you want, enable them before launch, and disable them when you are done.</p>
+            <h3>Restriction bypass</h3>
+            <p>Enable Workshop addons and cheat-style plugins in Versus and on servers where addons are normally blocked.</p>
           </article>
           <article class="feature-card">
             <h3>Workshop scanning</h3>
@@ -90,8 +90,8 @@
             <p>Refresh cached <code>gameinfo.txt</code> data, delete addon cache, and restore saved settings from the Settings screen.</p>
           </article>
           <article class="feature-card">
-            <h3>No runtime hacks</h3>
-            <p>The workflow is file-based. There is no DLL injection, no memory patching, and no separate launcher.</p>
+            <h3>Not a game mod</h3>
+            <p>No injection, executable patching, or runtime memory editing. The tool only forces Workshop addons through <code>gameinfo.txt</code>.</p>
           </article>
         </div>
       </section>
@@ -99,7 +99,7 @@
       <section class="showcase-section" id="screenshots">
         <div class="section-heading">
           <p class="eyebrow">Application screens</p>
-          <h2>A dark, focused UI for managing L4D2 addons.</h2>
+          <h2>A dark, focused UI for bypassing L4D2 addon limits.</h2>
         </div>
         <div class="screenshot-grid">
           <figure>
@@ -127,7 +127,8 @@
           <h2>Download the latest Windows build from GitHub Releases.</h2>
           <p>
             Install the MSI or EXE build, choose your Left 4 Dead 2 folder, select
-            the addons you want, and enable the prepared setup before launching the game.
+            the addons or cheat-style plugins you want, and enable the prepared setup
+            before launching the game or joining a restricted server.
           </p>
         </div>
         <div class="download-actions">
@@ -145,8 +146,8 @@
           <p class="eyebrow">Support the project</p>
           <h2 id="star-title">Give L4D Allow Mods a star.</h2>
           <p>
-            Stars help other Left 4 Dead 2 players discover the utility and make it
-            easier to track interest in future improvements.
+            Stars help other Left 4 Dead 2 players discover the bypass utility and
+            make it easier to track interest in future improvements.
           </p>
         </div>
         <a class="button button-primary" href="https://github.com/EtoZheSandy/L4DAllowMods">
@@ -157,8 +158,12 @@
       <section class="disclaimer-section" aria-labelledby="disclaimer-title">
         <h2 id="disclaimer-title">Disclaimer</h2>
         <p>
-          L4D Allow Mods is provided for educational and personal-use purposes.
-          Use it responsibly, respect server rules, and keep backups of important
+          L4D Allow Mods is a cheat-oriented addon restriction bypass tool.
+          It is not a game binary modification and does not use injection or
+          runtime memory patching, so VAC is not expected to trigger from the
+          tool's mechanism itself. Using it on public or competitive servers
+          may still violate server rules, community rules, or fair-play
+          expectations. Use it at your own risk and keep backups of important
           game files when experimenting with mods.
         </p>
       </section>
