@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Article
@@ -23,7 +22,6 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Badge
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
@@ -57,7 +55,6 @@ import kotlinproject.composeapp.generated.resources.setting
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import su.afk.l4d2.domain.model.UpdateCheckState
 import su.afk.l4d2.main.MainState
 import su.afk.l4d2.main.MainViewModel
 import su.afk.l4d2.presenter.addonList.AddonList
@@ -93,7 +90,6 @@ fun App() {
             Row(modifier = Modifier.fillMaxSize()) {
                 NavigationColumn(
                     currentScreen = currentScreen,
-                    hasUpdate = state.updateCheckState is UpdateCheckState.UpdateAvailable,
                     onNavigate = { screen -> currentScreen = screen }
                 )
 
@@ -116,7 +112,6 @@ fun App() {
 @Composable
 fun NavigationColumn(
     currentScreen: Screen,
-    hasUpdate: Boolean,
     onNavigate: (Screen) -> Unit
 ) {
     val items = listOf(
@@ -153,7 +148,6 @@ fun NavigationColumn(
                 NavigationButton(
                     item = item,
                     selected = currentScreen::class == item.screen::class,
-                    showBadge = hasUpdate && item.screen is Screen.Settings,
                     onClick = { onNavigate(item.screen) }
                 )
             }
@@ -183,7 +177,6 @@ fun NavigationColumn(
 private fun NavigationButton(
     item: NavigationItem,
     selected: Boolean,
-    showBadge: Boolean,
     onClick: () -> Unit
 ) {
     val containerColor = if (selected) {
@@ -217,13 +210,6 @@ private fun NavigationButton(
             text = stringResource(item.label),
             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
         )
-        if (showBadge) {
-            Spacer(modifier = Modifier.weight(1f))
-            Badge(
-                modifier = Modifier.size(10.dp),
-                containerColor = MaterialTheme.colorScheme.error
-            )
-        }
     }
 }
 

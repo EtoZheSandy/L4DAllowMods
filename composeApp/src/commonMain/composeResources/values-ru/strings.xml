@@ -64,13 +64,6 @@
     <string name="findWorkshopFolderFailWorkshopFolder">Папка "workshop" не найдена в указанной директории, укажите путь до папки где установлена игра</string>
     <string name="addonsWarningEnable">Не включайте все моды сразу, игра не рассчитана на такое и может крашнуться</string>
 
-    <string name="updateSectionTitle">Обновление приложения</string>
-    <string name="currentVersion">Текущая версия: %1$s</string>
-    <string name="updateChecking">Проверяем обновления...</string>
-    <string name="updateUpToDate">Установлена последняя версия</string>
-    <string name="updateAvailable">Доступна новая версия: %1$s</string>
-    <string name="updateError">Не удалось проверить обновления: %1$s</string>
-    <string name="openRelease">Открыть релиз</string>
 
     <string name="faqQuestion1">Сервер не пускает меня ошибка gameinfo.txt</string>
     <string name="faqAnswer1">Некоторые сервера проверяют этот файл на соответсвие стандартному,\nесли он изменен он не пустит тебя на этот сервер</string>

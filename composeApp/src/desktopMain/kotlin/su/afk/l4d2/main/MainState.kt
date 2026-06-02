@@ -2,7 +2,6 @@ package su.afk.l4d2.main
 
 import org.jetbrains.compose.resources.StringResource
 import su.afk.l4d2.domain.model.AddonInfo
-import su.afk.l4d2.domain.model.UpdateCheckState
 
 class MainState {
     data class State(
@@ -15,8 +14,7 @@ class MainState {
         val showListAddons: Boolean = false,
         val sortedAddonList: List<AddonInfo>? = null,
         val autoHideMods: Boolean = false,
-        val hideAfterSeconds: Int = 5,
-        val updateCheckState: UpdateCheckState = UpdateCheckState.Idle
+        val hideAfterSeconds: Int = 5
     )
 
     sealed class Event {
@@ -36,7 +34,6 @@ class MainState {
         object ProcessStarted : Event()
         object ProcessStopped : Event()
         data class SetAutoHideMods(val enabled: Boolean) : Event()
-        object OpenLatestRelease : Event()
     }
 
     enum class GameFolderSearchState {

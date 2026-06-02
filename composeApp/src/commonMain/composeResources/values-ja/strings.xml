@@ -64,13 +64,6 @@
     <string name="findWorkshopFolderFailWorkshopFolder">指定されたディレクトリに"workshop"フォルダが見つかりませんでした。ゲームがインストールされているフォルダのパスを指定してください</string>
     <string name="addonsWarningEnable">すべてのMODを一度に有効にしないでください。ゲームがそれを想定しておらず、クラッシュする可能性があります</string>
 
-    <string name="updateSectionTitle">App update</string>
-    <string name="currentVersion">Current version: %1$s</string>
-    <string name="updateChecking">Checking for updates...</string>
-    <string name="updateUpToDate">Latest version installed</string>
-    <string name="updateAvailable">New version available: %1$s</string>
-    <string name="updateError">Could not check for updates: %1$s</string>
-    <string name="openRelease">Open release</string>
 
     <string name="faqQuestion1">サーバーはgameinfo.txtエラーで私を許可しません</string>
     <string name="faqAnswer1">一部のサーバーは、このファイルが標準に準拠しているかを確認します。\n変更されている場合、このサーバーに入ることはできません</string>

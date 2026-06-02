@@ -64,13 +64,6 @@
     <string name="findWorkshopFolderFailWorkshopFolder">Der Ordner "workshop" wurde im angegebenen Verzeichnis nicht gefunden, geben Sie den Pfad zum Ordner an, in dem das Spiel installiert ist</string>
     <string name="addonsWarningEnable">Aktivieren Sie nicht alle Mods gleichzeitig – das Spiel ist dafür nicht ausgelegt und könnte abstürzen</string>
 
-    <string name="updateSectionTitle">App update</string>
-    <string name="currentVersion">Current version: %1$s</string>
-    <string name="updateChecking">Checking for updates...</string>
-    <string name="updateUpToDate">Latest version installed</string>
-    <string name="updateAvailable">New version available: %1$s</string>
-    <string name="updateError">Could not check for updates: %1$s</string>
-    <string name="openRelease">Open release</string>
 
     <string name="faqQuestion1">Der Server lässt mich wegen eines Fehlers in gameinfo.txt nicht zu</string>
     <string name="faqAnswer1">Einige Server überprüfen diese Datei auf Übereinstimmung mit dem Standard,\nwenn sie geändert wurde, lässt der Server dich nicht zu</string>

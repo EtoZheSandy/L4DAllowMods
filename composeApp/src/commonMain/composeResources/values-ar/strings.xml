@@ -63,13 +63,6 @@
     <string name="findWorkshopFolderFailPath">المسار المحدد غير موجود أو ليس مجلدًا</string>
     <string name="findWorkshopFolderFailWorkshopFolder">لم يتم العثور على مجلد "workshop" في الدليل المحدد، يرجى تحديد المسار إلى المجلد الذي تم تثبيت اللعبة فيه</string>
 
-    <string name="updateSectionTitle">App update</string>
-    <string name="currentVersion">Current version: %1$s</string>
-    <string name="updateChecking">Checking for updates...</string>
-    <string name="updateUpToDate">Latest version installed</string>
-    <string name="updateAvailable">New version available: %1$s</string>
-    <string name="updateError">Could not check for updates: %1$s</string>
-    <string name="openRelease">Open release</string>
 
     <string name="faqQuestion1">الخادم لا يسمح لي بسبب خطأ في gameinfo.txt</string>
     <string name="faqAnswer1">بعض الخوادم تتحقق من هذا الملف للتأكد من مطابقته للمعيار،\nإذا تم تغييره، فلن يسمح لك بالدخول إلى هذا الخادم</string>
