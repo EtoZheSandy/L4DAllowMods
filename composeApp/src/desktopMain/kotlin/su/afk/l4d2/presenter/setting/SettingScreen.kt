@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Delete
@@ -67,7 +69,9 @@ fun SettingsScreen(
     onEvent: (MainState.Event) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
@@ -107,6 +111,7 @@ private fun FolderSection(
 ) {
     val selectGameFolderL4D2 = stringResource(Res.string.selectGameFolderL4D2)
     val enteredFolderPath = remember { mutableStateOf("") }
+    val showManualPathInput = remember { mutableStateOf(false) }
     val isSearchingGameFolder = state.gameFolderSearchState == MainState.GameFolderSearchState.Searching
 
     ElevatedCard(
@@ -198,19 +203,9 @@ private fun FolderSection(
                 MainState.GameFolderSearchState.Found -> Unit
             }
 
-            OutlinedTextField(
-                value = enteredFolderPath.value,
-                onValueChange = { enteredFolderPath.value = it },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !isSearchingGameFolder,
-                singleLine = true,
-                label = { Text(stringResource(Res.string.specifyPath)) },
-                placeholder = { Text(stringResource(Res.string.gameFolderPathHint)) }
-            )
-
             OutlinedButton(
-                enabled = enteredFolderPath.value.isNotBlank() && !isSearchingGameFolder,
-                onClick = { onEvent(MainState.Event.FolderPathEntered(enteredFolderPath.value)) }
+                enabled = !isSearchingGameFolder,
+                onClick = { showManualPathInput.value = !showManualPathInput.value }
             ) {
                 Icon(
                     imageVector = Icons.Filled.FolderOpen,
@@ -220,6 +215,32 @@ private fun FolderSection(
                     text = stringResource(Res.string.applyPath),
                     modifier = Modifier.padding(start = 8.dp)
                 )
+            }
+
+            if (showManualPathInput.value) {
+                OutlinedTextField(
+                    value = enteredFolderPath.value,
+                    onValueChange = { enteredFolderPath.value = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isSearchingGameFolder,
+                    singleLine = true,
+                    label = { Text(stringResource(Res.string.specifyPath)) },
+                    placeholder = { Text(stringResource(Res.string.gameFolderPathHint)) }
+                )
+
+                OutlinedButton(
+                    enabled = enteredFolderPath.value.isNotBlank() && !isSearchingGameFolder,
+                    onClick = { onEvent(MainState.Event.FolderPathEntered(enteredFolderPath.value)) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.FolderOpen,
+                        contentDescription = null
+                    )
+                    Text(
+                        text = stringResource(Res.string.applyPath),
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
             }
 
             state.selectedFolderPath?.let { path ->

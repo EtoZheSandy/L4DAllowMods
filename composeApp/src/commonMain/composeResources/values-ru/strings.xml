@@ -17,6 +17,7 @@
     <string name="searchAddons">Поиск addons</string>
     <string name="addonsSearchEmpty">По этому запросу addons не найдены</string>
     <string name="enable">Включить</string>
+    <string name="enabled">Включено</string>
     <string name="disable">Выключить</string>
     <string name="noDescription">Нет описания</string>
     <string name="selectGameFolder">Выберите папку с игрой</string>

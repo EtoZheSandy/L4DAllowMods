@@ -17,6 +17,7 @@
     <string name="searchAddons">Rechercher des addons</string>
     <string name="addonsSearchEmpty">Aucun addon trouvé pour cette recherche</string>
     <string name="enable">Activer</string>
+    <string name="enabled">Activé</string>
     <string name="disable">Désactiver</string>
     <string name="noDescription">Pas de description</string>
     <string name="selectGameFolder">Sélectionnez le dossier du jeu</string>

@@ -61,6 +61,7 @@ import kotlinproject.composeapp.generated.resources.addonsShow
 import kotlinproject.composeapp.generated.resources.addonsSearchEmpty
 import kotlinproject.composeapp.generated.resources.disable
 import kotlinproject.composeapp.generated.resources.enable
+import kotlinproject.composeapp.generated.resources.enabled
 import kotlinproject.composeapp.generated.resources.gamePathNull
 import kotlinproject.composeapp.generated.resources.myAddons
 import kotlinproject.composeapp.generated.resources.noDescription
@@ -257,7 +258,10 @@ fun AddonListScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             state = lazyListState
         ) {
-            items(addonInfoList) { addon ->
+            items(
+                items = addonInfoList,
+                key = { addon -> addon.filename }
+            ) { addon ->
                 AddonCard(
                     addon = addon,
                     selected = selectedAddonFilenames.contains(addon.filename),
@@ -344,7 +348,7 @@ private fun AddonCard(
                     if (selected) {
                         AssistChip(
                             onClick = {},
-                            label = { Text(stringResource(Res.string.enable)) },
+                            label = { Text(stringResource(Res.string.enabled)) },
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Filled.CheckCircle,
@@ -394,7 +398,11 @@ private fun AddonImage(imagePath: String?) {
         if (imagePath != null) {
             val imageBitmap = produceState<ImageBitmap?>(initialValue = null, imagePath) {
                 value = withContext(Dispatchers.IO) {
-                    loadImageBitmap(File(imagePath))
+                    loadImageBitmap(
+                        file = File(imagePath),
+                        maxWidth = 380,
+                        maxHeight = 214
+                    )
                 }
             }
             imageBitmap.value?.let { bitmap ->

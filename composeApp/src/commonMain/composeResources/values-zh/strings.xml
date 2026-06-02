@@ -17,6 +17,7 @@
     <string name="searchAddons">搜索插件</string>
     <string name="addonsSearchEmpty">未找到匹配此搜索的插件</string>
     <string name="enable">启用</string>
+    <string name="enabled">已启用</string>
     <string name="disable">禁用</string>
     <string name="noDescription">没有描述</string>
     <string name="selectGameFolder">请选择游戏文件夹</string>

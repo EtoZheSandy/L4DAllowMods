@@ -17,6 +17,7 @@
     <string name="searchAddons">البحث في الإضافات</string>
     <string name="addonsSearchEmpty">لم يتم العثور على إضافات لهذا البحث</string>
     <string name="enable">تفعيل</string>
+    <string name="enabled">مفعّل</string>
     <string name="disable">إيقاف</string>
     <string name="noDescription">لا يوجد وصف</string>
     <string name="selectGameFolder">اختر مجلد اللعبة</string>

@@ -17,6 +17,7 @@
     <string name="searchAddons">Search addons</string>
     <string name="addonsSearchEmpty">No addons found for this search</string>
     <string name="enable">Enable</string>
+    <string name="enabled">Enabled</string>
     <string name="disable">Disable</string>
     <string name="noDescription">No description</string>
     <string name="selectGameFolder">Select the game folder</string>
