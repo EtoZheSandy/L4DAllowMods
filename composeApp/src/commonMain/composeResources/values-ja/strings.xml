@@ -2,7 +2,7 @@
 <resources>
     <string name="author_create">作成者：EtoZheSandy</string>
     <string name="main">開始</string>
-    <string name="myAddons">私のアドオン</string>
+    <string name="myAddons">Addons</string>
     <string name="faq">FAQ</string>
     <string name="setting">設定</string>
     <string name="logs">ログ</string>
@@ -24,6 +24,12 @@
     <string name="selectFolder">フォルダを選択する</string>
     <string name="changeFolder">フォルダを変更する</string>
     <string name="currentFolder">現在選択されているフォルダ：</string>
+    <string name="autoFindGameFolder">自動検索</string>
+    <string name="specifyPath">パスを指定</string>
+    <string name="gameFolderPathHint">C:\Program Files (x86)\Steam\steamapps\common\Left 4 Dead 2</string>
+    <string name="applyPath">パスを適用</string>
+    <string name="searchingGameFolder">ゲームフォルダを検索中...</string>
+    <string name="gameFolderAutoSearchNotFound">Left 4 Dead 2を自動で見つけられませんでした。フォルダを選択するか、パスを手動で貼り付けてください。</string>
     <string name="settingUpdateGameinfo">ツールのキャッシュ内のgameinfoを更新する</string>
     <string name="settingDeleteCacheAddons">アドオンのキャッシュを削除する</string>
     <string name="settingDeleteCacheSetting">保存された設定を削除する</string>

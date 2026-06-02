@@ -2,7 +2,7 @@
 <resources>
     <string name="author_create">Créé par EtoZheSandy</string>
     <string name="main">Lancer</string>
-    <string name="myAddons">Mes Addons</string>
+    <string name="myAddons">Addons</string>
     <string name="faq">FAQ</string>
     <string name="setting">Paramètres</string>
     <string name="logs">Journaux</string>
@@ -24,6 +24,12 @@
     <string name="selectFolder">Sélectionner le dossier</string>
     <string name="changeFolder">Changer de dossier</string>
     <string name="currentFolder">Dossier actuellement sélectionné :</string>
+    <string name="autoFindGameFolder">Rechercher automatiquement</string>
+    <string name="specifyPath">Indiquer le chemin</string>
+    <string name="gameFolderPathHint">C:\Program Files (x86)\Steam\steamapps\common\Left 4 Dead 2</string>
+    <string name="applyPath">Appliquer le chemin</string>
+    <string name="searchingGameFolder">Recherche du dossier du jeu...</string>
+    <string name="gameFolderAutoSearchNotFound">Impossible de trouver Left 4 Dead 2 automatiquement. Sélectionnez le dossier ou collez le chemin manuellement.</string>
     <string name="settingUpdateGameinfo">Mettre à jour gameinfo dans le cache des outils</string>
     <string name="settingDeleteCacheAddons">Supprimer le cache des addons</string>
     <string name="settingDeleteCacheSetting">Supprimer les paramètres enregistrés</string>

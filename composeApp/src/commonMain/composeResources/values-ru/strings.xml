@@ -2,7 +2,7 @@
 <resources>
     <string name="author_create">Создано EtoZheSandy</string>
     <string name="main">Запуск</string>
-    <string name="myAddons">Мои Addons</string>
+    <string name="myAddons">Addons</string>
     <string name="faq">FAQ</string>
     <string name="setting">Настройки</string>
     <string name="logs">Логи</string>
@@ -24,6 +24,12 @@
     <string name="selectFolder">Выбрать папку</string>
     <string name="changeFolder">Изменить папку</string>
     <string name="currentFolder">Сейчас выбрана папка:</string>
+    <string name="autoFindGameFolder">Найти автоматически</string>
+    <string name="specifyPath">Указать путь</string>
+    <string name="gameFolderPathHint">C:\Program Files (x86)\Steam\steamapps\common\Left 4 Dead 2</string>
+    <string name="applyPath">Применить путь</string>
+    <string name="searchingGameFolder">Ищем папку с игрой...</string>
+    <string name="gameFolderAutoSearchNotFound">Не удалось найти Left 4 Dead 2 автоматически. Выберите папку или вставьте путь вручную.</string>
     <string name="settingUpdateGameinfo">Обновить gameinfo в кэше tools</string>
     <string name="settingDeleteCacheAddons">Удалить кэш addons</string>
     <string name="settingDeleteCacheSetting">Удалить сохраненные настройки</string>

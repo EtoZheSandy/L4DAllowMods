@@ -28,15 +28,16 @@ import su.afk.l4d2.BuildConfig
 import su.afk.l4d2.domain.model.AddonInfo
 import su.afk.l4d2.domain.model.UpdateCheckState
 import su.afk.l4d2.domain.service.AddonService
+import su.afk.l4d2.domain.service.GameFolderService
 import su.afk.l4d2.domain.service.GameInfoService
 import su.afk.l4d2.domain.service.UpdateService
-import su.afk.l4d2.presenter.setting.WorkshopFolderResult
-import su.afk.l4d2.presenter.setting.findWorkshopFolder
+import su.afk.l4d2.domain.service.WorkshopFolderResult
 import su.afk.l4d2.utils.openGitHubLink
 
 class MainViewModel : ViewModel() {
 
     private val addonService = AddonService()
+    private val gameFolderService = GameFolderService()
     private val gameInfoService = GameInfoService()
     private val updateService = UpdateService()
 
@@ -52,6 +53,8 @@ class MainViewModel : ViewModel() {
     fun handlerEvents(event: MainState.Event) {
         when (event) {
             is MainState.Event.FolderSelected -> folderSelected(event.folderPath)
+            is MainState.Event.FolderPathEntered -> folderSelected(event.folderPath)
+            MainState.Event.AutoFindGameFolder -> autoFindGameFolder(showNotFoundState = true)
             is MainState.Event.LoadFiles -> loadFiles()
             is MainState.Event.ClickMods -> clickMods(event.mods)
             MainState.Event.DefGameInfo -> defGameInfo()
@@ -114,13 +117,16 @@ class MainViewModel : ViewModel() {
     private fun folderSelected(folderPath: String) {
         viewModelScope.launch {
             val pathWorkshop = withContext(Dispatchers.IO) {
-                findWorkshopFolder(folderPath)
+                gameFolderService.findWorkshopFolder(folderPath)
             }
 
             when (pathWorkshop) {
                 is WorkshopFolderResult.Failure -> {
                     _state.update { currentState ->
-                        currentState.copy(errorMessage = pathWorkshop.message)
+                        currentState.copy(
+                            errorMessage = pathWorkshop.message,
+                            gameFolderSearchState = MainState.GameFolderSearchState.NotFound
+                        )
                     }
                     LogSystem.addLog(1, pathWorkshop.message)
                 }
@@ -132,7 +138,84 @@ class MainViewModel : ViewModel() {
                     _state.update { currentState ->
                         currentState.copy(
                             selectedFolderPath = pathWorkshop.workshopPath,
-                            errorMessage = null
+                            errorMessage = null,
+                            gameFolderSearchState = MainState.GameFolderSearchState.Found
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun autoFindGameFolder(showNotFoundState: Boolean) {
+        viewModelScope.launch {
+            if (_state.value.gameFolderSearchState == MainState.GameFolderSearchState.Searching) {
+                return@launch
+            }
+
+            if (!gameFolderService.isAutoSearchSupported()) {
+                _state.update { currentState ->
+                    currentState.copy(gameFolderSearchState = MainState.GameFolderSearchState.Idle)
+                }
+                return@launch
+            }
+
+            _state.update { currentState ->
+                currentState.copy(
+                    gameFolderSearchState = MainState.GameFolderSearchState.Searching,
+                    errorMessage = null
+                )
+            }
+
+            val gameFolderPath = withContext(Dispatchers.IO) {
+                gameFolderService.findInstalledGameFolder()
+            }
+
+            if (gameFolderPath == null) {
+                _state.update { currentState ->
+                    currentState.copy(
+                        gameFolderSearchState = if (showNotFoundState) {
+                            MainState.GameFolderSearchState.NotFound
+                        } else {
+                            MainState.GameFolderSearchState.Idle
+                        }
+                    )
+                }
+                return@launch
+            }
+
+            if (!showNotFoundState && _state.value.selectedFolderPath != null) {
+                return@launch
+            }
+
+            val workshopFolder = withContext(Dispatchers.IO) {
+                gameFolderService.findWorkshopFolder(gameFolderPath)
+            }
+
+            if (!showNotFoundState && _state.value.selectedFolderPath != null) {
+                return@launch
+            }
+
+            when (workshopFolder) {
+                is WorkshopFolderResult.Failure -> {
+                    _state.update { currentState ->
+                        currentState.copy(
+                            errorMessage = workshopFolder.message,
+                            gameFolderSearchState = MainState.GameFolderSearchState.NotFound
+                        )
+                    }
+                    LogSystem.addLog(1, workshopFolder.message)
+                }
+
+                is WorkshopFolderResult.Success -> {
+                    withContext(Dispatchers.IO) {
+                        saveFolderPath(workshopFolder.workshopPath)
+                    }
+                    _state.update { currentState ->
+                        currentState.copy(
+                            selectedFolderPath = workshopFolder.workshopPath,
+                            errorMessage = null,
+                            gameFolderSearchState = MainState.GameFolderSearchState.Found
                         )
                     }
                 }
@@ -171,8 +254,17 @@ class MainViewModel : ViewModel() {
                     selectedFolderPath = loadedState.selectedFolderPath,
                     addonEnabledList = loadedState.addonEnabledList,
                     autoHideMods = loadedState.autoHideMods,
-                    hideAfterSeconds = loadedState.hideAfterSeconds
+                    hideAfterSeconds = loadedState.hideAfterSeconds,
+                    gameFolderSearchState = if (loadedState.selectedFolderPath == null) {
+                        currentState.gameFolderSearchState
+                    } else {
+                        MainState.GameFolderSearchState.Found
+                    }
                 )
+            }
+
+            if (loadedState.selectedFolderPath == null) {
+                autoFindGameFolder(showNotFoundState = false)
             }
         }
     }
@@ -289,6 +381,7 @@ class MainViewModel : ViewModel() {
                 clearPreferences()
             }
             _state.value = MainState.State()
+            autoFindGameFolder(showNotFoundState = true)
         }
     }
 

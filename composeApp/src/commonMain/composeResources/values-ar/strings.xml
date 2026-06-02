@@ -2,7 +2,7 @@
 <resources>
     <string name="author_create">تم إنشاؤه بواسطة EtoZheSandy</string>
     <string name="main">بدء</string>
-    <string name="myAddons">إضافاتي</string>
+    <string name="myAddons">Addons</string>
     <string name="faq">الأسئلة الشائعة</string>
     <string name="setting">الإعدادات</string>
     <string name="logs">السجلات</string>
@@ -24,6 +24,12 @@
     <string name="selectFolder">اختر مجلدًا</string>
     <string name="changeFolder">تغيير المجلد</string>
     <string name="currentFolder">المجلد المحدد حاليًا:</string>
+    <string name="autoFindGameFolder">البحث تلقائيًا</string>
+    <string name="specifyPath">حدد المسار</string>
+    <string name="gameFolderPathHint">C:\Program Files (x86)\Steam\steamapps\common\Left 4 Dead 2</string>
+    <string name="applyPath">تطبيق المسار</string>
+    <string name="searchingGameFolder">جارٍ البحث عن مجلد اللعبة...</string>
+    <string name="gameFolderAutoSearchNotFound">تعذر العثور على Left 4 Dead 2 تلقائيًا. اختر المجلد أو الصق المسار يدويًا.</string>
     <string name="settingUpdateGameinfo">تحديث gameinfo في ذاكرة التخزين المؤقت للأدوات</string>
     <string name="settingDeleteCacheAddons">حذف ذاكرة التخزين المؤقت للإضافات</string>
     <string name="settingDeleteCacheSetting">حذف الإعدادات المحفوظة</string>

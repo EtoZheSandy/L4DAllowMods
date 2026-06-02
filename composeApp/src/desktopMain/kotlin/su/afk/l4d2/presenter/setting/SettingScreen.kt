@@ -11,25 +11,34 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FolderOpen
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.applyPath
+import kotlinproject.composeapp.generated.resources.autoFindGameFolder
 import kotlinproject.composeapp.generated.resources.changeFolder
 import kotlinproject.composeapp.generated.resources.currentFolder
 import kotlinproject.composeapp.generated.resources.currentVersion
+import kotlinproject.composeapp.generated.resources.gameFolderAutoSearchNotFound
+import kotlinproject.composeapp.generated.resources.gameFolderPathHint
 import kotlinproject.composeapp.generated.resources.openRelease
 import kotlinproject.composeapp.generated.resources.selectFolder
 import kotlinproject.composeapp.generated.resources.selectGameFolder
@@ -42,6 +51,8 @@ import kotlinproject.composeapp.generated.resources.updateAvailable
 import kotlinproject.composeapp.generated.resources.updateChecking
 import kotlinproject.composeapp.generated.resources.updateError
 import kotlinproject.composeapp.generated.resources.updateSectionTitle
+import kotlinproject.composeapp.generated.resources.searchingGameFolder
+import kotlinproject.composeapp.generated.resources.specifyPath
 import kotlinproject.composeapp.generated.resources.updateUpToDate
 import org.jetbrains.compose.resources.stringResource
 import su.afk.l4d2.BuildConfig
@@ -95,6 +106,8 @@ private fun FolderSection(
     onEvent: (MainState.Event) -> Unit
 ) {
     val selectGameFolderL4D2 = stringResource(Res.string.selectGameFolderL4D2)
+    val enteredFolderPath = remember { mutableStateOf("") }
+    val isSearchingGameFolder = state.gameFolderSearchState == MainState.GameFolderSearchState.Searching
 
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(),
@@ -113,29 +126,98 @@ private fun FolderSection(
                 color = MaterialTheme.colorScheme.onSurface
             )
 
-            Button(
-                onClick = {
-                    val chooser = JFileChooser(FileSystemView.getFileSystemView().homeDirectory)
-                    chooser.dialogTitle = selectGameFolderL4D2
-                    chooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
-                    chooser.isAcceptAllFileFilterUsed = false
-                    val returnValue = chooser.showOpenDialog(null)
-                    if (returnValue == JFileChooser.APPROVE_OPTION) {
-                        val selectedFolder = chooser.selectedFile.absolutePath
-                        onEvent(MainState.Event.FolderSelected(selectedFolder))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(
+                    enabled = !isSearchingGameFolder,
+                    onClick = {
+                        val chooser = JFileChooser(FileSystemView.getFileSystemView().homeDirectory)
+                        chooser.dialogTitle = selectGameFolderL4D2
+                        chooser.fileSelectionMode = JFileChooser.DIRECTORIES_ONLY
+                        chooser.isAcceptAllFileFilterUsed = false
+                        val returnValue = chooser.showOpenDialog(null)
+                        if (returnValue == JFileChooser.APPROVE_OPTION) {
+                            val selectedFolder = chooser.selectedFile.absolutePath
+                            onEvent(MainState.Event.FolderSelected(selectedFolder))
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.FolderOpen,
+                        contentDescription = null
+                    )
+                    Text(
+                        text = if (state.selectedFolderPath == null) {
+                            stringResource(Res.string.selectFolder)
+                        } else {
+                            stringResource(Res.string.changeFolder)
+                        },
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+
+                OutlinedButton(
+                    enabled = !isSearchingGameFolder,
+                    onClick = { onEvent(MainState.Event.AutoFindGameFolder) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = null
+                    )
+                    Text(
+                        text = stringResource(Res.string.autoFindGameFolder),
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+            }
+
+            when (state.gameFolderSearchState) {
+                MainState.GameFolderSearchState.Searching -> {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier.padding(start = 2.dp))
+                        Text(
+                            text = stringResource(Res.string.searchingGameFolder),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
+
+                MainState.GameFolderSearchState.NotFound -> {
+                    Text(
+                        text = stringResource(Res.string.gameFolderAutoSearchNotFound),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                MainState.GameFolderSearchState.Idle,
+                MainState.GameFolderSearchState.Found -> Unit
+            }
+
+            OutlinedTextField(
+                value = enteredFolderPath.value,
+                onValueChange = { enteredFolderPath.value = it },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isSearchingGameFolder,
+                singleLine = true,
+                label = { Text(stringResource(Res.string.specifyPath)) },
+                placeholder = { Text(stringResource(Res.string.gameFolderPathHint)) }
+            )
+
+            OutlinedButton(
+                enabled = enteredFolderPath.value.isNotBlank() && !isSearchingGameFolder,
+                onClick = { onEvent(MainState.Event.FolderPathEntered(enteredFolderPath.value)) }
             ) {
                 Icon(
                     imageVector = Icons.Filled.FolderOpen,
                     contentDescription = null
                 )
                 Text(
-                    text = if (state.selectedFolderPath == null) {
-                        stringResource(Res.string.selectFolder)
-                    } else {
-                        stringResource(Res.string.changeFolder)
-                    },
+                    text = stringResource(Res.string.applyPath),
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }

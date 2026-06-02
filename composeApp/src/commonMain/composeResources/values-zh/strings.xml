@@ -2,7 +2,7 @@
 <resources>
     <string name="author_create">由 EtoZheSandy 创建</string>
     <string name="main">启动</string>
-    <string name="myAddons">我的插件</string>
+    <string name="myAddons">Addons</string>
     <string name="faq">常见问题</string>
     <string name="setting">设置</string>
     <string name="logs">日志</string>
@@ -24,6 +24,12 @@
     <string name="selectFolder">选择文件夹</string>
     <string name="changeFolder">更改文件夹</string>
     <string name="currentFolder">当前选择的文件夹：</string>
+    <string name="autoFindGameFolder">自动查找</string>
+    <string name="specifyPath">指定路径</string>
+    <string name="gameFolderPathHint">C:\Program Files (x86)\Steam\steamapps\common\Left 4 Dead 2</string>
+    <string name="applyPath">应用路径</string>
+    <string name="searchingGameFolder">正在搜索游戏文件夹...</string>
+    <string name="gameFolderAutoSearchNotFound">无法自动找到 Left 4 Dead 2。请选择文件夹或手动粘贴路径。</string>
     <string name="settingUpdateGameinfo">更新缓存中的gameinfo</string>
     <string name="settingDeleteCacheAddons">删除插件缓存</string>
     <string name="settingDeleteCacheSetting">删除保存的设置</string>

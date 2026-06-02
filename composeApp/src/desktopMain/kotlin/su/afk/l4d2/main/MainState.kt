@@ -8,6 +8,7 @@ class MainState {
     data class State(
         val selectedFolderPath: String? = null,
         val errorMessage: StringResource? = null,
+        val gameFolderSearchState: GameFolderSearchState = GameFolderSearchState.Idle,
         val loadingAddonInfo: Boolean = false,
         val addonInfoList: List<AddonInfo>? = null,
         val addonEnabledList: List<AddonInfo>? = null,
@@ -20,6 +21,8 @@ class MainState {
 
     sealed class Event {
         data class FolderSelected(val folderPath: String) : Event()
+        data class FolderPathEntered(val folderPath: String) : Event()
+        object AutoFindGameFolder : Event()
         object LoadFiles : Event()
         data class ClickMods(val mods: AddonInfo) : Event()
         object ModGameInfo : Event()
@@ -34,5 +37,12 @@ class MainState {
         object ProcessStopped : Event()
         data class SetAutoHideMods(val enabled: Boolean) : Event()
         object OpenLatestRelease : Event()
+    }
+
+    enum class GameFolderSearchState {
+        Idle,
+        Searching,
+        Found,
+        NotFound
     }
 }
