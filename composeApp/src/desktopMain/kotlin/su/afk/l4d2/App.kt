@@ -22,6 +22,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,6 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import kotlinproject.composeapp.generated.resources.Res
@@ -39,7 +43,7 @@ import kotlinproject.composeapp.generated.resources.main
 import kotlinproject.composeapp.generated.resources.myAddons
 import kotlinproject.composeapp.generated.resources.setting
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import su.afk.l4d2.presenter.addonList.AddonList
 import su.afk.l4d2.presenter.faq.FAQScreen
 import su.afk.l4d2.presenter.logs.LogsBox
@@ -48,7 +52,7 @@ import su.afk.l4d2.presenter.main.MainScreen
 import su.afk.l4d2.presenter.setting.SettingsScreen
 import su.afk.l4d2.utils.ProcessChecker
 import su.afk.l4d2.utils.openGitHubLink
-
+import kotlin.reflect.KClass
 
 @Composable
 @Preview
@@ -56,11 +60,13 @@ fun App(onCloseRequest: () -> Unit) {
     // Состояние для хранения текущего экрана
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Main) }
 
-//    val viewModel: MainViewModel = remember { MainViewModel() }
-    val viewModel = viewModel<MainViewModel>()
+    val viewModel = viewModel<MainViewModel>(
+        factory = MainViewModelFactory
+    )
 
-    // проверка процесса для автовключения модов
-    ProcessChecker.checkProcess(viewModel)
+    LaunchedEffect(viewModel) {
+        ProcessChecker.checkProcess(viewModel)
+    }
 
     AppTheme {
         // Основной контейнер, разделяющий экран на две части
@@ -193,4 +199,15 @@ sealed class Screen {
     object FAQ : Screen()
     object Settings : Screen()
     object Logs : Screen()
+}
+
+private object MainViewModelFactory : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+        if (modelClass == MainViewModel::class) {
+            return MainViewModel() as T
+        }
+
+        error("Unknown ViewModel class: ${modelClass.qualifiedName}")
+    }
 }
