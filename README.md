@@ -58,9 +58,3 @@ Avoid enabling every addon at once. Left 4 Dead 2 was not designed for that kind
 ## Disclaimer
 
 This project is a cheat-oriented addon restriction bypass tool. It is not a game binary modification and does not use injection or runtime memory patching, so VAC is not expected to trigger from the tool's mechanism itself. Using it on public or competitive servers may still violate server rules, community rules, or fair-play expectations. Use it at your own risk and keep backups of important game files when experimenting with mods.
-
-## Star The Project
-
-L4D Allow Mods is built for players who want addon freedom in restricted modes and servers. If it helped you, please star the repository on GitHub:
-
-[Star EtoZheSandy/L4DAllowMods](https://github.com/EtoZheSandy/L4DAllowMods)
