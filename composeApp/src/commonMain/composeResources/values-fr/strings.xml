@@ -14,6 +14,8 @@
     <string name="addonsNoShow">Masquer les Addons</string>
     <string name="addonsShow">Afficher les Addons</string>
     <string name="addonsNotFoundEmpty">Impossible de trouver vos Addons, vérifiez le dossier left4dead2/addons/workshop dans le jeu et assurez-vous qu'il n'est pas vide</string>
+    <string name="searchAddons">Rechercher des addons</string>
+    <string name="addonsSearchEmpty">Aucun addon trouvé pour cette recherche</string>
     <string name="enable">Activer</string>
     <string name="disable">Désactiver</string>
     <string name="noDescription">Pas de description</string>

@@ -14,6 +14,8 @@
     <string name="addonsNoShow">إخفاء الإضافات</string>
     <string name="addonsShow">عرض الإضافات</string>
     <string name="addonsNotFoundEmpty">لم يتم العثور على إضافاتك، تحقق من مجلد left4dead2/addons/workshop في اللعبة وتأكد من أنه ليس فارغًا</string>
+    <string name="searchAddons">البحث في الإضافات</string>
+    <string name="addonsSearchEmpty">لم يتم العثور على إضافات لهذا البحث</string>
     <string name="enable">تفعيل</string>
     <string name="disable">إيقاف</string>
     <string name="noDescription">لا يوجد وصف</string>

@@ -27,8 +27,11 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -45,10 +48,12 @@ import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.addonsNoShow
 import kotlinproject.composeapp.generated.resources.addonsNotFoundEmpty
 import kotlinproject.composeapp.generated.resources.addonsShow
+import kotlinproject.composeapp.generated.resources.addonsSearchEmpty
 import kotlinproject.composeapp.generated.resources.disable
 import kotlinproject.composeapp.generated.resources.enable
 import kotlinproject.composeapp.generated.resources.gamePathNull
 import kotlinproject.composeapp.generated.resources.noDescription
+import kotlinproject.composeapp.generated.resources.searchAddons
 import kotlinproject.composeapp.generated.resources.sort
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -67,7 +72,7 @@ fun AddonList(
 ) {
     val showListAddons = state.showListAddons
 
-    //todo добавить поиск по модам аля окно поиска для ввода
+    val searchQuery = remember { mutableStateOf("") }
     val isFilterAsc =
         remember { mutableStateOf(true) } // Состояние фильтрации (true - включенные сначала)
 
@@ -80,6 +85,7 @@ fun AddonList(
         } else {
             Row(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(4.dp),
                 verticalAlignment = Alignment.CenterVertically // Выравнивание по центру по вертикали
             ) {
@@ -141,6 +147,34 @@ fun AddonList(
                             }
                         }
                     }
+
+                    OutlinedTextField(
+                        value = searchQuery.value,
+                        onValueChange = { searchQuery.value = it },
+                        modifier = Modifier
+                            .padding(start = 12.dp)
+                            .weight(1f),
+                        singleLine = true,
+                        placeholder = {
+                            Text(stringResource(Res.string.searchAddons))
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = null
+                            )
+                        },
+                        trailingIcon = {
+                            if (searchQuery.value.isNotEmpty()) {
+                                IconButton(onClick = { searchQuery.value = "" }) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = null
+                                    )
+                                }
+                            }
+                        }
+                    )
                 }
             }
 
@@ -149,10 +183,22 @@ fun AddonList(
                 val sortedAddonList = remember(state.sortedAddonList, state.addonInfoList) {
                     state.sortedAddonList ?: state.addonInfoList ?: emptyList()
                 }
+                val filteredAddonList = remember(sortedAddonList, searchQuery.value) {
+                    sortedAddonList.filter { addon ->
+                        addon.matchesSearchQuery(searchQuery.value)
+                    }
+                }
 
                 AddonListScreen(
-                    addonInfoList = sortedAddonList,
+                    addonInfoList = filteredAddonList,
                     state = state,
+                    emptyListMessage = stringResource(
+                        if (searchQuery.value.isBlank()) {
+                            Res.string.addonsNotFoundEmpty
+                        } else {
+                            Res.string.addonsSearchEmpty
+                        }
+                    ),
                     onEvent = onEvent
                 )
             }
@@ -165,6 +211,7 @@ fun AddonList(
 fun AddonListScreen(
     addonInfoList: List<AddonInfo>,
     state: MainState.State,
+    emptyListMessage: String,
     onEvent: (MainState.Event) -> Unit
 ) {
     val lazyListState = rememberLazyListState()
@@ -175,7 +222,7 @@ fun AddonListScreen(
     if (addonInfoList.isEmpty()) {
         if (!state.loadingAddonInfo) {
             Text(
-                stringResource(Res.string.addonsNotFoundEmpty),
+                emptyListMessage,
                 color = MaterialTheme.colors.error
             )
         }
@@ -285,4 +332,13 @@ fun AddonListScreen(
             adapter = rememberScrollbarAdapter(lazyListState)
         )
     }
+}
+
+private fun AddonInfo.matchesSearchQuery(query: String): Boolean {
+    val normalizedQuery = query.trim()
+    if (normalizedQuery.isEmpty()) return true
+
+    return title.contains(normalizedQuery, ignoreCase = true) ||
+        description?.contains(normalizedQuery, ignoreCase = true) == true ||
+        filename.contains(normalizedQuery, ignoreCase = true)
 }

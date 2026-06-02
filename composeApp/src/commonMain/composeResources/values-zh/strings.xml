@@ -14,6 +14,8 @@
     <string name="addonsNoShow">隐藏插件</string>
     <string name="addonsShow">显示插件</string>
     <string name="addonsNotFoundEmpty">未找到您的插件，请检查游戏中的left4dead2/addons/workshop文件夹，并确保其不为空</string>
+    <string name="searchAddons">搜索插件</string>
+    <string name="addonsSearchEmpty">未找到匹配此搜索的插件</string>
     <string name="enable">启用</string>
     <string name="disable">禁用</string>
     <string name="noDescription">没有描述</string>

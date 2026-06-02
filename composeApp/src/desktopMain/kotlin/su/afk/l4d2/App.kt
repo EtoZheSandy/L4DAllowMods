@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -18,11 +17,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -62,7 +58,7 @@ import kotlin.reflect.KClass
 
 @Composable
 @Preview
-fun App(onCloseRequest: () -> Unit) {
+fun App() {
     // Состояние для хранения текущего экрана
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Main) }
 
@@ -93,8 +89,7 @@ fun App(onCloseRequest: () -> Unit) {
                 currentScreen = currentScreen,
                 modifier = Modifier.weight(1f),
                 state = state,
-                onEvent = { event -> viewModel.handlerEvents(event) },
-                onCloseRequest = onCloseRequest
+                onEvent = { event -> viewModel.handlerEvents(event) }
             )
         }
     }
@@ -176,8 +171,7 @@ fun ContentArea(
     currentScreen: Screen,
     modifier: Modifier = Modifier,
     state: MainState.State,
-    onEvent: (MainState.Event) -> Unit,
-    onCloseRequest: () -> Unit
+    onEvent: (MainState.Event) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -204,20 +198,6 @@ fun ContentArea(
                 .padding(4.dp)
         ) {
             LogsBox()
-        }
-
-        Box(
-            modifier = Modifier.align(Alignment.TopEnd)
-                .offset(x = 12.dp, y = (-12).dp) // Смещение на 10 пикселей вправо и вверх
-        ) {
-            IconButton(
-                onClick = onCloseRequest
-            ) {
-                Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Default.Close,
-                    contentDescription = "Close"
-                )
-            }
         }
     }
 }

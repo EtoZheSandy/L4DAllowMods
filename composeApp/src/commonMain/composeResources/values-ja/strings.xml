@@ -14,6 +14,8 @@
     <string name="addonsNoShow">アドオンを非表示にする</string>
     <string name="addonsShow">アドオンを表示する</string>
     <string name="addonsNotFoundEmpty">アドオンが見つかりませんでした。ゲームのleft4dead2/addons/workshopフォルダを確認し、空でないことを確認してください</string>
+    <string name="searchAddons">Addonsを検索</string>
+    <string name="addonsSearchEmpty">この検索に一致するAddonsはありません</string>
     <string name="enable">有効にする</string>
     <string name="disable">無効にする</string>
     <string name="noDescription">説明がありません</string>
