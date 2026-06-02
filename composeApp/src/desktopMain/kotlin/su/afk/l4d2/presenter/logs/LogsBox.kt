@@ -22,13 +22,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.delay
 
 import su.afk.l4d2.data.LogSystem
@@ -37,7 +37,7 @@ import su.afk.l4d2.data.LogSystem
 fun LogsBox() {
 
     // Отслеживаем состояние логов через StateFlow
-    val logs = LogSystem.logsFlow.collectAsState().value
+    val logs = LogSystem.logsFlow.collectAsStateWithLifecycle().value
 
     // Фильтрация логов: check = false и priority = 1, 2, 3
     val filteredLogs = remember(logs) {

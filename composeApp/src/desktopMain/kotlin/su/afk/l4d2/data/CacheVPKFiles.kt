@@ -5,32 +5,19 @@ import kotlinproject.composeapp.generated.resources.loadCacheFromFile
 import kotlinproject.composeapp.generated.resources.saveCacheToFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import su.afk.l4d2.utils.AddonInfo
-import java.io.File
-
-// Получаем домашнюю директорию пользователя
-private val userHome = System.getProperty("user.home")
-
-// Создаем поддиректорию для приложения, например, ".l4d4Tools" (обычно скрытые директории используются для данных конфигурации)
-private val appDirectory = File(userHome, ".l4d4Tools")
-
-// Указываем путь к файлу кэша
-private val cacheFile = File(appDirectory, "addon_cache.json")
+import su.afk.l4d2.domain.model.AddonInfo
 
 /**
  * Сохранение кэша в файл
  */
 fun saveCacheToFile(addonCache: Map<String, AddonInfo>) {
     try {
-        // Проверяем, существует ли директория, и создаем ее, если нет
-        if (!appDirectory.exists()) {
-            appDirectory.mkdirs()
-        }
+        StoragePaths.appDataDir.mkdirs()
         val json =
             Json.encodeToString(addonCache.values.toList()) // Преобразуем список AddonInfo в JSON
-        cacheFile.writeText(json) // Сохраняем JSON в файл
+        StoragePaths.addonCacheFile.writeText(json) // Сохраняем JSON в файл
     } catch (e: Exception) {
-        LogSystem.addLog(1, Res.string.saveCacheToFile)
+        LogSystem.addLog(1, Res.string.saveCacheToFile, e.message.orEmpty())
     }
 }
 
@@ -38,6 +25,7 @@ fun saveCacheToFile(addonCache: Map<String, AddonInfo>) {
  * Загрузка кэша из файла
  */
 fun loadCacheFromFile(): Map<String, AddonInfo> {
+    val cacheFile = StoragePaths.addonCacheFile
     if (cacheFile.exists()) {
         try {
             val json = cacheFile.readText() // Читаем JSON из файла
@@ -45,8 +33,15 @@ fun loadCacheFromFile(): Map<String, AddonInfo> {
                 Json.decodeFromString<List<AddonInfo>>(json) // Десериализуем в список AddonInfo
             return cachedAddons.associateBy { it.filename } // Преобразуем в Map с ключом filename
         } catch (e: Exception) {
-            LogSystem.addLog(1, Res.string.loadCacheFromFile)
+            LogSystem.addLog(1, Res.string.loadCacheFromFile, e.message.orEmpty())
         }
     }
     return emptyMap() // Возвращаем пустую карту, если файл не найден или произошла ошибка
+}
+
+fun clearAddonMetadataCache() {
+    val cacheFile = StoragePaths.addonCacheFile
+    if (cacheFile.exists()) {
+        cacheFile.delete()
+    }
 }

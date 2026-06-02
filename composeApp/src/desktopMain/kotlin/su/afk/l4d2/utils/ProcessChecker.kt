@@ -1,15 +1,19 @@
 package su.afk.l4d2.utils
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import su.afk.l4d2.MainState
-import su.afk.l4d2.MainViewModel
+import kotlinx.coroutines.withContext
+import su.afk.l4d2.main.MainState
+import su.afk.l4d2.main.MainViewModel
 
 class ProcessChecker {
     companion object {
         suspend fun checkProcess(viewModel: MainViewModel) {
             var processRunning = false
             while (true) {
-                val isRunning = isProcessRunning("left4dead2.exe")
+                val isRunning = withContext(Dispatchers.IO) {
+                    isProcessRunning("left4dead2.exe")
+                }
 
                 if (isRunning && !processRunning) {
                     viewModel.handlerEvents(MainState.Event.ProcessStarted)

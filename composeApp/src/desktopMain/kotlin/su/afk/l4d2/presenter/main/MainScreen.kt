@@ -21,21 +21,21 @@ import kotlinproject.composeapp.generated.resources.gameAddonsNotSelect
 import kotlinproject.composeapp.generated.resources.gameDoneFAQ
 import kotlinproject.composeapp.generated.resources.gamePathNull
 import org.jetbrains.compose.resources.stringResource
-import su.afk.l4d2.MainState
-import su.afk.l4d2.MainViewModel
+import su.afk.l4d2.main.MainState
 
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel
+    state: MainState.State,
+    onEvent: (MainState.Event) -> Unit
 ) {
     Column {
-        if (viewModel.state.selectedFolderPath == null) {
+        if (state.selectedFolderPath == null) {
             Text(
                 stringResource(Res.string.gamePathNull),
                 color = MaterialTheme.colors.error
             )
-        } else if (viewModel.state.addonEnabledList == null) {
+        } else if (state.addonEnabledList.isNullOrEmpty()) {
             Text(
                 stringResource(Res.string.gameAddonsNotSelect),
                 color = MaterialTheme.colors.error
@@ -47,13 +47,13 @@ fun MainScreen(
             )
             Row(modifier = Modifier.padding(top = 16.dp)) {
                 Button(
-                    onClick = { viewModel.handlerEvents(MainState.Event.ModGameInfo) },
+                    onClick = { onEvent(MainState.Event.ModGameInfo) },
                     modifier = Modifier.padding(end = 32.dp)
                 ) {
                     Text(stringResource(Res.string.addonsOn))
                 }
 
-                Button(onClick = { viewModel.handlerEvents(MainState.Event.DefGameInfo) }) {
+                Button(onClick = { onEvent(MainState.Event.DefGameInfo) }) {
                     Text(stringResource(Res.string.addonsOff))
                 }
             }
@@ -61,9 +61,9 @@ fun MainScreen(
             // Switch для авто-скрытия модов
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Switch (
-                    checked = viewModel.state.autoHideMods,
+                    checked = state.autoHideMods,
                     onCheckedChange = { checked ->
-                        viewModel.handlerEvents(MainState.Event.SetAutoHideMods(checked))
+                        onEvent(MainState.Event.SetAutoHideMods(checked))
                     }
                 )
                 Text(

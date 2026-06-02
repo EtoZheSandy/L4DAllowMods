@@ -1,7 +1,7 @@
-package su.afk.l4d2
+package su.afk.l4d2.main
 
 import org.jetbrains.compose.resources.StringResource
-import su.afk.l4d2.utils.AddonInfo
+import su.afk.l4d2.domain.model.AddonInfo
 
 class MainState {
     data class State(

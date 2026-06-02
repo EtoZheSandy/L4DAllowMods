@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
@@ -44,6 +45,8 @@ import kotlinproject.composeapp.generated.resources.myAddons
 import kotlinproject.composeapp.generated.resources.setting
 import org.jetbrains.compose.resources.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import su.afk.l4d2.main.MainState
+import su.afk.l4d2.main.MainViewModel
 import su.afk.l4d2.presenter.addonList.AddonList
 import su.afk.l4d2.presenter.faq.FAQScreen
 import su.afk.l4d2.presenter.logs.LogsBox
@@ -149,6 +152,11 @@ fun ContentArea(
     viewModel: MainViewModel,
     onCloseRequest: () -> Unit
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val onEvent = remember(viewModel) {
+        { event: MainState.Event -> viewModel.handlerEvents(event) }
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -158,10 +166,10 @@ fun ContentArea(
         // Основное содержимое экранов
         Crossfade(targetState = currentScreen) { screen ->
             when (screen) {
-                is Screen.Main -> MainScreen(viewModel)
-                is Screen.AddonsList -> AddonList(viewModel)
+                is Screen.Main -> MainScreen(state = state, onEvent = onEvent)
+                is Screen.AddonsList -> AddonList(state = state, onEvent = onEvent)
                 is Screen.FAQ -> FAQScreen()
-                is Screen.Settings -> SettingsScreen(viewModel)
+                is Screen.Settings -> SettingsScreen(state = state, onEvent = onEvent)
                 is Screen.Logs -> LogsScreen()
             }
         }

@@ -8,15 +8,13 @@ import java.util.prefs.Preferences
 // Функция для очистки всех преференций в узле "MyApp"
 fun clearPreferences() {
     val prefs = Preferences.userRoot().node("l4d4Tools")
-    val dir = getAppDataDir()
     try {
         prefs.clear() // Очищает все данные в узле
+        clearEnableAddonsList()
+        saveGameInfoContent(null)
         LogSystem.addLog(3, Res.string.clearPreferencesDone)
-        if(dir.exists()) {
-            dir.listFiles()?.forEach { it.delete() } // очистка папки
-        }
     } catch (e: Exception) {
-        LogSystem.addLog(1, Res.string.clearPreferencesFail)
+        LogSystem.addLog(1, Res.string.clearPreferencesFail, e.message.orEmpty())
     }
 
 }

@@ -28,20 +28,20 @@ import kotlinproject.composeapp.generated.resources.settingDeleteCacheAddons
 import kotlinproject.composeapp.generated.resources.settingDeleteCacheSetting
 import kotlinproject.composeapp.generated.resources.settingUpdateGameinfo
 import org.jetbrains.compose.resources.stringResource
-import su.afk.l4d2.MainState
-import su.afk.l4d2.MainViewModel
+import su.afk.l4d2.main.MainState
 import javax.swing.JFileChooser
 import javax.swing.filechooser.FileSystemView
 
 @Composable
 fun SettingsScreen(
-    viewModel: MainViewModel
+    state: MainState.State,
+    onEvent: (MainState.Event) -> Unit
 ) {
     Column(
         Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start
     ) {
-        viewModel.state.errorMessage?.let { message ->
+        state.errorMessage?.let { message ->
             Text(text = stringResource(message), color = MaterialTheme.colors.error)
         }
 
@@ -58,19 +58,19 @@ fun SettingsScreen(
                 val returnValue = chooser.showOpenDialog(null)
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     val selectedFolder = chooser.selectedFile.absolutePath
-                    viewModel.handlerEvents(MainState.Event.FolderSelected(selectedFolder))
+                    onEvent(MainState.Event.FolderSelected(selectedFolder))
                 }
             },
             modifier = Modifier.padding(vertical = 10.dp)
         ) {
-            if (viewModel.state.selectedFolderPath == null) {
+            if (state.selectedFolderPath == null) {
                 Text(stringResource(Res.string.selectFolder))
             } else {
                 Text(stringResource(Res.string.changeFolder))
             }
         }
 
-        viewModel.state.selectedFolderPath?.let { path ->
+        state.selectedFolderPath?.let { path ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
             ) {
@@ -96,19 +96,19 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.weight(1f)) // Занимает всё свободное пространство
 
         Button(onClick = {
-            viewModel.handlerEvents(MainState.Event.UpdateGameInfo)
+            onEvent(MainState.Event.UpdateGameInfo)
         }) {
             Text(stringResource(Res.string.settingUpdateGameinfo))
         }
 
         Button(onClick = {
-            viewModel.handlerEvents(MainState.Event.ClearCacheAddons)
+            onEvent(MainState.Event.ClearCacheAddons)
         }) {
             Text(stringResource(Res.string.settingDeleteCacheAddons))
         }
 
         Button(onClick = {
-            viewModel.handlerEvents(MainState.Event.ClearCache)
+            onEvent(MainState.Event.ClearCache)
         }) {
             Text(stringResource(Res.string.settingDeleteCacheSetting))
         }

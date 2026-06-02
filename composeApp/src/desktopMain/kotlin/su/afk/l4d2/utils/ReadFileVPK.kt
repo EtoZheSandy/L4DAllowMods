@@ -1,8 +1,8 @@
 package su.afk.l4d2.utils
 
-import kotlinx.serialization.Serializable
 import su.afk.l4d2.data.loadCacheFromFile
 import su.afk.l4d2.data.saveCacheToFile
+import su.afk.l4d2.domain.model.AddonInfo
 import java.io.File
 
 // Глобальный кэш для AddonInfo
@@ -65,20 +65,6 @@ fun loadAddonInfo(workshopFolderPath: String): List<AddonInfo> {
     return addonInfoList
 }
 
-/**
- * title: Название аддона (из addoninfo.txt или имя файла .vpk, если addoninfo.txt отсутствует).
- * description: Описание аддона (из addoninfo.txt, может быть null).
- * filename: Имя файла .vpk.
- * imagePath: Путь к изображению (если существует), иначе null.
- * */
-@Serializable
-data class AddonInfo(
-    val title: String,
-    val description: String?,
-    val filename: String,
-    val imagePath: String?
-)
-
 // parseAddonTitle: Использует регулярное выражение для извлечения addontitle из содержимого addoninfo.txt.
 fun parseAddonInfo(addonInfoContent: String): Pair<String, String?> {
     val titleRegex = """addontitle\s+"([^"]+)"""".toRegex(RegexOption.IGNORE_CASE)
@@ -92,5 +78,4 @@ fun parseAddonInfo(addonInfoContent: String): Pair<String, String?> {
 
     return Pair(title, description)
 }
-
 

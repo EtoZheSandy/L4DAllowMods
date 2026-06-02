@@ -5,6 +5,7 @@ import kotlinproject.composeapp.generated.resources.parseVpkFileSignature
 import kotlinproject.composeapp.generated.resources.parseVpkFileTerminator
 import kotlinproject.composeapp.generated.resources.parseVpkFileVersion
 import su.afk.l4d2.data.LogSystem
+import java.io.EOFException
 import java.io.File
 import java.io.RandomAccessFile
 import java.nio.ByteBuffer
@@ -13,18 +14,30 @@ import java.nio.charset.Charset
 
 //  Функция для чтения .vpk файла и извлечения addoninfo.txt
 fun parseVpkFile(vpkFile: File): String? {
+    return try {
+        parseVpkFileSafely(vpkFile)
+    } catch (e: EOFException) {
+        LogSystem.addLog(1, Res.string.parseVpkFileTerminator, e.message.orEmpty())
+        null
+    } catch (e: Exception) {
+        LogSystem.addLog(1, Res.string.parseVpkFileTerminator, e.message.orEmpty())
+        null
+    }
+}
+
+private fun parseVpkFileSafely(vpkFile: File): String? {
     RandomAccessFile(vpkFile, "r").use { raf ->
         // Читаем сигнатуру
         val signature = raf.readIntLE()
         if (signature != 0x55AA1234) {
-            LogSystem.addLog(1, Res.string.parseVpkFileSignature)
+            LogSystem.addLog(1, Res.string.parseVpkFileSignature, vpkFile.name)
             return null
         }
 
         // Читаем версию
         val version = raf.readIntLE()
         if (version != 1 && version != 2) {
-            LogSystem.addLog(1, Res.string.parseVpkFileVersion)
+            LogSystem.addLog(1, Res.string.parseVpkFileVersion, version.toString())
             return null
         }
 
@@ -72,7 +85,7 @@ fun parseVpkFile(vpkFile: File): String? {
                     val terminator = raf.readShortLE()
 
                     if (terminator != 0xFFFF.toShort()) {
-                        LogSystem.addLog(1, Res.string.parseVpkFileTerminator)
+                        LogSystem.addLog(1, Res.string.parseVpkFileTerminator, vpkFile.name)
                         return null
                     }
 
@@ -90,12 +103,22 @@ fun parseVpkFile(vpkFile: File): String? {
                         if (preloadData.isNotEmpty()) {
                             return String(preloadData, Charset.forName("UTF-8"))
                         } else {
+                            if (entryLength < 0) {
+                                LogSystem.addLog(1, Res.string.parseVpkFileTerminator, vpkFile.name)
+                                return null
+                            }
+
                             // Читаем данные из файла
                             val data = ByteArray(entryLength)
                             val currentPos = raf.filePointer
 
                             // Вычисляем смещение данных
                             val dataOffset = entryOffset + treeSize + headerSize
+                            if (dataOffset < 0 || dataOffset.toLong() + entryLength > raf.length()) {
+                                LogSystem.addLog(1, Res.string.parseVpkFileTerminator, vpkFile.name)
+                                return null
+                            }
+
                             raf.seek(dataOffset.toLong())
                             raf.readFully(data)
                             raf.seek(currentPos)

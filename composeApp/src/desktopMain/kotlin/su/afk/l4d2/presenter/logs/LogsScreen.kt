@@ -16,11 +16,11 @@ import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 import su.afk.l4d2.data.LogSystem
 
@@ -30,7 +30,7 @@ fun LogsScreen(
     val state = rememberLazyListState()
 
     // Получаем список логов через StateFlow и отслеживаем его изменения
-    val logs = LogSystem.logsFlow.collectAsState().value
+    val logs = LogSystem.logsFlow.collectAsStateWithLifecycle().value
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
